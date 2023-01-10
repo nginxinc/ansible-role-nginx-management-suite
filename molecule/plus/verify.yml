@@ -1,0 +1,44 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Check if NGINX Plus is installed
+      ansible.builtin.package:
+        name: nginx-plus
+        state: present
+      check_mode: true
+      register: install
+      failed_when: (install is changed) or (install is failed)
+
+    - name: Check if NGINX service is running
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
+      check_mode: true
+      register: service
+      failed_when: (service is changed) or (service is failed)
+
+    - name: Verify NGINX is up and running
+      ansible.builtin.uri:
+        url: http://localhost
+        status_code: 200
+
+    - name: Check if NGINX Management Suite services are installed
+      ansible.builtin.systemd:
+        name: "{{ item }}"
+        state: started
+      check_mode: true
+      register: install
+      failed_when: (install is changed) or (install is failed)
+      with_items:
+        - nms
+        - nms-core
+        - nms-dpm
+        - nms-ingestion
+
+    - name: Verify NGINX Management Suite is up and running
+      ansible.builtin.uri:
+        url: https://localhost
+        status_code: 200
+        validate_certs: no

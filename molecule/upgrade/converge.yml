@@ -1,0 +1,14 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: Upgrade NIM
+      ansible.builtin.include_role:
+        name: install-nim
+      vars:
+        nms_setup: upgrade
+        nms_password: 'Default1!'
+        nginx_remove_license: false
+        nginx_license:
+            certificate: license/nginx-repo.crt
+            key: license/nginx-repo.key

@@ -1,0 +1,22 @@
+---
+# defaults file for install-nim
+nms_default_signing_key_pgp: https://nginx.org/keys/nginx_signing.key
+nms_ssl_cert_fullpath: /etc/ssl/nginx/nginx-repo.crt
+nms_ssl_key_fullpath: /etc/ssl/nginx/nginx-repo.key
+nms_centos_yum_repo: https://pkgs.nginx.com/nms/centos/$releasever/$basearch/
+nms_amazon_yum_repo: https://pkgs.nginx.com/nms/amzn2/$releasever/$basearch/
+
+nms_force_password: false
+nms_password: ''
+nms_username: admin
+nms_cred_path: /etc/nms/nginx/.htpasswd
+nms_version: ''
+
+# Clickhouse is an external database required for NMS. That is a third party app that changes fast. As a result, we are pinning it to version 22.9.2.7.
+# If you want to use the latest, change this so it is blank.
+# nms_clickhouse_version: ''
+nms_clickhouse_install: true
+nms_clickhouse_version: '22.8.5.29'
+nms_clickhouse_release_kind: lts
+
+nginx_remove_license: true

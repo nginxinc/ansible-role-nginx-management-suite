@@ -1,0 +1,17 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: Install NIM
+      ansible.builtin.include_role:
+        name: install-nim
+      vars:
+        nms_setup: install
+        nms_password: 'Password123'
+        nginx_selinux: true
+        nginx_selinux_enforcing: false
+        nginx_type: plus
+        nginx_remove_license: false
+        nginx_license:
+            certificate: license/nginx-repo.crt
+            key: license/nginx-repo.key

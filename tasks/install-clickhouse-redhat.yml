@@ -1,0 +1,26 @@
+---
+- name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Install required packages for ClickHouse
+  ansible.builtin.yum:
+    name: "{{ clickhouse_redhat_dependencies }}"
+
+- name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Add ClickHouse Repository
+  ansible.builtin.yum_repository:
+    name: clickhouse
+    description: "Clickhouse repo"
+    baseurl: "{{ clickhouse_yum_repo }}"
+    gpgcheck: no
+    enabled: yes
+  tags: [install]
+
+- name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Install ClickHouse
+  ansible.builtin.yum:
+    name:
+      - "clickhouse-server{{ (nms_clickhouse_version != '') | ternary('-' + nms_clickhouse_version , '') }}"
+      - "clickhouse-client{{ (nms_clickhouse_version != '') | ternary('-' + nms_clickhouse_version , '') }}"
+    disable_gpg_check: true
+
+- name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Start and enable ClickHouse
+  ansible.builtin.service:
+    state: started
+    name: clickhouse-server
+    enabled: yes

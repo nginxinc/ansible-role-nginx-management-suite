@@ -1,0 +1,15 @@
+---
+# handlers file for install-nim
+- name: Restart NGINX
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
+- name: Restart NGINX Management Suite
+  ansible.builtin.systemd:
+    name: nms
+    state: restarted
+  with_items:
+    - nms-core
+    - nms-dpm
+    - nms-ingestion
+    - nms
