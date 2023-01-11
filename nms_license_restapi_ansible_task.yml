@@ -1,0 +1,50 @@
+---
+# ansible-playbook nginx_controller_license.yaml -i controller -e "admin_email=user@company.com admin_password=userPassword"
+# ansible-playbook nginx_controller_license.yaml -e "@nginx_install_controller_vars.yaml"
+
+- hosts: nginx_management_suite_hosts
+  remote_user: ubuntu
+  become: true
+  become_method: sudo
+  gather_facts: yes
+
+  vars:
+    # base64 encoded, one line, no line endings or carrage returns
+    license: "{{ lookup('file', 'nms_license.base64') }}"
+    fqdn: "brett6.seattleis.cool"
+    admin_email: 'admin'
+    admin_password: 'Testenv12#'
+
+  tasks:
+
+  - name: format controller license
+    become: false
+    local_action: "shell ./oneline.sh"
+
+  - name: PUT controller license
+    uri:
+      url: "https://{{fqdn}}/api/platform/v1/license"
+      method: PUT
+      user: "{{admin_email}}"
+      password: "{{admin_password}}"
+      force_basic_auth: yes
+
+      body: "{{ lookup('file','lic1.json') + lookup('file','oneline.txt') + lookup('file', 'lic2.json')}}"
+      body_format: json
+      headers:
+        Content-Type: application/json
+        accept: application/json
+      return_content: yes
+      status_code: 200
+      validate_certs: false
+    register: controller_response
+
+  - name: GET controller license status
+    uri:
+      url: "https://{{fqdn}}/api/platform/v1/license"
+      method: GET
+      user: "{{admin_email}}"
+      password: "{{admin_password}}"
+      force_basic_auth: yes
+      status_code: 200
+      validate_certs: false
