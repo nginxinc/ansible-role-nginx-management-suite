@@ -1,6 +1,5 @@
 ---
-# ansible-playbook nginx_controller_license.yaml -i controller -e "admin_email=user@company.com admin_password=userPassword"
-# ansible-playbook nginx_controller_license.yaml -e "@nginx_install_controller_vars.yaml"
+# ansible-playbook nginx_controller_license.yaml -i ./ansible-hosts -e "fqdn=brett1.seattleis.cool admin_email=admin admin_password=Testenv12#" 
 
 - hosts: nginx_management_suite_hosts
   remote_user: ubuntu
@@ -10,16 +9,12 @@
 
   vars:
     # base64 encoded, one line, no line endings or carrage returns
-    license: "{{ lookup('file', 'nms_license.base64') }}"
-    fqdn: "brett6.seattleis.cool"
-    admin_email: 'admin'
-    admin_password: 'Testenv12#'
+    license: "{{ lookup('file', 'nms_license.txt') | b64encode }}"
+    #fqdn: "brett1.seattleis.cool"
+    #admin_email: 'admin'
+    #admin_password: 'Testenv12#'
 
   tasks:
-
-  - name: format controller license
-    become: false
-    local_action: "shell ./oneline.sh"
 
   - name: PUT controller license
     uri:
@@ -29,7 +24,13 @@
       password: "{{admin_password}}"
       force_basic_auth: yes
 
-      body: "{{ lookup('file','lic1.json') + lookup('file','oneline.txt') + lookup('file', 'lic2.json')}}"
+      #body: "{{ lookup('file','lic1.json') + lookup('file','oneline.txt') + lookup('file', 'lic2.json')}}"
+      #body: "{{ lookup('file','lic1.json') }} + {{ license }} + lookup('file', 'lic2.json')}}"
+      body:
+        desiredState:
+          content: "{{ license }}"
+        metadata:
+          name: "license"
       body_format: json
       headers:
         Content-Type: application/json
@@ -48,3 +49,4 @@
       force_basic_auth: yes
       status_code: 200
       validate_certs: false
+    register: controller_license
