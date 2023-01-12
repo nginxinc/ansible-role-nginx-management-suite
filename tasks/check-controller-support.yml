@@ -1,0 +1,53 @@
+---
+# tasks file for checking NGINX Management Suite support
+- name: Verifying OS Distribution for NGINX Management Suite
+  ansible.builtin.assert:
+    that: ansible_facts['distribution'] in nms_distributions
+    success_msg: Your OS, {{ ansible_facts['distribution'] }} is supported by NGINX Management Suite
+    fail_msg: Your OS, {{ ansible_facts['distribution'] }} is not supported by NGINX Management Suite
+  ignore_errors: true # noqa ignore-errors
+  tags: nms_check_support
+
+- name: Verifying OS version for NGINX Management Suite
+  block:
+    # Amazon Linux: 2
+    - name: Check 'Amazon Linux' version
+      ansible.builtin.assert:
+        that: ansible_facts['distribution_version'] is version('2', '==')
+        success_msg: Your {{ansible_facts['distribution']}} version version, {{ ansible_facts['distribution_version'] }} is supported by NGINX Management Suite
+        fail_msg: Your {{ansible_facts['distribution']}} version version, {{ ansible_facts['distribution_version'] }} is not supported by NGINX Management Suite
+      when: ansible_facts['distribution'] == 'Amazon'
+    # CentOS/OracleLinux: 7.4+
+    - name: Check 'CentOS' version
+      ansible.builtin.assert:
+        that: ansible_facts['distribution_version'] is version('7.4', '>=') and ansible_facts['distribution_version'] is version('8', '<')
+        success_msg: Your {{ansible_facts['distribution']}} version, {{ ansible_facts['distribution_version'] }} is supported by NGINX Management Suite
+        fail_msg: Your {{ansible_facts['distribution']}} version, {{ ansible_facts['distribution_version'] }} is not supported by NGINX Management Suite
+      when: ansible_facts['distribution'] == 'CentOS' or ansible_facts['distribution'] == 'OracleLinux'
+    # Debian: 10, 11
+    - name: Check 'Debian' version
+      ansible.builtin.assert:
+        that: ansible_facts['distribution_version'] is version('10', '==')
+          or ansible_facts['distribution_version'] is version('11', '==')
+        success_msg: Your {{ansible_facts['distribution']}} version, {{ ansible_facts['distribution_version'] }} is supported by NGINX Management Suite
+        fail_msg: Your {{ansible_facts['distribution']}} version, {{ ansible_facts['distribution_version'] }} is not supported by NGINX Management Suite
+      when: ansible_facts['distribution'] == 'Debian'
+    # RHEL: 7.4+, 8
+    - name: Check 'RHEL' version
+      ansible.builtin.assert:
+        that: ansible_facts['distribution_version'] is version('7.4', '>=')
+          and ansible_facts['distribution_version'] is version('9', '<')
+        success_msg: Your {{ansible_facts['distribution']}} version, {{ ansible_facts['distribution_version'] }} is supported by NGINX Management Suite
+        fail_msg: Your {{ansible_facts['distribution']}} version, {{ ansible_facts['distribution_version'] }} is not supported by NGINX Management Suite
+      when: ansible_facts['distribution'] == 'RedHat'
+    # Ubuntu: 18.04, 20.04, 22.04
+    - name: Check 'Ubuntu' version
+      ansible.builtin.assert:
+        that: ansible_facts['distribution_version'] is version('18.04', '>=')
+          or ansible_facts['distribution_version'] is version('20.04', '<')
+          or ansible_facts['distribution_version'] is version('22.04', '<')
+        success_msg: Your {{ansible_facts['distribution']}} version, {{ ansible_facts['distribution_version'] }} is supported by NGINX Management Suite
+        fail_msg: Your {{ansible_facts['distribution']}} version, {{ ansible_facts['distribution_version'] }} is not supported by NGINX Management Suite
+      when: ansible_facts['distribution'] == 'Ubuntu'
+  ignore_errors: true # noqa ignore-errors
+  tags: nms_check_support

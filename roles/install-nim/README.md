@@ -8,6 +8,12 @@ Requirements
 
 Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
 
+- Below are the required dependencies required by this role.
+```shell
+ansible-galaxy install nginxinc.nginx
+ansible-galaxy collection install community.general
+```
+
 Role Variables
 --------------
 
@@ -27,12 +33,12 @@ Including an example of how to use your role (for instance, with variables passe
       roles:
          - { role: username.rolename, x: 42 }
 
-## Development
+License
+-------
 
-Read the [`CONTRIBUTING.md`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/CONTRIBUTING.md) file.
+BSD
 
-## License
+Author Information
+------------------
 
-[Apache License, Version 2.0](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/LICENSE)
-
-&copy; [F5 Networks, Inc.](https://www.f5.com/) 2022
+An optional section for the role authors to include contact information, or a website (HTML is not allowed).

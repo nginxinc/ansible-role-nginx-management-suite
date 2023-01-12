@@ -1,0 +1,8 @@
+---
+# defaults file for install-agent
+nms_username: 'admin'
+nms_password: ''
+nms_instance_group: ''
+
+nms_agent_install: true
+nms_agent_upgrade: false

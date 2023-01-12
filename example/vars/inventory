@@ -1,0 +1,6 @@
+[controller]
+35.93.144.128 ansible_user=ec2-user  ansible_become=yes
+
+[data]
+; 18.237.101.120  ansible_user=ubuntu  ansible_become=yes
+; 35.92.139.250  ansible_user=ubuntu  ansible_become=yes

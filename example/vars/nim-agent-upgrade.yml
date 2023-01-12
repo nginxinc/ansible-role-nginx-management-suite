@@ -1,0 +1,26 @@
+---
+- name: Upgrade NGINX Instance Manager
+  hosts: controller
+  vars:
+    nms_setup: upgrade
+    nms_password: Testenv12#
+
+  tasks:
+    # Role for installing/upgrading NGINX Instance Manager
+    - ansible.builtin.include_role:
+        name: install-nim
+
+- name: Upgrade NGINX Agent on data plane hosts
+  hosts: data
+  vars:
+    nms_agent_upgrade: true
+    nms_password: Testenv12#
+
+  tasks:
+    # Role for installing/upgrading NGINX Agent
+    - ansible.builtin.include_role:
+        name: install-agent
+      vars:
+        nms_fqdn: "{{ groups.controller[0] }}"
+      tags:
+        - data_nginx

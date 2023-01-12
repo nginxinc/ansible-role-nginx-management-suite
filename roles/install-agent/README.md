@@ -27,12 +27,12 @@ Including an example of how to use your role (for instance, with variables passe
       roles:
          - { role: username.rolename, x: 42 }
 
-## Development
+License
+-------
 
-Read the [`CONTRIBUTING.md`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/CONTRIBUTING.md) file.
+BSD
 
-## License
+Author Information
+------------------
 
-[Apache License, Version 2.0](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/LICENSE)
-
-&copy; [F5 Networks, Inc.](https://www.f5.com/) 2022
+An optional section for the role authors to include contact information, or a website (HTML is not allowed).

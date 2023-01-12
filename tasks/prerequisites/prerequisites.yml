@@ -1,0 +1,5 @@
+- name: Setup NGINX Management Suite Repo Certs
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/prerequisites/setup-certs.yml"
+
+- name: Setup NGINX signing keys
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/prerequisites/setup-signing-keys.yml"

@@ -1,0 +1,4 @@
+---
+# vars file for NMS Upgrade
+nms_password: 'Testenv12#'
+nms_setup: 'upgrade' # install or upgrade

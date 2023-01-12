@@ -1,0 +1,15 @@
+---
+# vars file for nginxinx.nginx
+
+# Below are variable specific for the NGINX role: https://galaxy.ansible.com/nginxinc/nginx.
+# All variables available can be found by looking at the following locations:
+# 1. https://github.com/nginxinc/ansible-role-nginx/tree/main/defaults/main
+# 2. https://github.com/nginxinc/ansible-role-nginx/tree/main/vars
+nginx_enable: true
+nginx_debug_output: false
+nginx_remove_license: false
+nginx_type: plus
+nginx_setup: install
+nginx_license:
+  certificate: "{{playbook_dir}}/nginx-repo.crt"
+  key: "{{playbook_dir}}/nginx-repo.key" 

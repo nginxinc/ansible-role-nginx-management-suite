@@ -14,3 +14,9 @@ Thumbs.db
 # Logs #
 ########
 *.log
+
+# Ignore Ansible retry files
+*.retry
+
+# Ignore IDEs
+.vscode

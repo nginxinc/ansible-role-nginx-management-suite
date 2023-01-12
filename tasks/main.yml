@@ -1,0 +1,39 @@
+---
+# tasks file for install-nim
+- name: Check that NGINX Management Suite setup is an allowed value
+  ansible.builtin.assert:
+    that: nms_setup in nms_setup_vars
+    fail_msg: The value {{ nms_setup }} you used for `nms_setup` is not allowed. Try one of {{ nms_setup_vars | join(', ') }}.
+  tags: nms_check_support
+
+- name: Checking NGINX Management Suite Support
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/check-controller-support.yml"
+  tags:
+    - nms_check_support
+
+- name: Setup NGINX Management Suite prerequisites
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/prerequisites/prerequisites.yml"
+  tags:
+    - nms_setup_certs
+
+- name: Install ClickHouse
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/install-clickhouse-{{ ansible_facts['os_family'] | lower }}.yml"
+  when: nms_clickhouse_install | bool
+  tags:
+    - nms_install_db
+
+- name: Install NGINX Management Suite
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/install-nms-{{ ansible_facts['os_family'] | lower }}.yml"
+  tags:
+    - install_nms
+
+- name: Create NMS password
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/nms-password.yml"
+  tags:
+    - nms_config_password
+
+- name: Cleanup
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/cleanup.yml"
+  when: nginx_remove_license | bool
+  tags:
+    - nms_cleanup
