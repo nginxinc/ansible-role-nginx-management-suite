@@ -1,6 +1,0 @@
----
-# vars file for NMS Install
-nms_version: 2.7.0*
-nms_setup: install # install or upgrade
-nms_password: 'Testenv12#'
-nms_force_password: true
