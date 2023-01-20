@@ -1,30 +1,13 @@
 ---
 - name: (CentOS/Oracle Linux/RHEL) {{ (nms_cleanup_status is defined) | ternary('Remove', 'Configure') }} NGINX Management Suite Yum repository
-  block:
-    # # Temporary fix to address issue where install fails on RHEL7 and Oracle Linux 7
-    # - name: (RHEL7 / Oracle Linux 7 Workaround) Add the NGINX Management Suite Yum repository
-    #   ansible.builtin.yum_repository:
-    #     name: nms
-    #     description: NGINX Management Suite
-    #     baseurl: https://pkgs.nginx.com/nms/centos/7/$basearch/
-    #     enabled: yes
-    #     sslclientcert: "{{ nms_ssl_cert_fullpath }}"
-    #     sslclientkey: "{{ nms_ssl_key_fullpath }}"
-    #     state: "{{ nms_cleanup_status | default('present') }}"
-    #   when: ansible_facts.distribution_major_version == '7'
-    #     and (ansible_facts.distribution == 'RedHat' or ansible_facts.distribution == 'OracleLinux')
-    - name: (CentOS/Oracle Linux/RHEL8) {{ (nms_cleanup_status is defined) | ternary('Remove', 'Configure') }} NGINX Management Suite Yum repository
-      ansible.builtin.yum_repository:
-        name: nms
-        description: NGINX Management Suite
-        baseurl: "{{ nms_centos_yum_repo }}"
-        enabled: yes
-        sslclientcert: "{{ nms_ssl_cert_fullpath }}"
-        sslclientkey: "{{ nms_ssl_key_fullpath }}"
-        state: "{{ nms_cleanup_status | default('present') }}"
-      # when: ansible_facts.distribution_major_version == '8' and ansible_facts.distribution == 'RedHat'
-      #   or ansible_facts.distribution == 'CentOS'
-      #   or ansible_facts.distribution == 'OracleLinux' and ansible_facts.distribution_major_version == '8'
+  ansible.builtin.yum_repository:
+    name: nms
+    description: NGINX Management Suite
+    baseurl: "{{ nms_centos_yum_repo }}"
+    enabled: yes
+    sslclientcert: "/etc/ssl/nginx/nginx-repo.crt"
+    sslclientkey: "/etc/ssl/nginx/nginx-repo.key"
+    state: "{{ nms_cleanup_status | default('present') }}"
   when: ansible_facts['distribution'] != "Amazon"
 
 - name: (Amazon) {{ (nms_cleanup_status is defined) | ternary('Remove', 'Configure') }} NGINX Management Suite Yum repository
@@ -33,8 +16,8 @@
     description: NGINX Management Suite
     baseurl: "{{ nms_amazon_yum_repo }}"
     enabled: yes
-    sslclientcert: "{{ nms_ssl_cert_fullpath }}"
-    sslclientkey: "{{ nms_ssl_key_fullpath }}"
+    sslclientcert: "/etc/ssl/nginx/nginx-repo.crt"
+    sslclientkey: "/etc/ssl/nginx/nginx-repo.key"
     state: "{{ nms_cleanup_status | default('present') }}"
   when: ansible_facts['distribution'] == "Amazon"
 
@@ -53,15 +36,15 @@
     name: "{{ item }}"
     enabled: true
   notify: Restart NGINX
-  with_items: "{{ nms_services }}"
+  loop: "{{ nms_services|flatten(levels=1) }}"
   when: nms_cleanup_status is not defined
 
-# - name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Permit traffic in default zone for https and http service
-#   ansible.posix.firewalld:
-#     service: "{{ item }}"
-#     permanent: yes
-#     state: enabled
-#   when: nms_cleanup_status is not defined
-#   loop:
-#     - https
-#     - http
+- name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Permit traffic in default zone for https and http service
+  ansible.posix.firewalld:
+    service: "{{ item }}"
+    permanent: yes
+    state: enabled
+  when: nms_cleanup_status is not defined
+  loop:
+    - https
+    - http
