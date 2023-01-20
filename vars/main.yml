@@ -1,6 +1,4 @@
 ---
-# vars file for install-nim
-
 nms_setup_vars: [
   install, uninstall, upgrade,
 ]
