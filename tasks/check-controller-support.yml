@@ -1,5 +1,4 @@
 ---
-# tasks file for checking NGINX Management Suite support
 - name: Verifying OS Distribution for NGINX Management Suite
   ansible.builtin.assert:
     that: ansible_facts['distribution'] in nms_distributions
