@@ -2,9 +2,9 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: Install NIM
+    - name: Install NMS
       ansible.builtin.include_role:
-        name: install-nim
+        name: ansible-role-nginx-management-suite
       vars:
         nms_version: 2.4.0*
         nms_setup: install
