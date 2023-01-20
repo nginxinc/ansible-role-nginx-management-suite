@@ -12,11 +12,16 @@ nms_state_vals:
 
 nms_state: "{{ nms_state_vals[nms_setup] | default(nms_state_vals[nms_default_setup]) }}"
 
+# Debian specific repo for NMS install
 nms_debian_signing_key_id: 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
 nms_debian_signing_key_keyring_path: /usr/share/keyrings/nginx-archive-keyring.gpg
 nms_debian_signing_key_repo: deb [signed-by={{ nms_debian_signing_key_keyring_path }}] https://pkgs.nginx.com/nms/{{ansible_distribution|lower}} {{ansible_distribution_release}} nginx-plus
 nms_debian_apt_config_url: https://cs.nginx.com/static/files/90pkgs-nginx
 nms_debian_apt_config_path: /etc/apt/apt.conf.d
+
+# RPM specific repo for NMS install
+nms_centos_yum_repo: https://pkgs.nginx.com/nms/centos/$releasever/$basearch/
+nms_amazon_yum_repo: https://pkgs.nginx.com/nms/amzn2/$releasever/$basearch/
 
 nms_services: [
   nms, nms-core, nms-dpm, nms-ingestion, nms-integrations
