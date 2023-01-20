@@ -1,5 +1,4 @@
 ---
-# tasks file for install-nim
 - name: Check that NGINX Management Suite setup is an allowed value
   ansible.builtin.assert:
     that: nms_setup in nms_setup_vars
