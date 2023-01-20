@@ -3,7 +3,7 @@
   ansible.builtin.set_fact:
     nms_cleanup_status: absent
 
-- name: (Debian/Red Hat/) Set up NGINX Management Suite Certs
+- name: (Debian/Red Hat) Set up NGINX Management Suite Certs
   block:
     - name: Delete NGINX Plus certificates
       ansible.builtin.file:
