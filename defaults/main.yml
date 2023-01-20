@@ -1,5 +1,4 @@
 ---
-# defaults file for install-nim
 nms_default_signing_key_pgp: https://nginx.org/keys/nginx_signing.key
 nms_ssl_cert_fullpath: /etc/ssl/nginx/nginx-repo.crt
 nms_ssl_key_fullpath: /etc/ssl/nginx/nginx-repo.key
