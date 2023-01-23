@@ -15,8 +15,8 @@
 - name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Install ClickHouse
   ansible.builtin.yum:
     name:
-      - "clickhouse-server{{ (nms_clickhouse_version != '') | ternary('-' + nms_clickhouse_version , '') }}"
-      - "clickhouse-client{{ (nms_clickhouse_version != '') | ternary('-' + nms_clickhouse_version , '') }}"
+      - "clickhouse-server{{ (nms_clickhouse_version is not defined or nms_clickhouse_version == '') | ternary('', '-' + nms_clickhouse_version) }}"
+      - "clickhouse-client{{ (nms_clickhouse_version is not defined or nms_clickhouse_version == '') | ternary('', '-' + nms_clickhouse_version) }}"
     disable_gpg_check: true
 
 - name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Start and enable ClickHouse

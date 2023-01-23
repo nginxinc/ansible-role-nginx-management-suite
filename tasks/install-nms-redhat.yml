@@ -23,7 +23,7 @@
 
 - name: (Amazon Linux/CentOS/Oracle Linux/RHEL) {{ nms_setup | capitalize }} NGINX Instance Manager
   ansible.builtin.yum:
-    name: "nms-instance-manager{{ (nms_version != '') | ternary('-' + nms_version , '') }}"
+    name: "nms-instance-manager{{ (nms_version is not defined or nms_version == '') | ternary('', '-' + nms_version) }}"
     update_cache: yes
     allow_downgrade: "{{ omit if ansible_version.full is version('2.12', '<') else true }}"
     state: "{{ nms_state }}"
