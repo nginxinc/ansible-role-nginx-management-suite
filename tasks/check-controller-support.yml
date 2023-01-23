@@ -38,7 +38,7 @@
         success_msg: Your {{ansible_facts['distribution']}} version, {{ ansible_facts['distribution_version'] }} is supported by NGINX Management Suite
         fail_msg: Your {{ansible_facts['distribution']}} version, {{ ansible_facts['distribution_version'] }} is not supported by NGINX Management Suite
       when: ansible_facts['distribution'] == 'RedHat'
-    # Ubuntu: 18.04, 20.04, 22.04
+
     - name: Check 'Ubuntu' version
       ansible.builtin.assert:
         that: ansible_facts['distribution_version'] is version('18.04', '>=')

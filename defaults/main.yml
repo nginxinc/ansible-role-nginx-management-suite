@@ -1,6 +1,4 @@
 ---
-nms_default_signing_key_pgp: https://nginx.org/keys/nginx_signing.key
-
 nms_force_password: false
 nms_password: ''
 nms_username: admin

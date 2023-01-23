@@ -3,11 +3,11 @@
   ansible.builtin.apt_key:
     id: "{{ nms_debian_signing_key_id }}"
     keyring: "{{ nms_debian_signing_key_keyring_path }}"
-    url: "{{ nms_signing_key | default(nms_default_signing_key_pgp) }}"
+    url: "https://nginx.org/keys/nginx_signing.key"
   when: ansible_facts['os_family'] == "Debian"
 
 - name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Import signing key from a url
   ansible.builtin.rpm_key:
     state: "{{ nmn_cleanup_status | default((nms_setup == 'uninstall') | ternary('absent', 'present')) }}"
-    key: "{{ nms_signing_key | default(nms_default_signing_key_pgp) }}"
+    key: "https://nginx.org/keys/nginx_signing.key"
   when: ansible_facts['os_family'] == "RedHat"
