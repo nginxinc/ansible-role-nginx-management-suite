@@ -12,3 +12,4 @@ nms_clickhouse_install: true
 nms_clickhouse_version: '22.8.5.29'
 nms_clickhouse_release_kind: lts
 
+nms_clean_certs: true

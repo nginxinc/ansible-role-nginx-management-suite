@@ -2,13 +2,19 @@
 - name: Set 'nms_cleanup_status' state to absent
   ansible.builtin.set_fact:
     nms_cleanup_status: absent
+  tags:
+    - nms_cleanup
 
-- name: (Debian/Red Hat) Set up NGINX Management Suite Certs
+- name: (Debian/Red Hat) Delete NGINX Management Suite SSL Certs
   block:
     - name: Delete NGINX Plus certificates
       ansible.builtin.file:
         path: /etc/ssl/nginx
         state: absent
+  tags:
+    - nms_cleanup
 
 - name: Cleanup NGINX Management Suite repository
   ansible.builtin.include_tasks: "{{ role_path }}/tasks/install-nms-{{ ansible_facts['os_family'] | lower }}.yml"
+  tags:
+    - nms_cleanup

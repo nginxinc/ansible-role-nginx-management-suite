@@ -1,0 +1,7 @@
+- name: Setup NGINX Management Suite Repo Certs
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/prerequisites/setup-certs.yml"
+
+- name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Import NGINX signing key from url
+  ansible.builtin.rpm_key:
+    state: "{{ nmn_cleanup_status | default((nms_setup == 'uninstall') | ternary('absent', 'present')) }}"
+    key: "https://nginx.org/keys/nginx_signing.key"

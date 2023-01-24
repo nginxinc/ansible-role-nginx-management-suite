@@ -11,7 +11,7 @@
     - nms_check_support
 
 - name: Setup NGINX Management Suite prerequisites
-  ansible.builtin.include_tasks: "{{ role_path }}/tasks/prerequisites/prerequisites.yml"
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/prerequisites/{{ ansible_facts['os_family'] | lower }}.yml"
   tags:
     - nms_setup_certs
 
@@ -27,12 +27,12 @@
     - install_nms
 
 - name: Create NMS password
-  ansible.builtin.include_tasks: "{{ role_path }}/tasks/nms-password.yml"
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/nms-password-{{ ansible_facts['os_family'] | lower }}.yml"
   tags:
     - nms_config_password
 
 - name: Cleanup
   ansible.builtin.include_tasks: "{{ role_path }}/tasks/cleanup.yml"
-  when: nginx_remove_license | bool
+  when: nms_clean_certs | bool
   tags:
     - nms_cleanup
