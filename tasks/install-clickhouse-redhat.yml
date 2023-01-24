@@ -8,8 +8,8 @@
     name: clickhouse
     description: "Clickhouse repo"
     baseurl: "{{ clickhouse_yum_repo }}"
-    gpgcheck: no
-    enabled: yes
+    gpgcheck: false
+    enabled: true
   tags: [install]
 
 - name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Install ClickHouse
@@ -23,4 +23,4 @@
   ansible.builtin.service:
     state: started
     name: clickhouse-server
-    enabled: yes
+    enabled: true

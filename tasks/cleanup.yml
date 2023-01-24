@@ -6,11 +6,9 @@
     - nms_cleanup
 
 - name: (Debian/Red Hat) Delete NGINX Management Suite SSL Certs
-  block:
-    - name: Delete NGINX Plus certificates
-      ansible.builtin.file:
-        path: /etc/ssl/nginx
-        state: absent
+  ansible.builtin.file:
+    path: /etc/ssl/nginx
+    state: absent
   tags:
     - nms_cleanup
 

@@ -27,7 +27,6 @@ galaxy_info:
         - jammy
 
   galaxy_tags:
-    - nginx management suite
     - nms
     - development
     - install
