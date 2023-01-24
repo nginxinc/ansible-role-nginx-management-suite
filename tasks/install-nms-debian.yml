@@ -2,16 +2,21 @@
 - name: (Debian/Ubuntu) {{ (nms_cleanup_status is defined) | ternary('Remove', 'Configure') }} NGINX Management Suite Apt repository
   ansible.builtin.apt_repository:
     repo: "{{ nms_debian_signing_key_repo }}"
-    state: "{{ nms_cleanup_status | default('present') }}"
+    state: "{{ nms_cleanup_status | default((nms_setup == 'uninstall') | ternary('absent', 'present')) }}"
     update_cache: false
     filename: nms
 
-- name: (Debian/Ubuntu) Download apt configuration
-  ansible.builtin.get_url:
-    url: "{{ nms_debian_apt_config_url }}"
-    dest: "{{ nms_debian_apt_config_path }}"
-    checksum: sha256:0f7f07891dfdb01579231d9a3366a5675062e46616fca04116197cf369a70e35 # curl -sL https://download.docker.com/linux/ubuntu/gpg|sha256sum
-  when: nms_cleanup_status is not defined
+- name: (Debian/Ubuntu) {{ nms_cleanup_status is defined | ternary('Remove', 'Configure') }} NGINX Plus license verification
+  ansible.builtin.blockinfile:
+    path: /etc/apt/apt.conf.d/90nginx
+    create: true
+    block: |
+      Acquire::https::{{ (nginx_repository | default(nginx_plus_default_repository_debian)) | regex_search('(?<=https://)[^/]*') }}::Verify-Peer "true";
+      Acquire::https::{{ (nginx_repository | default(nginx_plus_default_repository_debian)) | regex_search('(?<=https://)[^/]*') }}::Verify-Host "true";
+      Acquire::https::{{ (nginx_repositorynsibl | default(nginx_plus_default_repository_debian)) | regex_search('(?<=https://)[^/]*') }}::SslCert     "/etc/ssl/nginx/nginx-repo.crt";
+      Acquire::https::{{ (nginx_repository | default(nginx_plus_default_repository_debian)) | regex_search('(?<=https://)[^/]*') }}::SslKey      "/etc/ssl/nginx/nginx-repo.key";
+    state: "{{ nms_cleanup_status | default((nms_setup == 'uninstall') | ternary('absent', 'present')) }}"
+    mode: 0444
 
 - name: (Debian/Ubuntu) {{ nms_setup | capitalize }} NGINX Instance Manager
   ansible.builtin.apt:
