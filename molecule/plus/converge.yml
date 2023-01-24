@@ -11,6 +11,7 @@
         nginx_selinux: true
         nginx_selinux_enforcing: false
         nginx_type: plus
+        nms_remove_certs: false
         nginx_remove_license: false
         nginx_license:
             certificate: license/nginx-repo.crt

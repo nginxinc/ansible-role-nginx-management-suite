@@ -33,6 +33,6 @@
 
 - name: Cleanup
   ansible.builtin.include_tasks: "{{ role_path }}/tasks/cleanup.yml"
-  when: nms_clean_certs | bool
+  when: nms_remove_certs | bool
   tags:
     - nms_cleanup
