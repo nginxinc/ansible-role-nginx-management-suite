@@ -6,7 +6,7 @@
   tags: nms_check_support
 
 - name: Checking NGINX Management Suite Support
-  ansible.builtin.include_tasks: "{{ role_path }}/tasks/check-controller-support.yml"
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/check-controller-support-{{ ansible_facts['os_family'] | lower }}.yml"
   tags:
     - nms_check_support
 
