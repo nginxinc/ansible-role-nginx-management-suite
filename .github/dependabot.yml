@@ -7,3 +7,9 @@ updates:
       interval: weekly
       day: monday
       time: "00:00"
+  - package-ecosystem: pip
+    directory: /.github/workflows/requirements
+    schedule:
+      interval: weekly
+      day: monday
+      time: "00:00"
