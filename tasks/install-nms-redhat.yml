@@ -39,12 +39,17 @@
   loop: "{{ nms_services | flatten(levels=1) }}"
   when: nms_cleanup_status is not defined
 
-- name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Permit traffic in default zone for https and http service
+- name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Get list of installed packages
+  ansible.builtin.yum:
+    list: installed
+  register: firewalld_status
+
+- name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Permit traffic in default zone for https and http service if 'firewalld' is installed
   ansible.posix.firewalld:
     service: "{{ item }}"
     permanent: true
     state: enabled
-  when: nms_cleanup_status is not defined
+  when: nms_cleanup_status is not defined and 'firewalld' in (firewalld_status.results | map(attribute='name') | list)
   loop:
     - https
     - http
