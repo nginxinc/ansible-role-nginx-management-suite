@@ -10,11 +10,26 @@ The following is a set of guidelines for contributing to the ansible_role_nginx_
 
 [Code Guidelines](#code-guidelines)
 
+* [Git Guidelines](#git-guidelines)
+* [Ansible Guidelines](#ansible-guidelines)
+
 [Code of Conduct](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/CODE_OF_CONDUCT.md)
 
 ## Getting Started
 
 Follow our [Installation Guide](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/README.md#Installation) to get the ansible_role_nginx_management_suite up and running.
+
+### Project Structure
+
+* The NGINX Management Suite Ansible role is written in `yaml` and supports NGINX Management Suite (NMS) Installation.
+  * An NGINX Plus license is required in order to install NMS.
+* The project follows the standard [Ansible role directory structure](https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html):
+  * The main code is found in [`tasks/`](https://github.com/nginxinc/ansible-role-nginx/blob/main/tasks/).
+  * Variables can be found in [`defaults/main/`](https://github.com/nginxinc/ansible-role-nginx/blob/main/defaults/main/).
+  * "Constant" variables can be found in [`vars/main.yml`](https://github.com/nginxinc/ansible-role-nginx/blob/main/vars/main.yml).
+  * [Molecule](https://molecule.readthedocs.io/) tests can be found in [`molecule/`](https://github.com/nginxinc/ansible-role-nginx/blob/main/molecule/).
+  * CI/CD is done via GitHub actions using the workflow files found in [`.github/workflows/`](https://github.com/nginxinc/ansible-role-nginx/blob/main/.github/workflows/).
+
 
 <!-- ### Project Structure (OPTIONAL) -->
 
@@ -37,7 +52,14 @@ Note: if you'd like to implement a new feature, please consider creating a featu
 
 ## Code Guidelines
 
-<!-- ### Go/Python/Bash Guidelines (OPTIONAL) -->
+### Ansible Guidelines
+
+* You need an NGINX Plus licesnse in order to install NMS, you will need to procure an NGINX Plus license (check out the [NGINX Plus developer license FAQ](https://www.nginx.com/developer-license-faqs/) to find out how to request one).
+* Run `molecule lint` over your code to automatically resolve a lot of `yaml` and Ansible style issues.
+* Run `molecule test` on your code before you submit a PR to catch any potential issues. If you are testing a specific molecule scenario, run `molecule test -s <scenario>`.
+* Follow these guides on some good practices for Ansible:
+  * <https://www.ansible.com/blog/ansible-best-practices-essentials>
+  * <https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html>
 
 ### Git Guidelines
 
