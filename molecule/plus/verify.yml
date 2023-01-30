@@ -36,6 +36,7 @@
         - nms-core
         - nms-dpm
         - nms-ingestion
+        - nms-integrations
 
     - name: Verify NGINX Management Suite is up and running
       ansible.builtin.uri:
