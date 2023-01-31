@@ -24,36 +24,27 @@ jobs:
       matrix:
         scenario:
           - default
-          - downgrade
-          - downgrade_plus
-          - module
           - plus
-          - source
-          - uninstall
-          - uninstall_plus
           - upgrade
-          - upgrade_plus
     steps:
       - name: Check out the codebase
-        if: ${{ !(contains(matrix.scenario, 'plus')) || (env.NGINX_CRT != 0 && env.NGINX_KEY != 0) }}
         uses: actions/checkout@v3
 
       - name: Set up Python 3
-        if: ${{ !(contains(matrix.scenario, 'plus')) || (env.NGINX_CRT != 0 && env.NGINX_KEY != 0) }}
         uses: actions/setup-python@v4
         with:
           python-version: 3.x
 
       - name: Install Molecule dependencies
-        if: ${{ !(contains(matrix.scenario, 'plus')) || (env.NGINX_CRT != 0 && env.NGINX_KEY != 0) }}
         run: pip3 install -r .github/workflows/requirements/requirements_molecule.txt
 
       - name: Install Ansible core dependencies
-        if: ${{ !(contains(matrix.scenario, 'plus')) || (env.NGINX_CRT != 0 && env.NGINX_KEY != 0) }}
         run: ansible-galaxy install -r .github/workflows/requirements/requirements_ansible.yml
 
+      - name: Install Ansible NGINX role dependencies
+        run: ansible-galaxy install -r .github/workflows/requirements/requirements_ansible_role.yml
+
       - name: Run Molecule tests
-        if: ${{ !(contains(matrix.scenario, 'plus')) || (env.NGINX_CRT != 0 && env.NGINX_KEY != 0) }}
         run: molecule test -s ${{ matrix.scenario }}
         env:
           PY_COLORS: 1

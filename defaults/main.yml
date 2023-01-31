@@ -1,15 +1,30 @@
 ---
+# To force a admin credential change. Disabled by default.
 nms_force_password: false
+
+# Initial NMS password
 nms_password: ''
+
+# Intiail NMS username
 nms_username: admin
+
+# Location where htpasswd file path
 nms_cred_path: /etc/nms/nginx/.htpasswd
+
+# NMS installation defaults to the latest version. You can specify a specific version using the proper glob
+# nms_version: 2.4.0*
 nms_version: ''
 
 # Clickhouse is an external database required for NMS. That is a third party app that changes fast. As a result, we are pinning it to version 22.9.2.7.
-# If you want to use the latest, change this so it is blank.
-# nms_clickhouse_version: ''
+## Clickhouse installation is enabled by default
 nms_clickhouse_install: true
+
+## If you want to use the latest, it can be commented out or specify a blank string.
+## nms_clickhouse_version: ''
 nms_clickhouse_version: '22.8.5.29'
+
+## Default to long term support. You can use either 'lts' or 'stable'.
 nms_clickhouse_release_kind: lts
 
+## By default, NMS certificates are removed by default
 nms_remove_certs: true

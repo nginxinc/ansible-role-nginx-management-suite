@@ -3,13 +3,16 @@ nms_setup_vars: [
   install, uninstall, upgrade,
 ]
 
+# This role defaults to an setup type.
 nms_default_setup: install
 
+# Setup type to package installation state map (internal variable)
 nms_state_vals:
   install: present
   uninstall: absent
   upgrade: latest
 
+# Package installation state
 nms_state: "{{ nms_state_vals[nms_setup] | default(nms_state_vals[nms_default_setup]) }}"
 
 # Debian specific repo for NMS install
@@ -21,6 +24,7 @@ nms_debian_signing_key_repo: deb [signed-by={{ nms_debian_signing_key_keyring_pa
 nms_centos_yum_repo: https://pkgs.nginx.com/nms/centos/$releasever/$basearch/
 nms_amazon_yum_repo: https://pkgs.nginx.com/nms/amzn2/$releasever/$basearch/
 
+# All NMS services.
 nms_services: [
   nms, nms-core, nms-dpm, nms-ingestion, nms-integrations
 ]
@@ -34,7 +38,7 @@ nms_distributions: [
 nms_redhat7_pip27: https://bootstrap.pypa.io/pip/2.7/get-pip.py
 
 # Clickhouse specific variables for this ansible role.
-## Debian variables.
+## Debian specific variables for Clickhouse install.
 clickhouse_debian_dependencies: [
   apt-transport-https, ca-certificates, dirmngr,
 ]
@@ -42,7 +46,7 @@ clickhouse_apt_keyserver: hkp://keyserver.ubuntu.com:80
 clickhouse_apt_id: 3A9EA1193A97B548BE1457D48919F6BD2B48D754
 clickhouse_apt_repo: deb https://packages.clickhouse.com/deb {{ nms_clickhouse_release_kind }} main
 
-## RedHat variables.
+## RedHat specific variables for Clickhouse install.
 clickhouse_redhat_dependencies: [
   yum-utils,
 ]

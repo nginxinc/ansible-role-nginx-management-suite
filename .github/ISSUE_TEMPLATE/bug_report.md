@@ -1,10 +1,11 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: ''
-labels: ''
-assignees: ''
+title: ""
+labels: ""
+assignees: ""
 ---
+
 ### Describe the bug
 
 A clear and concise description of what the bug is.
@@ -13,8 +14,8 @@ A clear and concise description of what the bug is.
 
 Steps to reproduce the behavior:
 
-1. Deploy ansible_role_nginx_management_suite using
-2. View output/logs/configuration on '...'
+1. Deploy the Ansible NGINX Management Suite role using `playbook.yml`
+2. View output/logs/configuration on ...
 3. See error
 
 ### Expected behavior
@@ -23,8 +24,9 @@ A clear and concise description of what you expected to happen.
 
 ### Your environment
 
-- Version of the ansible_role_nginx_management_suite or specific commit
-<!-- - Version of project language -->
+- Version of the Ansible NGINX Management Suite role or specific commit
+- Version of Ansible
+- Version of Jinja2 (if you are using any templating capability)
 - Target deployment platform
 
 ### Additional context

@@ -27,6 +27,7 @@
     update_cache: true
     allow_downgrade: "{{ omit if ansible_version.full is version('2.12', '<') else true }}"
     state: "{{ nms_state }}"
+    update_only: "{{ nms_setup | lower == 'upgrade' }}"
   register: nms_install_state
   when: nms_cleanup_status is not defined
 

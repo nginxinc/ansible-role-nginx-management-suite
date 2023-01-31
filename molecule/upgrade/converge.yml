@@ -7,7 +7,7 @@
         name: ansible-role-nginx-management-suite
       vars:
         nms_setup: upgrade
-        nms_password: 'Default1!'
+        nms_password: 'Password123'
         nms_remove_certs: false
         nginx_remove_license: false
         nginx_license:
