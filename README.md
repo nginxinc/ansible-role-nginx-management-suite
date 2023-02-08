@@ -2,6 +2,7 @@
 [![Molecule CI/CD](https://github.com/nginxinc/ansible-role-nginx-management-suite/workflows/Molecule%20CI/CD/badge.svg)](https://github.com/nginxinc/ansible-role-nginx-management-suite/actions)
 [![License](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
+
 # 👾 *Help make the NGINX Ansible role better by participating in our [survey](https://forms.office.com/Pages/ResponsePage.aspx?id=L_093Ttq0UCb4L-DJ9gcUKLQ7uTJaE1PitM_37KR881UM0NCWkY5UlE5MUYyWU1aTUcxV0NRUllJSC4u)!* 👾
 
 # Ansible NGINX Management Suite Role
@@ -16,7 +17,7 @@ This role only installs NGINX Management Suite (NMS).
 
 Installing NMS requires an NGINX Management Suite License and an NGINX instance, either OSS or Plus.
 
-This NMS role depends on the **nginxinc.nginx** Ansible Role because an NGINX instance is a requriement for NMS. Because of this dependancy, you can set variables related to **nginxinc.nginx** when using this role. For example, `nginx_type` is an **nginxinc.nginx** variable that can be [set like how you would with any other Ansible Variable](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#where-to-set-variables). So if `nginx_type: plus`, the **nginxinc.nginx** role will install NGINX Plus. Refer to the [Ansible Role NGINX](https://github.com/nginxinc/ansible-role-nginx) for more details.
+This NMS role depends on the **nginxinc.nginx** Ansible Role because an NGINX instance is a requirement for NMS. Because of this dependance, you can set variables related to **nginxinc.nginx** when using this role. For example, `nginx_type` is an **nginxinc.nginx** variable that can be [set like how you would with any other Ansible Variable](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#where-to-set-variables). So if `nginx_type: plus`, the **nginxinc.nginx** role will install NGINX Plus. Refer to the [Ansible Role NGINX](https://github.com/nginxinc/ansible-role-nginx) for more details.
 
 ### Ansible
 
