@@ -13,11 +13,25 @@ This role only installs NGINX Management Suite (NMS).
 
 ## Requirements
 
-### NGINX Management Suite License
+1. NGINX Management Suite License Files
+2. [NGINX Ansible Role (**nginxinc.nginx**)](https://github.com/nginxinc/ansible-role-nginx)
 
-Installing NMS requires an NGINX Management Suite License and an NGINX instance, either OSS or Plus.
+### NGINX Management Suite Certificate Files
 
-This NMS role depends on the **nginxinc.nginx** Ansible Role because an NGINX instance is a requirement for NMS. Because of this dependance, you can set variables related to **nginxinc.nginx** when using this role. For example, `nginx_type` is an **nginxinc.nginx** variable that can be [set like how you would with any other Ansible Variable](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#where-to-set-variables). So if `nginx_type: plus`, the **nginxinc.nginx** role will install NGINX Plus. Refer to the [Ansible Role NGINX](https://github.com/nginxinc/ansible-role-nginx) for more details.
+Installing NMS requires the NMS certificate files to access the repository. Log in to [MyF5](https://account.f5.com/myf5) or follow the link in the trial activation email to download the NMS repo .crt and .key files:
+* nginx-mgmt-suite-trial.key
+* nginx-mgmt-suite-trial.crt
+
+### NGINX Instance
+
+NMS requires an NGINX instance, either NGINX OSS or NGINX Plus. This role handles this by defining a dependency to the [NGINX Ansible Role](https://github.com/nginxinc/ansible-role-nginx), named **nginxinc.nginx**. Because of this dependance, you can set variables related to **nginxinc.nginx** when using this role. For example, `nginx_type` is an **nginxinc.nginx** variable that can be [set like how you would  any other Ansible variable](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#where-to-set-variables). So if your playbook defines `nginx_type: plus`, the **nginxinc.nginx** role will install NGINX Plus. Refer to the [Ansible Role NGINX](https://github.com/nginxinc/ansible-role-nginx) for more details.
+
+Be sure to install this role by running:
+```shell
+ansible-galaxy install nginxinc.nginx
+```
+
+This role was developed and tested using **nginxinc.nginx** version **0.24.0**.
 
 ### Ansible
 
