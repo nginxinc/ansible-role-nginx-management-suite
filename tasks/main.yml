@@ -27,7 +27,7 @@
     - install_nms
 
 - name: Create NMS password
-  ansible.builtin.include_tasks: "{{ role_path }}/tasks/nms-password-{{ ansible_facts['os_family'] | lower }}.yml"
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/nms-password.yml"
   tags:
     - nms_config_password
 

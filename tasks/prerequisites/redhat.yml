@@ -1,7 +1,10 @@
-- name: Setup NGINX Management Suite Repo Certs
+- name: (RedHat) Install pip
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/prerequisites/pip-{{ ansible_python['version']['major'] }}.yml"
+
+- name: (RedHat) Setup NGINX Management Suite Repo Certs
   ansible.builtin.include_tasks: "{{ role_path }}/tasks/prerequisites/setup-certs.yml"
 
-- name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Import NGINX signing key from url
+- name: (RedHat) Import NGINX signing key from url
   ansible.builtin.rpm_key:
     state: "{{ nmn_cleanup_status | default((nms_setup == 'uninstall') | ternary('absent', 'present')) }}"
     key: "https://nginx.org/keys/nginx_signing.key"

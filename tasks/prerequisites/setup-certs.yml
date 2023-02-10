@@ -1,39 +1,37 @@
-- name: (Debian/Red Hat) Set up NGINX Management Suite Certs
-  block:
-    - name: (Debian/Red Hat) Create SSL directory
-      ansible.builtin.file:
-        path: /etc/ssl/nginx
-        state: directory
-        mode: 0755
+- name: (Debian/Red Hat) Create SSL directory
+  ansible.builtin.file:
+    path: /etc/ssl/nginx
+    state: directory
+    mode: 0755
 
-    - name: (Debian/Red Hat) Copy NGINX Plus certificate and license key
-      ansible.builtin.copy:
-        src: "{{ item }}"
-        dest: /etc/ssl/nginx
-        decrypt: true
-        mode: 0444
-      loop:
-        - "{{ nginx_license['certificate'] }}"
-        - "{{ nginx_license['key'] }}"
+- name: (Debian/Red Hat) Copy NGINX Plus certificate and license key
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /etc/ssl/nginx
+    decrypt: true
+    mode: 0444
+  loop:
+    - "{{ nginx_license['certificate'] }}"
+    - "{{ nginx_license['key'] }}"
 
-    - name: (Debian/Red Hat) Install cryptography package
-      ansible.builtin.package:
-        name: "{{ (ansible_python['version']['major'] == 3) | ternary('python3-cryptography', 'python2-cryptography') }}"
+- name: (Debian/Red Hat) Install cryptography package
+  ansible.builtin.pip:
+    name: cryptography
 
-    - name: (Debian/Red Hat) Check that NGINX Plus certificate is valid
-      community.crypto.x509_certificate_info:
-        path: /etc/ssl/nginx/nginx-repo.crt
-      register: cert
+- name: (Debian/Red Hat) Check that NGINX Plus certificate is valid
+  community.crypto.x509_certificate_info:
+    path: /etc/ssl/nginx/nginx-repo.crt
+  register: cert
 
-    - name: (Debian/Red Hat) Check that NGINX Plus key is valid
-      community.crypto.openssl_privatekey_info:
-        path: /etc/ssl/nginx/nginx-repo.key
-      register: key
+- name: (Debian/Red Hat) Check that NGINX Plus key is valid
+  community.crypto.openssl_privatekey_info:
+    path: /etc/ssl/nginx/nginx-repo.key
+  register: key
 
-    - name: (Debian/Red Hat) Check that NGINX Plus license is valid
-      ansible.builtin.assert:
-        that:
-          - cert.expired == false
-          - cert.public_key == key.public_key
-        success_msg: Your NGINX Plus license is valid!
-        fail_msg: Something went wrong! Make sure your NGINX Plus license is valid!
+- name: (Debian/Red Hat) Check that NGINX Plus license is valid
+  ansible.builtin.assert:
+    that:
+      - cert.expired == false
+      - cert.public_key == key.public_key
+    success_msg: Your NGINX Plus license is valid!
+    fail_msg: Something went wrong! Make sure your NGINX Plus license is valid!

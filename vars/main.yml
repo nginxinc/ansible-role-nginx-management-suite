@@ -35,7 +35,7 @@ nms_distributions: [
   Amazon, CentOS, Debian, OracleLinux, RedHat, Ubuntu,
 ]
 
-nms_redhat7_pip27: https://bootstrap.pypa.io/pip/2.7/get-pip.py
+nms_pip27: https://bootstrap.pypa.io/pip/2.7/get-pip.py
 
 # Clickhouse specific variables for this ansible role.
 ## Debian specific variables for Clickhouse install.
