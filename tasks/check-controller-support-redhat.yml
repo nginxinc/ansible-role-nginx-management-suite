@@ -27,7 +27,7 @@
 
     - name: Check 'OracleLinux' version is 7.4+ in 7.x family or 8.0+ in in 8.x family
       ansible.builtin.assert:
-        that: ansible_facts['distribution_version'] is version('7.4', '>=') and ansible_facts['distribution_version'] is version('8', '<')
+        that: ansible_facts['distribution_version'] is version('7.4', '>=') and ansible_facts['distribution_version'] is version('9', '<')
         success_msg: Your {{ ansible_facts['distribution'] }} version, {{ ansible_facts['distribution_version'] }} is supported by NGINX Management Suite
         fail_msg: Your {{ ansible_facts['distribution'] }} version, {{ ansible_facts['distribution_version'] }} is not supported by NGINX Management Suite
       when: ansible_facts['distribution'] == 'CentOS' or ansible_facts['distribution'] == 'OracleLinux'
