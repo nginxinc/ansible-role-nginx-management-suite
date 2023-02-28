@@ -7,7 +7,7 @@
         name: ansible-role-nginx-management-suite
       vars:
         nms_setup: install
-        nms_password: 'Password123'
+        nms_user_passwd: 'Password123'
         nginx_selinux: true
         nginx_selinux_enforcing: false
         nms_remove_certs: false

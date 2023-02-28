@@ -3,10 +3,10 @@
 nms_force_password: false
 
 # Initial NMS password
-nms_password: ''
+nms_user_passwd: ''
 
 # Intiail NMS username
-nms_username: admin
+nms_user_name: admin
 
 # Location where htpasswd file path
 nms_cred_path: /etc/nms/nginx/.htpasswd
