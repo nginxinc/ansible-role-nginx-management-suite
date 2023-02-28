@@ -49,6 +49,7 @@
   ansible.posix.firewalld:
     service: "{{ item }}"
     permanent: true
+    immediate: true
     state: enabled
   when: nms_cleanup_status is not defined and 'firewalld' in (firewalld_status.results | map(attribute='name') | list)
   loop:
