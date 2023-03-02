@@ -1,7 +1,7 @@
 galaxy_info:
   role_name: nms_install
   author: nginxinc
-  description: Official Ansible role for NGINX Management Suite Install
+  description: Official Ansible role for installing NGINX Management Suite
   company: F5, Inc.
 
   license: Apache License, Version 2.0
