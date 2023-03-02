@@ -1,5 +1,5 @@
 - name: (RedHat) Install pip
-  ansible.builtin.include_tasks: "{{ role_path }}/tasks/prerequisites/pip{{ ansible_python['version']['major'] }}.yml"
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/prerequisites/piptasks/prerequisites/pip-3.yml{{ ansible_python['version']['major'] }}.yml"
 
 - name: (RedHat) Setup NGINX Management Suite Repo Certs
   ansible.builtin.include_tasks: "{{ role_path }}/tasks/prerequisites/setup-certs.yml"
