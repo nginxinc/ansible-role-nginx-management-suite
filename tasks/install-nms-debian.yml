@@ -16,7 +16,7 @@
       Acquire::https::{{ (nginx_repositorynsibl | default(nginx_plus_default_repository_debian)) | regex_search('(?<=https://)[^/]*') }}::SslCert     "/etc/ssl/nginx/nginx-repo.crt";
       Acquire::https::{{ (nginx_repository | default(nginx_plus_default_repository_debian)) | regex_search('(?<=https://)[^/]*') }}::SslKey      "/etc/ssl/nginx/nginx-repo.key";
     state: "{{ nms_cleanup_status | default((nms_setup == 'uninstall') | ternary('absent', 'present')) }}"
-    mode: 0444
+    mode: "0444"
 
 - name: (Debian/Ubuntu) {{ nms_setup | capitalize }} NGINX Instance Manager
   ansible.builtin.apt:
