@@ -16,13 +16,13 @@
     - nms_setup_certs
 
 - name: Install ClickHouse
-  ansible.builtin.include_tasks: "{{ role_path }}/tasks/install-clickhouse-{{ ansible_facts['os_family'] | lower }}.yml"
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/clickhouse/install-{{ ansible_facts['os_family'] | lower }}.yml"
   when: nms_clickhouse_install | bool
   tags:
     - nms_install_db
 
 - name: Install NGINX Management Suite
-  ansible.builtin.include_tasks: "{{ role_path }}/tasks/install-nms-{{ ansible_facts['os_family'] | lower }}.yml"
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/nms/install-{{ ansible_facts['os_family'] | lower }}.yml"
   tags:
     - install_nms
 

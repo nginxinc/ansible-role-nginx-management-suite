@@ -1,13 +1,13 @@
 ---
 - name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Install required packages for ClickHouse
   ansible.builtin.yum:
-    name: "{{ clickhouse_redhat_dependencies }}"
+    name: "{{ nms_clickhouse_redhat_dependencies }}"
 
 - name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Add ClickHouse Repository
   ansible.builtin.yum_repository:
     name: clickhouse
     description: "Clickhouse repo"
-    baseurl: "{{ clickhouse_yum_repo }}"
+    baseurl: "{{ nms_clickhouse_yum_repo }}"
     gpgcheck: false
     enabled: true
   tags: [install]
