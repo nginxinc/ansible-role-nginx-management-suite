@@ -13,6 +13,6 @@
     - nms_cleanup
 
 - name: Cleanup NGINX Management Suite repository
-  ansible.builtin.include_tasks: "{{ role_path }}/tasks/install-nms-{{ ansible_facts['os_family'] | lower }}.yml"
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/nms/install-{{ ansible_facts['os_family'] | lower }}.yml"
   tags:
     - nms_cleanup

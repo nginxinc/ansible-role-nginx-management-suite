@@ -1,0 +1,17 @@
+---
+- name: Check whether you are using a supported NGINX distribution
+  ansible.builtin.assert:
+    that:
+      - "{{ ansible_facts['distribution'] | lower in nginx_distributions.keys() | list }}"
+      - "{{ (ansible_facts['distribution_version'] | regex_search('\\d+\\.?\\d*') in nginx_distributions[ansible_facts['distribution'] | lower]['versions'] | string)
+        if ansible_facts['distribution'] | lower in ['ubuntu'] else ansible_facts['distribution_major_version'] in nginx_distributions[ansible_facts['distribution'] | lower]['versions'] | string }}"
+      - "{{ ansible_facts['architecture'] in nginx_distributions[ansible_facts['distribution'] | lower]['architectures'] }}"
+    success_msg: Your distribution, {{ nginx_distributions[ansible_facts['distribution'] | lower]['name'] }} {{ ansible_facts['distribution_version'] }} ({{ ansible_facts['architecture'] }}), is supported by NMS.
+    fail_msg: Your distribution, {{ nginx_distributions[ansible_facts['distribution'] | lower]['name'] }} {{ ansible_facts['distribution_version'] }} ({{ ansible_facts['architecture'] }}), is not supported by NMS.
+  ignore_errors: true # noqa ignore-errors
+
+- name: Check if 'nms_setup' is an allowed value
+  ansible.builtin.assert:
+    that: nms_setup in nms_setup_vars
+    fail_msg: The value {{ nms_setup }} you used for `nms_setup` is not allowed. Try one of {{ nms_setup_vars | join(', ') }}.
+  tags: nms_check_support

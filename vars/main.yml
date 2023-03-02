@@ -15,6 +15,34 @@ nms_state_vals:
 # Package installation state
 nms_state: "{{ nms_state_vals[nms_setup] | default(nms_state_vals[nms_default_setup]) }}"
 
+# Supported NGINX Open Source distributions
+# https://nginx.org/en/docs/install.html
+nginx_supported_distributions:
+  amazon:
+    name: Amazon Linux
+    versions: [2]
+    architectures: [x86_64]
+  centos:
+    name: CentOS
+    versions: [7]
+    architectures: [x86_64]
+  debian:
+    name: Debian
+    versions: [10, 11]
+    architectures: [x86_64]
+  oraclelinux:
+    name: Oracle Linux
+    versions: [7, 8]
+    architectures: [x86_64]
+  redhat:
+    name: Red Hat Enterprise Linux
+    versions: [7, 8, 9]
+    architectures: [x86_64]
+  ubuntu:
+    name: Ubuntu
+    versions: [18.04, 20.04, 22.04]
+    architectures: [x86_64]
+
 # Debian specific repo for NMS install
 nms_debian_signing_key_id: 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
 nms_debian_signing_key_keyring_path: /usr/share/keyrings/nginx-archive-keyring.gpg
