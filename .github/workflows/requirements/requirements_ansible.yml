@@ -1,4 +1,7 @@
 ---
+roles:
+  - name: nginxinc.nginx
+    version: 0.24.0
 collections:
   - name: nginxinc.nginx_core
     version: 0.8.0
