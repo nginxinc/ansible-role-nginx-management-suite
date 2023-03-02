@@ -39,15 +39,15 @@ nms_pip27: https://bootstrap.pypa.io/pip/2.7/get-pip.py
 
 # Clickhouse specific variables for this ansible role.
 ## Debian specific variables for Clickhouse install.
-clickhouse_debian_dependencies: [
+nms_clickhouse_debian_dependencies: [
   apt-transport-https, ca-certificates, dirmngr,
 ]
-clickhouse_apt_keyserver: hkp://keyserver.ubuntu.com:80
-clickhouse_apt_id: 3A9EA1193A97B548BE1457D48919F6BD2B48D754
-clickhouse_apt_repo: deb https://packages.clickhouse.com/deb {{ nms_clickhouse_release_kind }} main
+nms_clickhouse_apt_keyserver: hkp://keyserver.ubuntu.com:80
+nms_clickhouse_apt_id: 3A9EA1193A97B548BE1457D48919F6BD2B48D754
+nms_clickhouse_apt_repo: deb https://packages.clickhouse.com/deb {{ nms_clickhouse_release_kind }} main
 
 ## RedHat specific variables for Clickhouse install.
-clickhouse_redhat_dependencies: [
+nms_clickhouse_redhat_dependencies: [
   yum-utils,
 ]
-clickhouse_yum_repo: https://packages.clickhouse.com/rpm/{{ nms_clickhouse_release_kind }}/
+nms_clickhouse_yum_repo: https://packages.clickhouse.com/rpm/{{ nms_clickhouse_release_kind }}/
