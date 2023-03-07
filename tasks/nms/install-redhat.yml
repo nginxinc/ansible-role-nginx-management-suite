@@ -5,6 +5,7 @@
     description: NGINX Management Suite
     baseurl: "{{ nms_centos_yum_repo }}"
     enabled: true
+    gpgcheck: "{{ omit if nms_gpgcheck is not defined else nms_gpgcheck }}"
     sslclientcert: "/etc/ssl/nginx/nginx-repo.crt"
     sslclientkey: "/etc/ssl/nginx/nginx-repo.key"
     state: "{{ nms_cleanup_status | default('present') }}"

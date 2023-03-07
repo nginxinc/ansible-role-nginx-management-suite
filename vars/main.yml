@@ -15,7 +15,7 @@ nms_state_vals:
 # Package installation state
 nms_state: "{{ nms_state_vals[nms_setup] | default(nms_state_vals[nms_default_setup]) }}"
 
-# Supported NGINX Open Source distributions
+# Supported NMS distributions
 # https://nginx.org/en/docs/install.html
 nginx_supported_distributions:
   amazon:
@@ -51,16 +51,12 @@ nms_debian_signing_key_repo: deb [signed-by={{ nms_debian_signing_key_keyring_pa
 # RPM specific repo for NMS install
 nms_centos_yum_repo: https://pkgs.nginx.com/nms/centos/$releasever/$basearch/
 nms_amazon_yum_repo: https://pkgs.nginx.com/nms/amzn2/$releasever/$basearch/
+# # For development purposes for disabling gpg check when installing on OS with RPM repo.
+# nms_gpgcheck: false
 
 # All NMS services.
 nms_services: [
   nms, nms-core, nms-dpm, nms-ingestion, nms-integrations
-]
-
-# Supported NGINX Open Source distributions
-# https://docs.nginx.com/nginx-management-suite/tech-specs/#nginx-management-suite
-nms_distributions: [
-  Amazon, CentOS, Debian, OracleLinux, RedHat, Ubuntu,
 ]
 
 nms_pip27: https://bootstrap.pypa.io/pip/2.7/get-pip.py
