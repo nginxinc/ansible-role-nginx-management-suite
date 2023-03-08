@@ -22,7 +22,7 @@
   tasks:
     - name: Install NMS
       ansible.builtin.include_role:
-        name: ansible-role-nginx-management-suite
+        name: ansible-role-nms
       vars:
         nms_version: 2.4.0*
         nms_setup: install

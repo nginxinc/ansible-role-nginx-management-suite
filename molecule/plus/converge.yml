@@ -4,7 +4,7 @@
   tasks:
     - name: Install NMS
       ansible.builtin.include_role:
-        name: ansible-role-nginx-management-suite
+        name: ansible-role-nms
       vars:
         nms_setup: install
         nms_user_passwd: 'Password123'
