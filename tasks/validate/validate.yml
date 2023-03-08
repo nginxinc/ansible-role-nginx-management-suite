@@ -2,12 +2,12 @@
 - name: Check whether you are using a supported NGINX distribution
   ansible.builtin.assert:
     that:
-      - "{{ ansible_facts['distribution'] | lower in nginx_distributions.keys() | list }}"
-      - "{{ (ansible_facts['distribution_version'] | regex_search('\\d+\\.?\\d*') in nginx_distributions[ansible_facts['distribution'] | lower]['versions'] | string)
-        if ansible_facts['distribution'] | lower in ['ubuntu'] else ansible_facts['distribution_major_version'] in nginx_distributions[ansible_facts['distribution'] | lower]['versions'] | string }}"
-      - "{{ ansible_facts['architecture'] in nginx_distributions[ansible_facts['distribution'] | lower]['architectures'] }}"
-    success_msg: Your distribution, {{ nginx_distributions[ansible_facts['distribution'] | lower]['name'] }} {{ ansible_facts['distribution_version'] }} ({{ ansible_facts['architecture'] }}), is supported by NMS.
-    fail_msg: Your distribution, {{ nginx_distributions[ansible_facts['distribution'] | lower]['name'] }} {{ ansible_facts['distribution_version'] }} ({{ ansible_facts['architecture'] }}), is not supported by NMS.
+      - "{{ ansible_facts['distribution'] | lower in nms_supported_distributions.keys() | list }}"
+      - "{{ (ansible_facts['distribution_version'] | regex_search('\\d+\\.?\\d*') in nms_supported_distributions[ansible_facts['distribution'] | lower]['versions'] | string)
+        if ansible_facts['distribution'] | lower in ['ubuntu'] else ansible_facts['distribution_major_version'] in nms_supported_distributions[ansible_facts['distribution'] | lower]['versions'] | string }}"
+      - "{{ ansible_facts['architecture'] in nms_supported_distributions[ansible_facts['distribution'] | lower]['architectures'] }}"
+    success_msg: Your distribution, {{ nms_supported_distributions[ansible_facts['distribution'] | lower]['name'] }} {{ ansible_facts['distribution_version'] }} ({{ ansible_facts['architecture'] }}), is supported by NMS.
+    fail_msg: Your distribution, {{ nms_supported_distributions[ansible_facts['distribution'] | lower]['name'] }} {{ ansible_facts['distribution_version'] }} ({{ ansible_facts['architecture'] }}), is not supported by NMS.
   ignore_errors: true # noqa ignore-errors
 
 - name: Check if 'nms_setup' is an allowed value

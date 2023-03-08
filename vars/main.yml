@@ -16,8 +16,8 @@ nms_state_vals:
 nms_state: "{{ nms_state_vals[nms_setup] | default(nms_state_vals[nms_default_setup]) }}"
 
 # Supported NMS distributions
-# https://nginx.org/en/docs/install.html
-nginx_supported_distributions:
+# https://docs.nginx.com/nginx-management-suite/overview/tech-specs/#supported-distributions
+nms_supported_distributions:
   amazon:
     name: Amazon Linux
     versions: [2]
