@@ -42,4 +42,4 @@
       ansible.builtin.uri:
         url: https://localhost
         status_code: 200
-        validate_certs: no
+        validate_certs: false

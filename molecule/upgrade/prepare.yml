@@ -8,14 +8,14 @@
         content: "{{ lookup('env', 'NGINX_CRT') | b64decode }}"
         dest: ../../files/license/nginx-repo.crt
         force: false
-        mode: 0444
+        mode: "0444"
 
     - name: Create ephemeral license key file from b64 decoded env var # noqa template-instead-of-copy
       ansible.builtin.copy:
         content: "{{ lookup('env', 'NGINX_KEY') | b64decode }}"
         dest: ../../files/license/nginx-repo.key
         force: false
-        mode: 0444
+        mode: "0444"
 
 - name: Prepare NMS
   hosts: all
@@ -32,5 +32,5 @@
         nginx_remove_license: false
         nms_remove_certs: false
         nginx_license:
-            certificate: license/nginx-repo.crt
-            key: license/nginx-repo.key
+          certificate: license/nginx-repo.crt
+          key: license/nginx-repo.key

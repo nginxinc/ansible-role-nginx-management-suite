@@ -42,18 +42,10 @@
       ansible.builtin.uri:
         url: https://localhost
         status_code: 200
-        validate_certs: no
+        validate_certs: false
 
-    - name: (RedHat) Verify correct version of NGINX has been installed
-      ansible.builtin.command: rpm -qa nms-instance-manager
-      changed_when: false
-      register: version
-      failed_when: version.stdout is search('2.4.0')
-      when: ansible_facts['os_family'] == 'RedHat'
-
-    - name: (Debian) Verify correct version of NGINX has been installed
-      ansible.builtin.shell: dpkg -s nms-instance-manager | grep -i version
-      changed_when: false
-      register: version
-      failed_when: version.stdout is search('2.4.0')
-      when: ansible_facts['os_family'] == 'Debian'
+    - name: Verify correct version of NGINX has been installed
+      ansible.builtin.package_facts:
+        manager: auto
+      register: output
+      failed_when: output.ansible_facts.packages['nms-instance-manager'][0]['version'] is search('2.4.0')

@@ -14,5 +14,5 @@
         nms_remove_certs: false
         nginx_remove_license: false
         nginx_license:
-            certificate: license/nginx-repo.crt
-            key: license/nginx-repo.key
+          certificate: license/nginx-repo.crt
+          key: license/nginx-repo.key
