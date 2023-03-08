@@ -32,4 +32,4 @@
     - nms_cleanup
 
 - name: Restart NGINX Services (if needed)
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
