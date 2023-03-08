@@ -1,9 +1,10 @@
 ---
 - name: Restart NGINX Management Suite
   ansible.builtin.systemd:
-    name: nms
+    name: "{{ item }}"
     state: restarted
   loop: "{{ nms_services | flatten(levels=1) }}"
+
 - name: Restart NGINX
   ansible.builtin.service:
     name: nginx

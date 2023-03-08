@@ -4,5 +4,5 @@
 
 Initial release of the NGINX Management Suite Ansible role. Features include:
 
-* Install NGINX Managemenet Suite (NMS).
+* Install NGINX Management Suite (NMS).
 * Create initial NMS password

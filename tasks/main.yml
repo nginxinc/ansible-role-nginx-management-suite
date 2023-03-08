@@ -30,3 +30,6 @@
   when: nms_remove_certs | bool
   tags:
     - nms_cleanup
+
+- name: Restart NGINX Services (if needed)
+  meta: flush_handlers
