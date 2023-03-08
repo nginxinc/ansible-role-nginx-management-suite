@@ -40,13 +40,13 @@ Main difference between using NGINX OSS or NGINX Plus depends on which [Authenti
         version: 0.24.0
     collections:
       - name: ansible.posix
-        version: 1.4.0
+        version: 1.5.1
       - name: community.general
-        version: 6.2.0
+        version: 6.4.0
       - name: community.crypto
-        version: 2.10.0
+        version: 2.11.0
       - name: community.docker # Only required if you plan to use Molecule (see below)
-        version: 3.4.0
+        version: 3.4.2
     ```
 
     **Note:** You can alternatively install the Ansible community distribution (what is known as the "old" Ansible) if you don't want to manage individual collections.
