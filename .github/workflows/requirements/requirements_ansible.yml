@@ -4,10 +4,10 @@ roles:
     version: 0.24.0
 collections:
   - name: ansible.posix
-    version: 1.4.0
+    version: 1.5.1
   - name: community.general
-    version: 6.2.0
+    version: 6.4.0
   - name: community.crypto # Only required if you plan to install NGINX Plus
-    version: 2.10.0
+    version: 2.11.0
   - name: community.docker # Only required if you plan to use Molecule
-    version: 3.4.0
+    version: 3.4.2
