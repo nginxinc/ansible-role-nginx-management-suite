@@ -24,7 +24,7 @@ Follow our [Installation Guide](https://github.com/nginxinc/ansible-role-nginx-m
 * The NGINX Management Suite Ansible role is written in `yaml` and supports NGINX Management Suite (NMS) Installation.
   * An NGINX Plus license is required in order to install NMS.
 * The project follows the standard [Ansible role directory structure](https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html):
-  * The main code is found in [`tasks/`](https://github.com/nginxinc/ansible-role-nginx/blob/main/tasks/).
+  * The main code is found in [`tasks/`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/tasks/).
   * Variables can be found in [`defaults/main/`](https://github.com/nginxinc/ansible-role-nginx/blob/main/defaults/main/).
   * "Constant" variables can be found in [`vars/main.yml`](https://github.com/nginxinc/ansible-role-nginx/blob/main/vars/main.yml).
   * [Molecule](https://molecule.readthedocs.io/) tests can be found in [`molecule/`](https://github.com/nginxinc/ansible-role-nginx/blob/main/molecule/).
