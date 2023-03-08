@@ -85,8 +85,6 @@ autolabeler:
     files:
       - ".github/workflows/requirements/*"
 template: |
-  👾 *Help make the NGINX Management Suite Ansible role better by participating in our [survey](https://forms.office.com/Pages/ResponsePage.aspx?id=L_093Ttq0UCb4L-DJ9gcUKLQ7uTJaE1PitM_37KR881UM0NCWkY5UlE5MUYyWU1aTUcxV0NRUllJSC4u)!* 👾
-
   ## What's new in NGINX Management Suite's Ansible role $RESOLVED_VERSION!
 
   $CHANGES
