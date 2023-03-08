@@ -1,6 +1,6 @@
 ---
 nms_setup_vars: [
-  install, uninstall, upgrade,
+  install, upgrade,
 ]
 
 # This role defaults to an setup type.

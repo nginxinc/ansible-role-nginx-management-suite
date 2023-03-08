@@ -5,7 +5,7 @@
     - nms_validate
 
 - name: Setup NGINX Management Suite prerequisites
-  ansible.builtin.include_tasks: "{{ role_path }}/tasks/prerequisites/{{ ansible_facts['os_family'] | lower }}.yml"
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/prerequisites/prereq-{{ ansible_facts['os_family'] | lower }}.yml"
   tags:
     - nms_setup_certs
 

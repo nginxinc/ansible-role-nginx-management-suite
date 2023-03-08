@@ -25,12 +25,12 @@ Installing NMS requires the NMS certificate files to access the repository. Log 
 
 NMS requires an NGINX instance, either NGINX OSS or NGINX Plus as a frontend only. This role handles this by defining a dependency to the [NGINX Ansible Role](https://github.com/nginxinc/ansible-role-nginx), named **nginxinc.nginx**. Because of this dependance, you can set variables related to **nginxinc.nginx** when using this role. For example, `nginx_type` is an **nginxinc.nginx** variable that can be [set like how you would any other Ansible variable](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#where-to-set-variables). So if your playbook defines `nginx_type: plus`, the **nginxinc.nginx** role will install NGINX Plus. Refer to the [Ansible Role NGINX](https://github.com/nginxinc/ansible-role-nginx) for more details.
 
-Main difference between using NGINX OSS or NGINX Plus are supported [Authentication Options](https://docs.nginx.com/nginx-management-suite/admin-guides/access-control/configure-authentication/#auth-options).
+Main difference between using NGINX OSS or NGINX Plus depends on which [Authentication Options](https://docs.nginx.com/nginx-management-suite/admin-guides/access-control/configure-authentication/#auth-options) you plan to use.
 
 ### Ansible
 
-* This role is developed and tested with [maintained](https://docs.ansible.com/ansible/devel/reference_appendices/release_and_maintenance.html) versions of Ansible core (above `2.13`).
-* When using Ansible core, you will also need to install the following collections and **nginxinc.nginx** role:
+* This role is developed and tested with [maintained](https://docs.ansible.com/ansible/devel/reference_appendices/release_and_maintenance.html) versions of Ansible core (above `2.14`).
+* When using Ansible core, you will also need to install the following collections and the **nginxinc.nginx** role:
 * This role was developed and tested using **nginxinc.nginx** version **0.24.0**.
 
     ```yaml
@@ -98,6 +98,7 @@ Debian:
   - bullseye (11)
 Oracle Linux:
   - 7.4+
+  - 8
 Red Hat:
   - 7.4+
   - 8
