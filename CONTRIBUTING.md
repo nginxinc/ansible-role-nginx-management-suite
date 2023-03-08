@@ -27,7 +27,7 @@ Follow our [Installation Guide](https://github.com/nginxinc/ansible-role-nginx-m
   * The main code is found in [`tasks/`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/tasks/).
   * Variables can be found in [`defaults/main/`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/defaults/main/).
   * "Constant" variables can be found in [`vars/main.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/vars/main.yml).
-  * [Molecule](https://molecule.readthedocs.io/) tests can be found in [`molecule/`](https://github.com/nginxinc/ansible-role-nginx/blob/main/molecule/).
+  * [Molecule](https://molecule.readthedocs.io/) tests can be found in [`molecule/`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/molecule/).
   * CI/CD is done via GitHub actions using the workflow files found in [`.github/workflows/`](https://github.com/nginxinc/ansible-role-nginx/blob/main/.github/workflows/).
 
 
