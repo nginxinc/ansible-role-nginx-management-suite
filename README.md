@@ -30,26 +30,14 @@ Main difference between using NGINX OSS or NGINX Plus depends on which [Authenti
 ### Ansible
 
 * This role is developed and tested with [maintained](https://docs.ansible.com/ansible/devel/reference_appendices/release_and_maintenance.html) versions of Ansible core (above `2.14`).
-* When using Ansible core, you will also need to install the following collections and the **nginxinc.nginx** role:
 * This role was developed and tested using **nginxinc.nginx** version **0.24.0**.
+* When using this role, you will also need to install the following collections below. Additional information installing these collections is below in [Installation](#installation) section
+  * ansible.posix
+  * community.general
+  * community.crypto
+  * community.docker (Only required if you plan to use Molecule)
 
-    ```yaml
-    ---
-    roles:
-      - name: nginxinc.nms
-        version: 0.1.0
-    collections:
-      - name: ansible.posix
-        version: 1.5.1
-      - name: community.general
-        version: 6.4.0
-      - name: community.crypto
-        version: 2.11.0
-      - name: community.docker # Only required if you plan to use Molecule (see below)
-        version: 3.4.2
-    ```
 
-    **Note:** You can alternatively install the Ansible community distribution (what is known as the "old" Ansible) if you don't want to manage individual collections.
 * You will need to run this role as a root user using Ansible's `become` parameter. Make sure you have set up the appropriate permissions on your target hosts.
 * Instructions on how to install Ansible can be found in the [Ansible website](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#upgrading-ansible-from-version-2-9-and-older-to-version-2-10-or-later).
 
@@ -76,11 +64,36 @@ Main difference between using NGINX OSS or NGINX Plus depends on which [Authenti
 
 ### Ansible Galaxy
 
-Use `ansible-galaxy install nginxinc.nms_install` to install the latest stable release of the role on your system. Alternatively, if you have already installed the role, use `ansible-galaxy install -f nginxinc.nms_install` to update the role to the latest release.
+1. Create a yaml file, such as `requirements.yml`, with the following content below.
+    ```yaml
+    ---
+    roles:
+      - name: nginxinc.nms
+        version: 0.1.0
+    collections:
+      - name: ansible.posix
+        version: 1.5.1
+      - name: community.general
+        version: 6.4.0
+      - name: community.crypto
+        version: 2.11.0
+      - name: community.docker # Only required if you plan to use Molecule (see below)
+        version: 3.4.2
+    ```
+1. Run `ansible-galaxy install -r requirements.yml` to install this role along with the required collections. If you already have these installed but need to update to newer versions, use `ansible-galaxy install -fr requirements.yml`.
 
-### Git
+#### Using Latest Edge
 
-Use `git clone https://github.com/nginxinc/ansible-role-nginx-manangement-suite.git` to pull the latest edge commit of the role from GitHub.
+There is a couple methods if you want to use the latest edge from this role.
+
+1. Use the following snippet in your `requirement.yml`.
+    ```yaml
+    roles:
+      - src: https://github.com/nginxinc/ansible-role-nms.git
+        version: main
+    ```
+
+1. Use `git clone https://github.com/nginxinc/ansible-role-nms.git` to pull the latest edge commit of the role from GitHub.
 
 ## Platforms
 
@@ -135,7 +148,7 @@ Working functional playbook examples can be found in the **[`molecule/`](https:/
 | **[`plus/converge.yml`](https://github.com/nginxinc/ansible-role-nms/blob/main/molecule/plus/converge.yml)** | Install NGINX Plus and NMS |
 | **[`upgrade/converge.yml`](https://github.com/nginxinc/ansible-role-nms/blob/main/molecule/upgrade/converge.yml)** | Upgrade NMS |
 
-Do note that if you install this repository via Ansible Galaxy, you will have to replace the role variable in the sample playbooks from `ansible-role-nms` to `nginxinc.nms_install`.
+Do note that if you install this repository via Ansible Galaxy, you will have to replace the role variable in the sample playbooks from `ansible-role-nms` to `nginxinc.nms`.
 
 ## Other NGINX Ansible Collections and Roles
 
