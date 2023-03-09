@@ -1,0 +1,43 @@
+galaxy_info:
+  role_name: nms
+  author: nginxinc
+  description: Official Ansible role for installing NGINX Management Suite
+  company: F5, Inc.
+
+  license: Apache License, Version 2.0
+
+  min_ansible_version: "2.13"
+
+  platforms:
+    - name: Amazon Linux 2
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - buster
+        - bullseye
+    - name: EL
+      versions:
+        - "7"
+        - "8"
+        - "9"
+    - name: Ubuntu
+      versions:
+        - bionic
+        - focal
+        - jammy
+
+  galaxy_tags:
+    - nms
+    - development
+    - install
+
+dependencies:
+  - role: nginxinc.nginx
+    tags:
+      - nms_nginx_prerequisite
+
+collections:
+  - ansible.posix
+  - community.crypto
+  - community.general

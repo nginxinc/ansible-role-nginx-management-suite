@@ -11,6 +11,15 @@ Thumbs.db
 .DS_Store
 .vscode
 
+# Ansible specific #
+####################
+.cache
+*.retry
+
+# Python specific #
+###################
+__pycache__
+
 # Logs #
 ########
 *.log

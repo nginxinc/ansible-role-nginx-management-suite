@@ -1,0 +1,77 @@
+---
+nms_setup_vars: [
+  install, upgrade,
+]
+
+# This role defaults to an setup type.
+nms_default_setup: install
+
+# Setup type to package installation state map (internal variable)
+nms_state_vals:
+  install: present
+  uninstall: absent
+  upgrade: latest
+
+# Package installation state
+nms_state: "{{ nms_state_vals[nms_setup] | default(nms_state_vals[nms_default_setup]) }}"
+
+# Supported NMS distributions
+# https://docs.nginx.com/nginx-management-suite/overview/tech-specs/#supported-distributions
+nms_supported_distributions:
+  amazon:
+    name: Amazon Linux
+    versions: [2]
+    architectures: [x86_64]
+  centos:
+    name: CentOS
+    versions: [7]
+    architectures: [x86_64]
+  debian:
+    name: Debian
+    versions: [10, 11]
+    architectures: [x86_64]
+  oraclelinux:
+    name: Oracle Linux
+    versions: [7, 8]
+    architectures: [x86_64]
+  redhat:
+    name: Red Hat Enterprise Linux
+    versions: [7, 8, 9]
+    architectures: [x86_64]
+  ubuntu:
+    name: Ubuntu
+    versions: [18.04, 20.04, 22.04]
+    architectures: [x86_64]
+
+# Debian specific repo for NMS install
+nms_debian_signing_key_id: 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
+nms_debian_signing_key_keyring_path: /usr/share/keyrings/nginx-archive-keyring.gpg
+nms_debian_signing_key_repo: deb [signed-by={{ nms_debian_signing_key_keyring_path }}] https://pkgs.nginx.com/nms/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} nginx-plus
+
+# RPM specific repo for NMS install
+nms_centos_yum_repo: https://pkgs.nginx.com/nms/centos/$releasever/$basearch/
+nms_amazon_yum_repo: https://pkgs.nginx.com/nms/amzn2/$releasever/$basearch/
+# # For development purposes for disabling gpg check when installing on OS with RPM repo.
+# nms_gpgcheck: false
+
+# All NMS services.
+nms_services: [
+  nms, nms-core, nms-dpm, nms-ingestion, nms-integrations
+]
+
+nms_pip27: https://bootstrap.pypa.io/pip/2.7/get-pip.py
+
+# Clickhouse specific variables for this ansible role.
+## Debian specific variables for Clickhouse install.
+nms_clickhouse_debian_dependencies: [
+  apt-transport-https, ca-certificates, dirmngr,
+]
+nms_clickhouse_apt_keyserver: hkp://keyserver.ubuntu.com:80
+nms_clickhouse_apt_id: 3A9EA1193A97B548BE1457D48919F6BD2B48D754
+nms_clickhouse_apt_repo: deb https://packages.clickhouse.com/deb {{ nms_clickhouse_release_kind }} main
+
+## RedHat specific variables for Clickhouse install.
+nms_clickhouse_redhat_dependencies: [
+  yum-utils,
+]
+nms_clickhouse_yum_repo: https://packages.clickhouse.com/rpm/{{ nms_clickhouse_release_kind }}/

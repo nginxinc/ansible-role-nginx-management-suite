@@ -1,0 +1,29 @@
+---
+- name: (Debian/Ubuntu) Install required packages for ClickHouse
+  ansible.builtin.apt:
+    pkg: "{{ nms_clickhouse_debian_dependencies }}"
+
+- name: (Debian/Ubuntu) Add an apt key by id from a keyserver
+  ansible.builtin.apt_key:
+    keyserver: "{{ nms_clickhouse_apt_keyserver }}"
+    id: "{{ nms_clickhouse_apt_id }}"
+
+- name: (Debian/Ubuntu) Add Clickhouse repository to APT sources list
+  ansible.builtin.apt_repository:
+    repo: "{{ nms_clickhouse_apt_repo }}"
+    state: present
+    filename: clickhouse
+
+- name: (Debian/Ubuntu) Install ClickHouse
+  ansible.builtin.apt:
+    pkg:
+      - "clickhouse-server{{ (nms_clickhouse_version is not defined or nms_clickhouse_version == '') | ternary('', '=' + nms_clickhouse_version) }}"
+      - "clickhouse-client{{ (nms_clickhouse_version is not defined or nms_clickhouse_version == '') | ternary('', '=' + nms_clickhouse_version) }}"
+      - "clickhouse-common-static{{ (nms_clickhouse_version is not defined or nms_clickhouse_version == '') | ternary('', '=' + nms_clickhouse_version) }}"
+    update_cache: true
+
+- name: (Debian/Ubuntu) Start and enable ClickHouse
+  ansible.builtin.service:
+    state: started
+    name: clickhouse-server
+    enabled: true

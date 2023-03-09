@@ -1,0 +1,48 @@
+---
+name: Molecule CI/CD
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+    ignore-tags:
+      - "*"
+  schedule:
+    - cron: "0 0 1 * *"
+  workflow_dispatch:
+jobs:
+  molecule:
+    name: Molecule
+    runs-on: ubuntu-22.04
+    env:
+      NGINX_CRT: ${{ secrets.NGINX_CRT }}
+      NGINX_KEY: ${{ secrets.NGINX_KEY }}
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario:
+          - default
+          - plus
+          - upgrade
+    steps:
+      - name: Check out the codebase
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: Install Molecule dependencies
+        run: pip3 install -r .github/workflows/requirements/requirements_molecule.txt
+
+      - name: Install Ansible core dependencies
+        run: ansible-galaxy install -r .github/workflows/requirements/requirements_ansible.yml
+
+      - name: Run Molecule tests
+        run: molecule test -s ${{ matrix.scenario }}
+        env:
+          PY_COLORS: 1
+          ANSIBLE_FORCE_COLOR: 1

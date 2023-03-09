@@ -1,0 +1,15 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: Upgrade NMS
+      ansible.builtin.include_role:
+        name: ansible-role-nms
+      vars:
+        nms_setup: upgrade
+        nms_user_passwd: 'Password123'
+        nms_remove_certs: false
+        nginx_remove_license: false
+        nginx_license:
+          certificate: license/nginx-repo.crt
+          key: license/nginx-repo.key

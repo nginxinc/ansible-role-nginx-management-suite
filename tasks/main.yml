@@ -1,0 +1,35 @@
+---
+- name: Validate NGINX Management Suite
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/validate/validate.yml"
+  tags:
+    - nms_validate
+
+- name: Setup NGINX Management Suite prerequisites
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/prerequisites/prereq-{{ ansible_facts['os_family'] | lower }}.yml"
+  tags:
+    - nms_setup_certs
+
+- name: Install ClickHouse
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/clickhouse/install-{{ ansible_facts['os_family'] | lower }}.yml"
+  when: nms_clickhouse_install | bool
+  tags:
+    - nms_install_db
+
+- name: Install NGINX Management Suite
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/nms/install-{{ ansible_facts['os_family'] | lower }}.yml"
+  tags:
+    - install_nms
+
+- name: Create NMS password
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/extras/nms-password.yml"
+  tags:
+    - nms_config_password
+
+- name: Remove NMS Certificates
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/nms/remove-certs.yml"
+  when: nms_remove_certs | bool
+  tags:
+    - nms_cleanup
+
+- name: Restart NGINX Services (if needed)
+  ansible.builtin.meta: flush_handlers

@@ -1,0 +1,11 @@
+- name: (Debian) Install pip
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/prerequisites/pip{{ ansible_python['version']['major'] }}.yml"
+
+- name: (Debian) Setup NGINX Management Suite Repo Certs
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/prerequisites/setup-certs.yml"
+
+- name: (Debian) Import NGINX signing key from url
+  ansible.builtin.apt_key:
+    id: "{{ nms_debian_signing_key_id }}"
+    keyring: "{{ nms_debian_signing_key_keyring_path }}"
+    url: "https://nginx.org/keys/nginx_signing.key"
