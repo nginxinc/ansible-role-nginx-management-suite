@@ -1,5 +1,5 @@
 <!-- [![Ansible Galaxy](https://img.shields.io/badge/galaxy-nginxinc.nginx-5bbdbf.svg)](https://galaxy.ansible.com/nginxinc/nginx) -->
-[![Molecule CI/CD](https://github.com/nginxinc/ansible-role-nms/workflows/Molecule%20CI/CD/badge.svg)](https://github.com/nginxinc/ansible-role-nms/actions)
+[![Molecule CI/CD](https://github.com/nginxinc/ansible-role-nginx-management-suite/workflows/Molecule%20CI/CD/badge.svg)](https://github.com/nginxinc/ansible-role-nginx-management-suite/actions)
 [![License](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 # Ansible NGINX Management Suite Role
@@ -29,7 +29,7 @@ Main difference between using NGINX OSS or NGINX Plus depends on which [Authenti
 
 ### Ansible
 
-* This role is developed and tested with [maintained](https://docs.ansible.com/ansible/devel/reference_appendices/release_and_maintenance.html) versions of Ansible core (above `2.14`).
+* This role is developed and tested with [maintained](https://docs.ansible.com/ansible/devel/reference_appendices/release_and_maintenance.html) versions of Ansible core (above `2.12`).
 * This role was developed and tested using **nginxinc.nginx** version **0.24.0**.
 * When using this role, you will also need to install the following collections below. Additional information installing these collections is below in [Installation](#installation) section
   * ansible.posix
@@ -50,7 +50,7 @@ Main difference between using NGINX OSS or NGINX Plus depends on which [Authenti
 
 * Molecule is used to test the various functionalities of the role. The recommended version of Molecule to test this role is `4.0.1`.
 * Instructions on how to install Molecule can be found in the [Molecule website](https://molecule.readthedocs.io/en/latest/installation.html). *You will also need to install the Molecule Docker driver.*
-* To run the Molecule tests, you must copy your NGINX Plus license to the role's [`files/license`](https://github.com/nginxinc/ansible-role-nms/blob/main/files/license/) folder.
+* To run the Molecule tests, you must copy your NGINX Plus license to the role's [`files/license`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/files/license/) folder.
 
   You can alternatively add your NGINX Management Suite repository certificate and key to the local environment. Run the following commands to export these files as base64-encoded variables and execute the Molecule tests:
 
@@ -89,11 +89,11 @@ There is a couple methods if you want to use the latest edge from this role.
 1. Use the following snippet in your `requirement.yml`.
     ```yaml
     roles:
-      - src: https://github.com/nginxinc/ansible-role-nms.git
+      - src: https://github.com/nginxinc/ansible-role-nginx-management-suite.git
         version: main
     ```
 
-1. Use `git clone https://github.com/nginxinc/ansible-role-nms.git` to pull the latest edge commit of the role from GitHub.
+1. Use `git clone https://github.com/nginxinc/ansible-role-nginx-management-suite.git` to pull the latest edge commit of the role from GitHub.
 
 ## Platforms
 
@@ -126,29 +126,29 @@ Ubuntu:
 
 ## Role Variables
 
-This role has multiple variables. The descriptions and defaults for all these variables can be found in the **[`defaults/main/`](https://github.com/nginxinc/ansible-role-nms/blob/main/defaults/main/)** folder in the following files:
+This role has multiple variables. The descriptions and defaults for all these variables can be found in the **[`defaults/main/`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/defaults/main/)** folder in the following files:
 
 | Name | Description |
 | ---- | ----------- |
-| **[`main.yml`](https://github.com/nginxinc/ansible-role-nms/blob/main/defaults/main/main.yml)** | NMS installation variables |
+| **[`main.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/defaults/main/main.yml)** | NMS installation variables |
 
-Similarly, descriptions and defaults for preset variables can be found in the **[`vars/`](https://github.com/nginxinc/ansible-role-nms/blob/main/vars/)** folder in the following files:
+Similarly, descriptions and defaults for preset variables can be found in the **[`vars/`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/vars/)** folder in the following files:
 
 | Name | Description |
 | ---- | ----------- |
-| **[`main.yml`](https://github.com/nginxinc/ansible-role-nms/blob/main/vars/main.yml)** | List of supported NMS installation variables |
+| **[`main.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/vars/main.yml)** | List of supported NMS installation variables |
 
 ## Example Playbooks
 
-Working functional playbook examples can be found in the **[`molecule/`](https://github.com/nginxinc/ansible-role-nms/blob/main/molecule/)** folder in the following files:
+Working functional playbook examples can be found in the **[`molecule/`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/molecule/)** folder in the following files:
 
 | Name | Description |
 | ---- | ----------- |
-| **[`default/converge.yml`](https://github.com/nginxinc/ansible-role-nms/blob/main/molecule/default/converge.yml)** | Install NGINX OSS and NMS |
-| **[`plus/converge.yml`](https://github.com/nginxinc/ansible-role-nms/blob/main/molecule/plus/converge.yml)** | Install NGINX Plus and NMS |
-| **[`upgrade/converge.yml`](https://github.com/nginxinc/ansible-role-nms/blob/main/molecule/upgrade/converge.yml)** | Upgrade NMS |
+| **[`default/converge.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/molecule/default/converge.yml)** | Install NGINX OSS and NMS |
+| **[`plus/converge.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/molecule/plus/converge.yml)** | Install NGINX Plus and NMS |
+| **[`upgrade/converge.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/molecule/upgrade/converge.yml)** | Upgrade NMS |
 
-Do note that if you install this repository via Ansible Galaxy, you will have to replace the role variable in the sample playbooks from `ansible-role-nms` to `nginxinc.nms`.
+Do note that if you install this repository via Ansible Galaxy, you will have to replace the role variable in the sample playbooks from `ansible-role-nginx-management-suite` to `nginxinc.nms`.
 
 ## Other NGINX Ansible Collections and Roles
 
@@ -160,7 +160,7 @@ You can find the Ansible NGINX Unit role to install NGINX Unit [here](https://gi
 
 ## License
 
-[Apache License, Version 2.0](https://github.com/nginxinc/ansible-role-nms/blob/main/LICENSE)
+[Apache License, Version 2.0](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/LICENSE)
 
 ## Author Information
 

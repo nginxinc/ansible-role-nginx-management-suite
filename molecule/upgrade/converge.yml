@@ -4,7 +4,7 @@
   tasks:
     - name: Upgrade NMS
       ansible.builtin.include_role:
-        name: ansible-role-nms
+        name: ansible-role-nginx-management-suite
       vars:
         nms_setup: upgrade
         nms_user_passwd: 'Password123'
