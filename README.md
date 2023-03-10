@@ -68,7 +68,7 @@ Main difference between using NGINX OSS or NGINX Plus depends on which [Authenti
     ```yaml
     ---
     roles:
-      - name: nginxinc.nms
+      - name: nginxinc.nginx_management_suite
         version: 0.1.0
     collections:
       - name: ansible.posix
