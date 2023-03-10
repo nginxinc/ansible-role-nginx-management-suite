@@ -126,13 +126,13 @@ Ubuntu:
 
 ## Role Variables
 
-This role has multiple variables. The descriptions and defaults for all these variables can be found in the **[`defaults/main/`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/defaults/main/)** folder in the following files:
+This role has multiple variables. The descriptions and defaults for all these variables can be found in the **[`defaults/main/`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/defaults/)** folder in the following file:
 
 | Name | Description |
 | ---- | ----------- |
-| **[`main.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/defaults/main/main.yml)** | NMS installation variables |
+| **[`main.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/defaults/main.yml)** | NMS installation variables |
 
-Similarly, descriptions and defaults for preset variables can be found in the **[`vars/`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/vars/)** folder in the following files:
+Similarly, descriptions and defaults for preset variables can be found in the **[`vars/`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/vars/)** folder in the following file:
 
 | Name | Description |
 | ---- | ----------- |
