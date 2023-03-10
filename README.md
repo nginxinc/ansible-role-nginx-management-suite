@@ -126,27 +126,27 @@ Ubuntu:
 
 ## Role Variables
 
-This role has multiple variables. The descriptions and defaults for all these variables can be found in the **[`defaults/`](defaults/)** folder in the following file:
+This role has multiple variables. The descriptions and defaults for all these variables can be found in the **[`defaults/`](https://github.com/nginxinc/ansible-role-nginx-management-suite/tree/main/defaults/)** folder in the following file:
 
 | Name | Description |
 | ---- | ----------- |
-| **[`main.yml`](defaults/main.yml)** | NMS installation variables |
+| **[`main.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/defaults/main.yml)** | NMS installation variables |
 
-Similarly, descriptions and defaults for preset variables can be found in the **[`vars/`](vars/)** folder in the following file:
+Similarly, descriptions and defaults for preset variables can be found in the **[`vars/`](https://github.com/nginxinc/ansible-role-nginx-management-suite/tree/main/vars/)** folder in the following file:
 
 | Name | Description |
 | ---- | ----------- |
-| **[`main.yml`](vars/main.yml)** | List of supported NMS installation variables |
+| **[`main.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/vars/main.yml)** | List of supported NMS installation variables |
 
 ## Example Playbooks
 
-Working functional playbook examples can be found in the **[`molecule/`](molecule/)** folder in the following files:
+Working functional playbook examples can be found in the **[`molecule/`](https://github.com/nginxinc/ansible-role-nginx-management-suite/tree/main/molecule/)** folder in the following files:
 
 | Name | Description |
 | ---- | ----------- |
-| **[`default/converge.yml`](molecule/default/converge.yml)** | Install NGINX OSS and NMS |
-| **[`plus/converge.yml`](molecule/plus/converge.yml)** | Install NGINX Plus and NMS |
-| **[`upgrade/converge.yml`](molecule/upgrade/converge.yml)** | Upgrade NMS |
+| **[`default/converge.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/molecule/default/converge.yml)** | Install NGINX OSS and NMS |
+| **[`plus/converge.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/molecule/plus/converge.yml)** | Install NGINX Plus and NMS |
+| **[`upgrade/converge.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/molecule/upgrade/converge.yml)** | Upgrade NMS |
 
 Do note that if you install this repository via Ansible Galaxy, you will have to replace the role variable in the sample playbooks from `ansible-role-nms` to `nginxinc.nms`.
 
@@ -160,7 +160,7 @@ You can find the Ansible NGINX Unit role to install NGINX Unit [here](https://gi
 
 ## License
 
-[Apache License, Version 2.0](LICENSE)
+[Apache License, Version 2.0](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/LICENSE)
 
 ## Author Information
 
