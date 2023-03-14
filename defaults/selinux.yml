@@ -1,6 +1,0 @@
----
-# Set SELinux enforcing for NMS (Red Hat only)
-nms_selinux: true
-
-# Enable 'enforcing' mode if true and 'permissive' mode if false (audit only, no enforcing) globally (only works with nms_selinux: true)
-nginx_selinux_enforcing: true
