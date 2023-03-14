@@ -57,3 +57,6 @@
   loop:
     - https
     - http
+
+- name: (CentOS/Oracle Linux/RHEL) Setup SELinux
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/nms/selinux-nms.yml"
