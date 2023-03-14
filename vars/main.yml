@@ -44,23 +44,23 @@ nms_supported_distributions:
     architectures: [x86_64]
 
 nms_selinux_files:
-      - /usr/bin/nms-core
-      - /usr/bin/nms-dpm
-      - /usr/bin/nms-ingestion
-      - /usr/bin/nms-integrations
-      - /usr/lib/systemd/system/nms.service
-      - /usr/lib/systemd/system/nms-core.service
-      - /usr/lib/systemd/system/nms-dpm.service
-      - /usr/lib/systemd/system/nms-ingestion.service
-      - /usr/lib/systemd/system/nms-integrations.service
-      - /var/lib/nms/modules/manager.json
-      - /var/lib/nms/modules.json
-      - /var/lib/nms/streaming
-      - /var/lib/nms
-      - /var/lib/nms/dqlite
-      - /var/run/nms
-      - /var/lib/nms/modules
-      - /var/log/nms
+  - /usr/bin/nms-core
+  - /usr/bin/nms-dpm
+  - /usr/bin/nms-ingestion
+  - /usr/bin/nms-integrations
+  - /usr/lib/systemd/system/nms.service
+  - /usr/lib/systemd/system/nms-core.service
+  - /usr/lib/systemd/system/nms-dpm.service
+  - /usr/lib/systemd/system/nms-ingestion.service
+  - /usr/lib/systemd/system/nms-integrations.service
+  - /var/lib/nms/modules/manager.json
+  - /var/lib/nms/modules.json
+  - /var/lib/nms/streaming
+  - /var/lib/nms
+  - /var/lib/nms/dqlite
+  - /var/run/nms
+  - /var/lib/nms/modules
+  - /var/log/nms
 
 # Debian specific repo for NMS install
 nms_debian_signing_key_id: 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
