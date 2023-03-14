@@ -1,0 +1,28 @@
+- name: Set up SELinux Configuration for NMS
+  when:
+    - nms_selinux | bool
+    - "'selinux' in ansible_facts"
+    - ansible_facts['os_family'] == 'RedHat'
+  block:
+    - name: Checking if 'nms' SELinux policy is applied
+      ansible.builtin.command: semodule -l
+      register: selinux
+      changed_when: '"nms" not in selinux.stdout_lines'
+
+    - name: Load SELinux Policy for NMS
+      ansible.builtin.command: semodule -n -i /usr/share/selinux/packages/nms.pp
+      when: '"nms" not in selinux.stdout_lines'
+
+    - name: Reload Policy
+      ansible.builtin.command: /usr/sbin/load_policy
+      changed_when: false
+
+    - name: Apply new SELinux file context to filesystem
+      ansible.builtin.command: "restorecon -F -R {{ item }}"
+      loop: "{{ nms_selinux_files }}"
+      changed_when: false
+
+    - name: Set SELinux mode
+      ansible.posix.selinux:
+        state: "{{ nms_selinux_enforcing | bool | ternary('enforcing', 'permissive') }}"
+        policy: targeted
