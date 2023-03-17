@@ -26,6 +26,7 @@ jobs:
           - default
           - plus
           - upgrade
+          - modules
     steps:
       - name: Check out the codebase
         uses: actions/checkout@v3
