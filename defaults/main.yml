@@ -28,3 +28,11 @@ nms_clickhouse_release_kind: lts
 
 ## By default, NMS certificates are removed by default
 nms_remove_certs: true
+
+## By default, no NMS modules are installed.
+## If version is not set, the latest version is installed.
+## If setup is not set, the value from the nms_setup is used.
+nms_modules: []
+  # - name: nms-api-connectivity-manager
+  #   version: ''
+  #   setup: install
