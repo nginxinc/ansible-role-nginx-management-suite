@@ -4,11 +4,6 @@
     - "'selinux' in ansible_facts"
     - ansible_facts['os_family'] == 'RedHat'
   block:
-    - name: Verify 'policycoreutils' is installed
-      ansible.builtin.yum:
-        name: policycoreutils
-        state: present
-
     - name: Checking if 'nms' SELinux policy is applied
       ansible.builtin.command: semodule -l
       register: selinux
