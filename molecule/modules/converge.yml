@@ -15,4 +15,5 @@
           certificate: license/nginx-repo.crt
           key: license/nginx-repo.key
         nms_modules:
-          - name: nms-api-connectivity-manager
+          - name: acm
+          - name: sm

@@ -39,7 +39,7 @@
         - nms-integrations
         - nms-acm
 
-    - name: Verify NGINX Management Suite is up and running
+    - name: Verify NGINX Management Suite modules are loaded
       ansible.builtin.uri:
         url: https://localhost/modules
         status_code: 200
@@ -47,4 +47,4 @@
         return_content: yes
         body_format: json
       register: response
-      failed_when: '"API Connectivity Manager" not in (response.json | map(attribute="name") | list)'
+      failed_when: '("API Connectivity Manager" and "Security Monitoring") not in (response.json | map(attribute="name") | list)'

@@ -29,7 +29,7 @@
 
 - name: (Debian/Ubuntu) NMS Modules
   ansible.builtin.apt:
-    name: "{{ item.name }}{{ '' if (item.version is not defined or item.version == '') else '=' + item.version }}"
+    name: "{{ nms_module_vals[item.name]['package_name'] }}{{ '' if (item.version is not defined or item.version == '') else '=' + item.version }}"
     update_cache: true
     allow_downgrade: "{{ omit if ansible_version.full is version('2.12', '<') else true }}"
     state: "{{ nms_state if item.setup is not defined else nms_state_vals[item.setup] }}"
