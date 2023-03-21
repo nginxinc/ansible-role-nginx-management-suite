@@ -192,21 +192,6 @@ platforms:
       - name: bridge
       - name: hostname_network
     command: /sbin/init
-  - name: ubuntu-jammy
-    image: ubuntu:jammy
-    platform: x86_64
-    dockerfile: ../common/Dockerfile.j2
-    privileged: true
-    cgroupns_mode: host
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-    networks:
-      - name: bridge
-      - name: hostname_network
-    groups:
-      - data
-      - data_r23
-    command: /sbin/init
 provisioner:
   options:
     vvv: true

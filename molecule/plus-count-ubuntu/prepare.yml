@@ -108,7 +108,7 @@
         nginx_selinux: true
         nginx_selinux_enforcing: false
         nginx_type: plus
-        nginx_version: =25*
+        nginx_version: =23*
         nginx_remove_license: false
         nginx_license:
           certificate: "{{ playbook_dir }}/../../files/license/nginx-repo.crt"
