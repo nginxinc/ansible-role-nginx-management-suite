@@ -26,6 +26,8 @@ jobs:
           - default
           - plus
           - upgrade
+          - plus-count-ubuntu
+          - plus-count-rhel
     steps:
       - name: Check out the codebase
         uses: actions/checkout@v3

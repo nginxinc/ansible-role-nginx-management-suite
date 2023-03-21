@@ -1,0 +1,131 @@
+---
+- name: Prepare License Files
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Create ephemeral license certificate file from b64 decoded env var # noqa template-instead-of-copy
+      ansible.builtin.copy:
+        content: "{{ lookup('env', 'NGINX_CRT') | b64decode }}"
+        dest: ../../files/license/nginx-repo.crt
+        force: false
+        mode: "0444"
+
+    - name: Create ephemeral license key file from b64 decoded env var # noqa template-instead-of-copy
+      ansible.builtin.copy:
+        content: "{{ lookup('env', 'NGINX_KEY') | b64decode }}"
+        dest: ../../files/license/nginx-repo.key
+        force: false
+        mode: "0444"
+
+- name: Prepare NGINX Plus Data Hosts R28
+  hosts: data_r28
+  tasks:
+    - name: Install NGINX Plus
+      ansible.builtin.include_role:
+        name: nginxinc.nginx
+      vars:
+        nginx_selinux: true
+        nginx_selinux_enforcing: false
+        nginx_type: plus
+        nginx_version: -28*
+        nginx_remove_license: false
+        nginx_license:
+          certificate: "{{ playbook_dir }}/../../files/license/nginx-repo.crt"
+          key: "{{ playbook_dir }}/../../files/license/nginx-repo.key"
+
+- name: Prepare NGINX Plus Data Hosts R27
+  hosts: data_r27
+  tasks:
+    - name: Install NGINX Plus
+      ansible.builtin.include_role:
+        name: nginxinc.nginx
+      vars:
+        nginx_selinux: true
+        nginx_selinux_enforcing: false
+        nginx_type: plus
+        nginx_version: -27*
+        nginx_remove_license: false
+        nginx_license:
+          certificate: "{{ playbook_dir }}/../../files/license/nginx-repo.crt"
+          key: "{{ playbook_dir }}/../../files/license/nginx-repo.key"
+
+- name: Prepare NGINX Plus Data Hosts R26
+  hosts: data_r26
+  tasks:
+    - name: Install NGINX Plus
+      ansible.builtin.include_role:
+        name: nginxinc.nginx
+      vars:
+        nginx_selinux: true
+        nginx_selinux_enforcing: false
+        nginx_type: plus
+        nginx_version: -26*
+        nginx_remove_license: false
+        nginx_license:
+          certificate: "{{ playbook_dir }}/../../files/license/nginx-repo.crt"
+          key: "{{ playbook_dir }}/../../files/license/nginx-repo.key"
+
+- name: Prepare NGINX Plus Data Hosts R25
+  hosts: data_r25
+  tasks:
+    - name: Install NGINX Plus
+      ansible.builtin.include_role:
+        name: nginxinc.nginx
+      vars:
+        nginx_selinux: true
+        nginx_selinux_enforcing: false
+        nginx_type: plus
+        nginx_version: =25*
+        nginx_remove_license: false
+        nginx_license:
+          certificate: "{{ playbook_dir }}/../../files/license/nginx-repo.crt"
+          key: "{{ playbook_dir }}/../../files/license/nginx-repo.key"
+
+
+- name: Prepare NGINX Plus Data Hosts R24
+  hosts: data_r24
+  tasks:
+    - name: Install NGINX Plus
+      ansible.builtin.include_role:
+        name: nginxinc.nginx
+      vars:
+        nginx_selinux: true
+        nginx_selinux_enforcing: false
+        nginx_type: plus
+        nginx_version: =24*
+        nginx_remove_license: false
+        nginx_license:
+          certificate: "{{ playbook_dir }}/../../files/license/nginx-repo.crt"
+          key: "{{ playbook_dir }}/../../files/license/nginx-repo.key"
+
+- name: Prepare NGINX Plus Data Hosts R23
+  hosts: data_r23
+  tasks:
+    - name: Install NGINX Plus
+      ansible.builtin.include_role:
+        name: nginxinc.nginx
+      vars:
+        nginx_selinux: true
+        nginx_selinux_enforcing: false
+        nginx_type: plus
+        nginx_version: =25*
+        nginx_remove_license: false
+        nginx_license:
+          certificate: "{{ playbook_dir }}/../../files/license/nginx-repo.crt"
+          key: "{{ playbook_dir }}/../../files/license/nginx-repo.key"
+
+- name: Prepare NGINX Plus Data Hosts R8
+  hosts: data_r8
+  tasks:
+    - name: Install NGINX Plus
+      ansible.builtin.include_role:
+        name: nginxinc.nginx
+      vars:
+        nginx_selinux: true
+        nginx_selinux_enforcing: false
+        nginx_type: plus
+        nginx_version: -8*
+        nginx_remove_license: false
+        nginx_license:
+          certificate: "{{ playbook_dir }}/../../files/license/nginx-repo.crt"
+          key: "{{ playbook_dir }}/../../files/license/nginx-repo.key"
