@@ -1,0 +1,110 @@
+---
+- name: Prepare License Files
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Create ephemeral license certificate file from b64 decoded env var # noqa template-instead-of-copy
+      ansible.builtin.copy:
+        content: "{{ lookup('env', 'NGINX_CRT') | b64decode }}"
+        dest: ../../files/license/nginx-repo.crt
+        force: false
+        mode: "0444"
+
+    - name: Create ephemeral license key file from b64 decoded env var # noqa template-instead-of-copy
+      ansible.builtin.copy:
+        content: "{{ lookup('env', 'NGINX_KEY') | b64decode }}"
+        dest: ../../files/license/nginx-repo.key
+        force: false
+        mode: "0444"
+
+- name: Prepare NGINX Plus Data Hosts R27
+  hosts: data_r27
+  tasks:
+    - name: Install NGINX Plus
+      ansible.builtin.include_role:
+        name: nginxinc.nginx
+      vars:
+        nginx_selinux: true
+        nginx_selinux_enforcing: false
+        nginx_type: plus
+        nginx_version: -27*
+        nginx_remove_license: false
+        nginx_license:
+          certificate: "{{ playbook_dir }}/../../files/license/nginx-repo.crt"
+          key: "{{ playbook_dir }}/../../files/license/nginx-repo.key"
+
+- name: Prepare NGINX Plus Data Hosts R25
+  hosts: data_r25
+  tasks:
+    - name: Install NGINX Plus
+      ansible.builtin.include_role:
+        name: nginxinc.nginx
+      vars:
+        nginx_selinux: true
+        nginx_selinux_enforcing: false
+        nginx_type: plus
+        nginx_version: =25*
+        nginx_remove_license: false
+        nginx_license:
+          certificate: "{{ playbook_dir }}/../../files/license/nginx-repo.crt"
+          key: "{{ playbook_dir }}/../../files/license/nginx-repo.key"
+
+- name: Install NMS Playbook
+  hosts: nms
+  tasks:
+    - name: Install NMS
+      ansible.builtin.include_role:
+        name: ansible-role-nginx-management-suite
+      vars:
+        nms_setup: install
+        nms_version: 2.7.0*
+        nms_user_passwd: 'Password123'
+        nginx_selinux: true
+        nginx_selinux_enforcing: false
+        nginx_type: plus
+        nms_remove_certs: false
+        nginx_remove_license: false
+        nginx_license:
+          certificate: license/nginx-repo.crt
+          key: license/nginx-repo.key
+
+- name: Install NGINX Agent Playbook
+  hosts: data
+  vars:
+    nms_fqdn: "{{ groups.nms[0] }}"
+    nms_validate_certs: false
+    nms_agent_advanced_metrics: false
+
+  tasks:
+    - name: Install NGINX Agent on NGINX Plus Hosts
+      ansible.builtin.include_role:
+        name: nginxinc.nginx_management_suite.nms_agent_config
+
+- name: Verify NGINX Count
+  hosts: nms
+  vars:
+    nms_fqdn: "{{ groups.nms[0] }}"
+    nms_validate_certs: false
+    nms_api_version: v1
+    nms_user_name: "admin"
+    nms_user_passwd: "Password123"
+
+  tasks:
+    - name: Setup Authentication with NMS
+      ansible.builtin.include_role:
+        name: nginxinc.nginx_management_suite.nms_authenticate
+
+    - name: Getting NGINX Plus count
+      ansible.builtin.uri:
+        url: "https://{{ nms_fqdn }}/api/platform/{{ nms_api_version }}/inventory"
+        method: GET
+        status_code:
+          - 200
+        validate_certs: false
+        headers: "{{ nms_auth_headers }}"
+      register: nginx_count
+      until:
+        - nginx_count['json']['aggregatedNginxPlusCount'] is defined
+        - (nginx_count['json']['aggregatedNginxPlusCount']) == (groups['data'] | length)
+      retries: 20
+      delay: 10

@@ -1,0 +1,30 @@
+---
+- name: Install NMS Playbook
+  hosts: nms
+  tasks:
+    - name: Install NMS
+      ansible.builtin.include_role:
+        name: ansible-role-nginx-management-suite
+      vars:
+        nms_setup: install
+        nms_user_passwd: 'Password123'
+        nginx_selinux: true
+        nginx_selinux_enforcing: false
+        nginx_type: plus
+        nms_remove_certs: false
+        nginx_remove_license: false
+        nginx_license:
+          certificate: license/nginx-repo.crt
+          key: license/nginx-repo.key
+
+- name: Install NGINX Agent Playbook
+  hosts: data
+  vars:
+    nms_fqdn: "{{ groups.nms[0] }}"
+    nms_validate_certs: false
+    nms_agent_advanced_metrics: false
+
+  tasks:
+    - name: Install NGINX Agent on NGINX Plus Hosts
+      ansible.builtin.include_role:
+        name: nginxinc.nginx_management_suite.nms_agent_config

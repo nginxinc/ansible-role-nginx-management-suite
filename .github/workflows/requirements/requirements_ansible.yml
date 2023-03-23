@@ -11,3 +11,6 @@ collections:
     version: 2.11.0
   - name: community.docker # Only required if you plan to use Molecule
     version: 3.4.2
+  - name: https://github.com/TuxInvader/ansible_collection_nginx_management_suite.git
+    type: git
+    version: main
