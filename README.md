@@ -1,4 +1,4 @@
-<!-- [![Ansible Galaxy](https://img.shields.io/badge/galaxy-nginxinc.nginx-5bbdbf.svg)](https://galaxy.ansible.com/nginxinc/nginx) -->
+<!-- [![Ansible Galaxy](https://img.shields.io/badge/galaxy-nginxinc.nginx-5bbdbf.svg)](https://galaxy.ansible.com/nginxinc/nginx_management_suite) -->
 [![Molecule CI/CD](https://github.com/nginxinc/ansible-role-nginx-management-suite/workflows/Molecule%20CI/CD/badge.svg)](https://github.com/nginxinc/ansible-role-nginx-management-suite/actions)
 [![License](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
@@ -15,7 +15,7 @@ This role only installs NGINX Management Suite (NMS).
 
 ### NGINX Management Suite Certificate Files
 
-Installing NMS requires the NMS certificate files to access the repository. Log in to [MyF5](https://account.f5.com/myf5) or follow the link in the trial activation email to download the NMS repo .crt and .key files:
+Installing NMS requires the NMS certificate files to access the repository. Log in to [MyF5](https://account.f5.com/myf5) or follow the link in the trial activation email to download the NMS repo **.crt** and **.key** files:
 * nginx-mgmt-suite-trial.key
 * nginx-mgmt-suite-trial.crt
 
@@ -23,34 +23,33 @@ Installing NMS requires the NMS certificate files to access the repository. Log 
 
 ### NGINX Instance
 
-NMS requires an NGINX instance, either NGINX OSS or NGINX Plus as a frontend only. This role handles this by defining a dependency to the [NGINX Ansible Role](https://github.com/nginxinc/ansible-role-nginx), named **nginxinc.nginx**. Because of this dependance, you can set variables related to **nginxinc.nginx** when using this role. For example, `nginx_type` is an **nginxinc.nginx** variable that can be [set like how you would any other Ansible variable](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#where-to-set-variables). So if your playbook defines `nginx_type: plus`, the **nginxinc.nginx** role will install NGINX Plus. Refer to the [Ansible Role NGINX](https://github.com/nginxinc/ansible-role-nginx) for more details.
+NMS requires an NGINX instance, either NGINX OSS or NGINX Plus as a frontend only. This role handles this by defining a dependency to the [NGINX Ansible Role](https://github.com/nginxinc/ansible-role-nginx), named **nginxinc.nginx**. Because of this dependance, you can set variables related to **nginxinc.nginx** when using this role. For example, `nginx_type` is an **nginxinc.nginx** variable that can be [set like how you would any other Ansible variable](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#where-to-set-variables). So if your playbook defines `nginx_type: plus`, this NMS role will call the **nginxinc.nginx** role which will install NGINX Plus. Refer to the [Ansible Role NGINX](https://github.com/nginxinc/ansible-role-nginx) for more details.
 
-Main difference between using NGINX OSS or NGINX Plus depends on which [Authentication Options](https://docs.nginx.com/nginx-management-suite/admin-guides/access-control/configure-authentication/#auth-options) you plan to use.
+Main difference between using NGINX OSS or NGINX Plus depends on which [Authentication Option](https://docs.nginx.com/nginx-management-suite/admin-guides/access-control/configure-authentication/#auth-options) you plan to use.
 
 ### Ansible
 
 * This role is developed and tested with [maintained](https://docs.ansible.com/ansible/devel/reference_appendices/release_and_maintenance.html) versions of Ansible core (above `2.12`).
 * This role was developed and tested using **nginxinc.nginx** version **0.24.0**.
-* When using this role, you will also need to install the following collections below. Additional information installing these collections is below in [Installation](#installation) section
+* When using this role, you will also need to install the following collections below. Additional information installing these collections is below in the [Installation](#installation) section.
   * ansible.posix
   * community.general
   * community.crypto
   * community.docker (Only required if you plan to use Molecule)
-
 
 * You will need to run this role as a root user using Ansible's `become` parameter. Make sure you have set up the appropriate permissions on your target hosts.
 * Instructions on how to install Ansible can be found in the [Ansible website](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#upgrading-ansible-from-version-2-9-and-older-to-version-2-10-or-later).
 
 ### Jinja2
 
-* This role uses Jinja2 templates. Ansible core installs Jinja2 by default, but depending on your install and/or upgrade path, you might be running an outdated version of Jinja2. The minimum version of Jinja2 required for the role to properly function is `3.1`.
+* This role uses Jinja2 templates. Ansible core installs Jinja2 by default, but depending on your install and/or upgrade path, you might be running an outdated version. The minimum version of Jinja2 required for the role to properly function is `3.1`.
 * Instructions on how to install Jinja2 can be found in the [Jinja2 website](https://jinja.palletsprojects.com/en/2.11.x/intro/#installation).
 
 ### Molecule (Optional)
 
 * Molecule is used to test the various functionalities of the role. The recommended version of Molecule to test this role is `4.0.1`.
 * Instructions on how to install Molecule can be found in the [Molecule website](https://molecule.readthedocs.io/en/latest/installation.html). *You will also need to install the Molecule Docker driver.*
-* To run the Molecule tests, you must copy your NGINX Plus license to the role's [`files/license`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/files/license/) folder.
+* To run the Molecule tests, you must copy your NMS license to the role's [`files/license`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/files/license/) folder.
 
   You can alternatively add your NGINX Management Suite repository certificate and key to the local environment. Run the following commands to export these files as base64-encoded variables and execute the Molecule tests:
 
@@ -62,7 +61,7 @@ Main difference between using NGINX OSS or NGINX Plus depends on which [Authenti
 
 ## Installation
 
-### Ansible Galaxy
+### Installing NMS Role and Dependencies using Ansible Galaxy
 
 1. Create a yaml file, such as `requirements.yml`, with the following content below.
     ```yaml
@@ -82,7 +81,7 @@ Main difference between using NGINX OSS or NGINX Plus depends on which [Authenti
     ```
 1. Run `ansible-galaxy install -r requirements.yml` to install this role along with the required collections. If you already have these installed but need to update to newer versions, use `ansible-galaxy install -fr requirements.yml`.
 
-#### Using Latest Edge
+#### Using Latest Edge of NMS Ansible Role
 
 There is a couple methods if you want to use the latest edge from this role.
 
@@ -148,7 +147,31 @@ Working functional playbook examples can be found in the **[`molecule/`](https:/
 | **[`plus/converge.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/molecule/plus/converge.yml)** | Install NGINX Plus and NMS |
 | **[`upgrade/converge.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/molecule/upgrade/converge.yml)** | Upgrade NMS |
 
-Do note that if you install this repository via Ansible Galaxy, you will have to replace the role variable in the sample playbooks from `ansible-role-nginx-management-suite` to `nginxinc.nms`.
+Do note that if you install this repository via Ansible Galaxy, you will have to replace the role variable in the sample playbooks from `ansible-role-nginx-management-suite` to `nginxinc.nginx_management_suite`.
+
+## NGINX Plus Counting
+
+You can use this role to help count the number of NGINX Plus instance you have.
+
+### Requirement
+
+You will also need to install the following collection in order to use the example playbooks for counting NGINX Plus instances.
+```yaml
+collections:
+  - name: https://github.com/TuxInvader/ansible_collection_nginx_management_suite.git
+    type: git
+    version: main
+```
+
+### Example NGINX Plus Count Playbook
+
+Example playbooks are also tested as a part of this role and can be found in the table below.
+
+| Name | Description |
+| ---- | ----------- |
+| **[`plus-count-ubuntu/converge.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/molecule/plus-count-ubuntu/converge.yml)** | Install NMS and NGINX Agent on NGINX Plus instances using an Ubuntu NMS Host |
+| **[`plus-count-rhel/converge.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/molecule/plus-count-rhel/converge.yml)** | Install NMS and NGINX Agent on NGINX Plus instances using a RHEL NMS Host |
+| **[`plus-count-upgrade/converge.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/molecule/plus-count-rhel/converge.yml)** | Upgrade NMS and NGINX Agent on NGINX Plus instances using aN Ubuntu NMS Host |
 
 ## Other NGINX Ansible Collections and Roles
 

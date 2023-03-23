@@ -1,0 +1,29 @@
+---
+- name: Verify NGINX Count
+  hosts: nms
+  vars:
+    nms_fqdn: "{{ groups.nms[0] }}"
+    nms_validate_certs: false
+    nms_api_version: v1
+    nms_user_name: "admin"
+    nms_user_passwd: "Password123"
+
+  tasks:
+    - name: Setup Authentication with NMS
+      ansible.builtin.include_role:
+        name: nginxinc.nginx_management_suite.nms_authenticate
+
+    - name: Getting NGINX Plus count
+      ansible.builtin.uri:
+        url: "https://{{ nms_fqdn }}/api/platform/{{ nms_api_version }}/inventory"
+        method: GET
+        status_code:
+          - 200
+        validate_certs: false
+        headers: "{{ nms_auth_headers }}"
+      register: nginx_count
+      until:
+        - nginx_count['json']['aggregatedNginxPlusCount'] is defined
+        - (nginx_count['json']['aggregatedNginxPlusCount']) == (groups['data'] | length)
+      retries: 20
+      delay: 10

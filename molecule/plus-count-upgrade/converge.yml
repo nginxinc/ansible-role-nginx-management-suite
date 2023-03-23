@@ -1,0 +1,47 @@
+---
+- name: Upgrade NMS Playbook
+  hosts: nms
+  tasks:
+    - name: Upgrade NMS
+      ansible.builtin.include_role:
+        name: ansible-role-nginx-management-suite
+      vars:
+        nms_setup: upgrade
+        nms_user_passwd: 'Password123'
+        nginx_selinux: true
+        nginx_selinux_enforcing: false
+        nginx_type: plus
+        nms_remove_certs: false
+        nginx_remove_license: false
+        nginx_license:
+          certificate: license/nginx-repo.crt
+          key: license/nginx-repo.key
+
+- name: Upgrade NGINX Agent Playbook
+  hosts: data
+  vars:
+    nms_fqdn: "{{ groups.nms[0] }}"
+    nms_validate_certs: false
+    nms_agent_advanced_metrics: false
+
+  tasks:
+    - name: Stopping nginx-agent
+      ansible.builtin.systemd:
+        name: nginx-agent
+        state: stopped
+  
+    - name: (RedHat) Upgrading nginx-agent
+      ansible.builtin.yum:
+        name: nginx-agent
+        state: latest
+        update_only: true
+        update_cache: true
+      when: ansible_facts['os_family'] == "RedHat"
+
+    - name: (Debian) Upgrading nginx-agent
+      ansible.builtin.apt:
+        name: nginx-agent
+        state: latest
+        update_cache: true
+        only_upgrade: true
+      when: ansible_facts['os_family'] == "Debian"
