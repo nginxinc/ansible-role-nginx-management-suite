@@ -26,9 +26,11 @@ jobs:
           - default
           - plus
           - upgrade
+          - modules
           - plus-count-ubuntu
           - plus-count-rhel
           - plus-count-upgrade
+
     steps:
       - name: Check out the codebase
         uses: actions/checkout@v3

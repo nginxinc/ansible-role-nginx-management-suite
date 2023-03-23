@@ -1,0 +1,7 @@
+---
+- name: Append to services to start.
+  ansible.builtin.set_fact:
+    nms_services: "{{ nms_services + [nms_module_vals[item.name]['systemd_name']] | select() }}"
+  loop: "{{ nms_modules }}"
+  loop_control:
+    label: "{{ item.name }}"

@@ -4,6 +4,11 @@
   tags:
     - nms_validate
 
+- name: Setup NGINX Management Suite facts
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/prerequisites/facts.yml"
+  tags:
+    - nms_setup_facts
+
 - name: Setup NGINX Management Suite prerequisites
   ansible.builtin.include_tasks: "{{ role_path }}/tasks/prerequisites/prereq-{{ ansible_facts['os_family'] | lower }}.yml"
   tags:

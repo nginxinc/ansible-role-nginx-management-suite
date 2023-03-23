@@ -59,6 +59,19 @@ nms_services: [
   nms, nms-core, nms-dpm, nms-ingestion, nms-integrations
 ]
 
+nms_module_vars: [
+  acm,
+  sm,
+]
+
+nms_module_vals:
+  acm:
+    package_name: nms-api-connectivity-manager
+    systemd_name: nms-acm
+  sm:
+    package_name: nms-sm
+    systemd_name: ""
+
 nms_pip27: https://bootstrap.pypa.io/pip/2.7/get-pip.py
 
 # Clickhouse specific variables for this ansible role.

@@ -33,6 +33,23 @@
   register: nms_install_state
   when: nms_cleanup_status is not defined
 
+- name: (Amazon Linux/CentOS/Oracle Linux/RHEL) NMS Modules
+  ansible.builtin.yum:
+    name: "{{ nms_module_vals[item.name]['package_name'] }}{{ '' if (item.version is not defined or item.version == '') else '-' + item.version }}"
+    update_cache: true
+    allow_downgrade: "{{ omit if ansible_version.full is version('2.12', '<') else true }}"
+    state: "{{ nms_state if item.setup is not defined else nms_state_vals[item.setup] }}"
+    update_only: "{{ nms_setup | lower == 'upgrade' if item.setup is not defined else nms_state_vals[item.setup] | lower == 'upgrade' }}"
+  when:
+    - nms_cleanup_status is not defined
+    - nms_modules is defined
+  loop: "{{ nms_modules }}"
+  loop_control:
+    label: "{{ item.name }}"
+  notify:
+    - Restart NGINX Management Suite
+    - Restart NGINX
+
 - name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Make sure NGINX Management Suite is running
   ansible.builtin.systemd:
     state: started
@@ -40,7 +57,9 @@
     enabled: true
   notify: Restart NGINX
   loop: "{{ nms_services | flatten(levels=1) }}"
-  when: nms_cleanup_status is not defined
+  when:
+    - nms_cleanup_status is not defined
+    - nms_setup | lower != 'uninstall'
 
 - name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Get list of installed packages
   ansible.builtin.yum:
@@ -53,7 +72,10 @@
     permanent: true
     immediate: true
     state: enabled
-  when: nms_cleanup_status is not defined and 'firewalld' in (firewalld_status.results | map(attribute='name') | list)
+  when:
+    - nms_cleanup_status is not defined
+    - '"firewalld" in (firewalld_status.results | map(attribute="name") | list)'
+    - nms_setup | lower != 'uninstall'
   loop:
     - https
     - http
