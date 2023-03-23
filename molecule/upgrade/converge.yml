@@ -13,3 +13,5 @@
         nginx_license:
           certificate: license/nginx-repo.crt
           key: license/nginx-repo.key
+        nms_modules:
+          - name: acm
