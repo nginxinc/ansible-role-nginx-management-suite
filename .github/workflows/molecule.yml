@@ -27,6 +27,8 @@ jobs:
           - plus
           - upgrade
           - modules
+          - uninstall
+          - uninstall-module
           - plus-count-ubuntu
           - plus-count-rhel
           - plus-count-upgrade
