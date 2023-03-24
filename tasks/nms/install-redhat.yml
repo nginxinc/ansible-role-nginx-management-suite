@@ -38,8 +38,8 @@
     name: "{{ nms_module_vals[item.name]['package_name'] }}{{ '' if (item.version is not defined or item.version == '') else '-' + item.version }}"
     update_cache: true
     allow_downgrade: "{{ omit if ansible_version.full is version('2.12', '<') else true }}"
-    state: "{{ nms_state if item.setup is not defined else nms_state_vals[item.setup] }}"
-    update_only: "{{ nms_setup | lower == 'upgrade' if item.setup is not defined else nms_state_vals[item.setup] | lower == 'upgrade' }}"
+    state: "{{ nms_state if item.state is not defined else nms_state_vals[item.state] }}"
+    update_only: "{{ nms_setup | lower == 'upgrade' if item.state is not defined else nms_state_vals[item.state] | lower == 'upgrade' }}"
   when:
     - nms_cleanup_status is not defined
     - nms_modules is defined
