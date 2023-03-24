@@ -30,6 +30,7 @@ jobs:
           - plus-count-ubuntu
           - plus-count-rhel
           - plus-count-upgrade
+          - service-stopped
 
     steps:
       - name: Check out the codebase

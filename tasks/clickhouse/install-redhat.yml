@@ -19,8 +19,8 @@
       - "clickhouse-client{{ (nms_clickhouse_version is not defined or nms_clickhouse_version == '') | ternary('', '-' + nms_clickhouse_version) }}"
     disable_gpg_check: true
 
-- name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Start and enable ClickHouse
+- name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Configure ClickHouse Services
   ansible.builtin.service:
-    state: started
+    state: "{{ nms_service_state }}"
     name: clickhouse-server
     enabled: true

@@ -5,15 +5,15 @@ lint: |
   set -e
   ansible-lint --force-color .
 platforms:
-  - name: amazonlinux-2
-    image: amazonlinux:2
-    platform: x86_64
-    dockerfile: ../common/Dockerfile.j2
-    privileged: true
-    cgroupns_mode: host
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-    command: /usr/sbin/init
+  # - name: amazonlinux-2
+  #   image: amazonlinux:2
+  #   platform: x86_64
+  #   dockerfile: ../common/Dockerfile.j2
+  #   privileged: true
+  #   cgroupns_mode: host
+  #   volumes:
+  #     - /sys/fs/cgroup:/sys/fs/cgroup:rw
+  #   command: /usr/sbin/init
   # - name: oraclelinux-7
   #   image: oraclelinux:7
   #   platform: x86_64
@@ -104,15 +104,15 @@ platforms:
   #   volumes:
   #     - /sys/fs/cgroup:/sys/fs/cgroup:rw
   #   command: /sbin/init
-  # - name: ubuntu-jammy
-  #   image: ubuntu:jammy
-  #   platform: x86_64
-  #   dockerfile: ../common/Dockerfile.j2
-  #   privileged: true
-  #   cgroupns_mode: host
-  #   volumes:
-  #     - /sys/fs/cgroup:/sys/fs/cgroup:rw
-  #   command: /sbin/init
+  - name: ubuntu-jammy
+    image: ubuntu:jammy
+    platform: x86_64
+    dockerfile: ../common/Dockerfile.j2
+    privileged: true
+    cgroupns_mode: host
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    command: /sbin/init
 provisioner:
   name: ansible
   playbooks:

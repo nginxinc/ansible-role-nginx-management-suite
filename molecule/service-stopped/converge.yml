@@ -9,6 +9,7 @@
         nms_setup: install
         nms_user_passwd: 'Password123'
         nms_service_state: stopped
+        nginx_start: false
         nms_remove_certs: false
         nginx_license:
           certificate: license/nginx-repo.crt

@@ -22,8 +22,8 @@
       - "clickhouse-common-static{{ (nms_clickhouse_version is not defined or nms_clickhouse_version == '') | ternary('', '=' + nms_clickhouse_version) }}"
     update_cache: true
 
-- name: (Debian/Ubuntu) Start and enable ClickHouse
+- name: (Debian/Ubuntu) Configure ClickHouse Services
   ansible.builtin.service:
-    state: started
+    state: "{{ nms_service_state }}"
     name: clickhouse-server
     enabled: true
