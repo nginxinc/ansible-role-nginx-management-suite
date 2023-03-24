@@ -4,6 +4,7 @@
     name: "{{ item }}"
     state: restarted
   loop: "{{ nms_services | flatten(levels=1) }}"
+  when: nms_service_state | lower != 'stopped'
 
 - name: Restart NGINX
   ansible.builtin.service:

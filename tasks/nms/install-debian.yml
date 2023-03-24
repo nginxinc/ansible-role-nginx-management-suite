@@ -60,9 +60,9 @@
     - Restart NGINX Management Suite
     - Restart NGINX
 
-- name: (Debian/Ubuntu) Make sure NGINX Management Suite is running
+- name: (Debian/Ubuntu) Make sure NGINX Management Suite is {{ nms_service_state | capitalize }}
   ansible.builtin.systemd:
-    state: started
+    state: "{{ nms_service_state }}"
     name: "{{ item }}"
     enabled: true
   notify: Restart NGINX

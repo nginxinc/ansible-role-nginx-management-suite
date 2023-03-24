@@ -16,8 +16,15 @@
     fail_msg: The value {{ nms_setup }} you used for `nms_setup` is not allowed. Try one of {{ nms_setup_vars | join(', ') }}.
   tags: nms_check_support
 
+- name: Check if 'nms_service_state' is an allowed value
+  ansible.builtin.assert:
+    that: nms_service_state in nms_service_state_vals
+    fail_msg: The value {{ nms_service_state }} you used for `nms_service_state` is not allowed. Try one of {{ nms_service_state_vals | join(', ') }}.
+  tags: nms_check_support
+
 - name: Check if 'nms_modules' is an allowed value
   ansible.builtin.assert:
     that: item.name in nms_module_vars
     fail_msg: The value {{ item.name }} you used for `nms_modules` is not allowed. Try one of {{ nms_module_vars | join(', ') }}.
   loop: "{{ nms_modules }}"
+  tags: nms_check_support

@@ -1,0 +1,15 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: Install NMS but don't start it
+      ansible.builtin.include_role:
+        name: ansible-role-nginx-management-suite
+      vars:
+        nms_setup: install
+        nms_user_passwd: 'Password123'
+        nms_service_state: stopped
+        nms_remove_certs: false
+        nginx_license:
+          certificate: license/nginx-repo.crt
+          key: license/nginx-repo.key
