@@ -43,14 +43,15 @@ nms_supported_distributions:
     versions: [18.04, 20.04, 22.04]
     architectures: [x86_64]
 
-# Debian specific repo for NMS install
-nms_debian_signing_key_id: 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
-nms_debian_signing_key_keyring_path: /usr/share/keyrings/nginx-archive-keyring.gpg
-nms_debian_signing_key_repo: deb [signed-by={{ nms_debian_signing_key_keyring_path }}] https://pkgs.nginx.com/nms/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} nginx-plus
+# Default NMS apt signing key
+nms_default_key_id: 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
+nms_default_keyring_path: /usr/share/keyrings/nginx-archive-keyring.gpg
 
-# RPM specific repo for NMS install
-nms_centos_yum_repo: https://pkgs.nginx.com/nms/centos/$releasever/$basearch/
-nms_amazon_yum_repo: https://pkgs.nginx.com/nms/amzn2/$releasever/$basearch/
+# Default NMS repositories
+nms_default_repository_debian: deb [signed-by={{ nms_default_signing_key_keyring_path_debian }}] https://pkgs.nginx.com/nms/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} nginx-plus
+nms_default_repository_centos: https://pkgs.nginx.com/nms/centos/$releasever/$basearch/
+nms_default_repository_amazon: https://pkgs.nginx.com/nms/amzn2/$releasever/$basearch/
+
 # # For development purposes for disabling gpg check when installing on OS with RPM repo.
 # nms_gpgcheck: false
 

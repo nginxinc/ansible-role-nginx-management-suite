@@ -1,20 +1,34 @@
 ---
-- name: (Debian/Ubuntu) {{ (nms_cleanup_status is defined) | ternary('Remove', 'Configure') }} NGINX Management Suite Apt repository
+- name: (Debian/Ubuntu) {{ 'Remove' if nms_cleanup_status is defined or nms_state == 'absent' else 'Configure' }} NGINX Management Suite Apt repository
   ansible.builtin.apt_repository:
-    repo: "{{ nms_debian_signing_key_repo }}"
+    repo: "{{ nms_repository_debian | default(nms_default_repository_debian) }}"
     state: "{{ nms_cleanup_status | default((nms_setup == 'uninstall') | ternary('absent', 'present')) }}"
     update_cache: false
     filename: nms
+
+- name: (Debian/Ubuntu) {{ 'Remove' if nms_cleanup_status is defined or nms_state == 'absent' else 'Configure' }} NMS Module Apt repository
+  ansible.builtin.apt_repository:
+    repo: "{{ item.apt_repo }}"
+    state: "{{ nms_cleanup_status | default(nms_state if item.setup is not defined else nms_state_vals[item.setup]) }}"
+    update_cache: false
+    validate_certs: "{{ omit if item.apt_validate is not defined else item.apt_validate }}"
+    filename: "nms-{{ item.name }}"
+  loop: "{{ nms_modules }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when:
+    - nms_modules is defined
+    - item.apt_repo is defined
 
 - name: (Debian/Ubuntu) {{ nms_cleanup_status is defined | ternary('Remove', 'Configure') }} NGINX Plus license verification
   ansible.builtin.blockinfile:
     path: /etc/apt/apt.conf.d/90nginx
     create: true
     block: |
-      Acquire::https::{{ (nginx_repository | default(nginx_plus_default_repository_debian)) | regex_search('(?<=https://)[^/]*') }}::Verify-Peer "true";
-      Acquire::https::{{ (nginx_repository | default(nginx_plus_default_repository_debian)) | regex_search('(?<=https://)[^/]*') }}::Verify-Host "true";
-      Acquire::https::{{ (nginx_repositorynsibl | default(nginx_plus_default_repository_debian)) | regex_search('(?<=https://)[^/]*') }}::SslCert     "/etc/ssl/nginx/nginx-repo.crt";
-      Acquire::https::{{ (nginx_repository | default(nginx_plus_default_repository_debian)) | regex_search('(?<=https://)[^/]*') }}::SslKey      "/etc/ssl/nginx/nginx-repo.key";
+      Acquire::https::{{ (nms_repository_debian | default(nms_default_repository_debian)) | regex_search('(?<=https://)[^/]*') }}::Verify-Peer "true";
+      Acquire::https::{{ (nms_repository_debian | default(nms_default_repository_debian)) | regex_search('(?<=https://)[^/]*') }}::Verify-Host "true";
+      Acquire::https::{{ (nms_repository_debian | default(nms_default_repository_debian)) | regex_search('(?<=https://)[^/]*') }}::SslCert     "/etc/ssl/nginx/nginx-repo.crt";
+      Acquire::https::{{ (nms_repository_debian | default(nms_default_repository_debian)) | regex_search('(?<=https://)[^/]*') }}::SslKey      "/etc/ssl/nginx/nginx-repo.key";
     state: "{{ nms_cleanup_status | default((nms_setup == 'uninstall') | ternary('absent', 'present')) }}"
     mode: "0444"
 
@@ -26,8 +40,11 @@
     state: "{{ nms_state }}"
   register: nms_install_state
   when: nms_cleanup_status is not defined
+  notify:
+    - Restart NGINX Management Suite
+    - Restart NGINX
 
-- name: (Debian/Ubuntu) NMS Modules
+- name: (Debian/Ubuntu) {{ nms_setup if item.setup is not defined else item.setup | capitalize }} NMS Modules
   ansible.builtin.apt:
     name: "{{ nms_module_vals[item.name]['package_name'] }}{{ '' if (item.version is not defined or item.version == '') else '=' + item.version }}"
     update_cache: true
