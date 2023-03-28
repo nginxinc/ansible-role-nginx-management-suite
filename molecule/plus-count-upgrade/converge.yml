@@ -29,7 +29,7 @@
       ansible.builtin.systemd:
         name: nginx-agent
         state: stopped
-  
+
     - name: (RedHat) Upgrading nginx-agent
       ansible.builtin.yum:
         name: nginx-agent

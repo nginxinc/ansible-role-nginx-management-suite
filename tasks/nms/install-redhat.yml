@@ -1,27 +1,31 @@
 ---
-- name: (CentOS/Oracle Linux/RHEL) {{ (nms_cleanup_status is defined) | ternary('Remove', 'Configure') }} NGINX Management Suite Yum repository
+- name: (Amazon/CentOS/Oracle Linux/RHEL) {{ 'Remove' if nms_cleanup_status is defined or nms_state == 'absent' else 'Configure' }} NGINX Management Suite Yum repository
   ansible.builtin.yum_repository:
     name: nms
     description: NGINX Management Suite
-    baseurl: "{{ nms_centos_yum_repo }}"
+    baseurl: "{{ nms_repository_redhat | default(lookup('vars', 'nms_default_repository_' + ((ansible_facts['distribution'] == 'Amazon') | ternary('amazon', 'centos')))) }}"
     enabled: true
     gpgcheck: "{{ omit if nms_gpgcheck is not defined else nms_gpgcheck }}"
     sslclientcert: "/etc/ssl/nginx/nginx-repo.crt"
     sslclientkey: "/etc/ssl/nginx/nginx-repo.key"
     state: "{{ nms_cleanup_status | default('present') }}"
-  when: ansible_facts['distribution'] != "Amazon"
 
-- name: (Amazon) {{ (nms_cleanup_status is defined) | ternary('Remove', 'Configure') }} NGINX Management Suite Yum repository
+- name: (Amazon/CentOS/Oracle Linux/RHEL) {{ 'Remove' if nms_cleanup_status is defined or nms_state == 'absent' else 'Configure' }} NMS Module Yum repository
   ansible.builtin.yum_repository:
-    name: nms
-    description: NGINX Management Suite
-    baseurl: "{{ nms_amazon_yum_repo }}"
+    name: "nms-{{ item.name }}"
+    description: "NGINX Management Suite - {{ item.name }}"
+    baseurl: "{{ item.yum_repo }}"
     enabled: true
-    gpgcheck: "{{ omit if nms_gpgcheck is not defined else nms_gpgcheck }}"
+    gpgcheck: "{{ omit if item.yum_gpgcheck is not defined else item.yum_gpgcheck }}"
     sslclientcert: "/etc/ssl/nginx/nginx-repo.crt"
     sslclientkey: "/etc/ssl/nginx/nginx-repo.key"
-    state: "{{ nms_cleanup_status | default('present') }}"
-  when: ansible_facts['distribution'] == "Amazon"
+    state: "{{ nms_cleanup_status | default(nms_state if item.setup is not defined else nms_state_vals[item.setup]) }}"
+  loop: "{{ nms_modules }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when:
+    - nms_modules is defined
+    - item.yum_repo is defined
 
 - name: (Amazon Linux/CentOS/Oracle Linux/RHEL) {{ nms_setup | capitalize }} NGINX Instance Manager
   ansible.builtin.yum:
@@ -32,8 +36,11 @@
     update_only: "{{ nms_setup | lower == 'upgrade' }}"
   register: nms_install_state
   when: nms_cleanup_status is not defined
+  notify:
+    - Restart NGINX Management Suite
+    - Restart NGINX
 
-- name: (Amazon Linux/CentOS/Oracle Linux/RHEL) NMS Modules
+- name: (Amazon Linux/CentOS/Oracle Linux/RHEL) {{ nms_setup if item.setup is not defined else item.setup | capitalize }} NMS Modules
   ansible.builtin.yum:
     name: "{{ nms_module_vals[item.name]['package_name'] }}{{ '' if (item.version is not defined or item.version == '') else '-' + item.version }}"
     update_cache: true

@@ -30,8 +30,12 @@ nms_clickhouse_release_kind: lts
 nms_remove_certs: true
 
 ## By default, no NMS modules are installed.
-## If version is not set or is absent, the latest version is installed.
-## If setup is not set or is absent, the value from the nms_setup is used.
+## If 'version' is not set or is absent, the latest version is installed.
+## If 'setup' is not set or is absent, the value from the nms_setup is used.
+## If modules need to be installed from a different repository, set 'yum_repo' or 'apt_repo'.
+## 'yum_gpgcheck' and 'apt_verify' are additional apt and yum options that can also be set.
+##   Valid inputs are 'true' or 'false'. If these aren't defined, it will use the default values
+##   from the 'ansible.builtin.yum_repository' or 'ansible.builtin.apt_repository' modules.
 nms_modules: []
   # - name: acm
   #   version: ''
@@ -39,3 +43,9 @@ nms_modules: []
   # - name: sm
   #   version: ''
   #   setup: install
+  # - name: acm
+  #   yum_repo: install
+  #   yum_gpgcheck: false
+  # - name: acm
+  #   apt_repo: install
+  #   apt_validate: false

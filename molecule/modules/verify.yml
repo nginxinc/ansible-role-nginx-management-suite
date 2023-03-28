@@ -44,7 +44,7 @@
         url: https://localhost/modules
         status_code: 200
         validate_certs: false
-        return_content: yes
+        return_content: true
         body_format: json
       register: response
       failed_when: '("API Connectivity Manager" and "Security Monitoring") not in (response.json | map(attribute="name") | list)'
