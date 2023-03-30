@@ -151,6 +151,7 @@ Working functional playbook examples can be found in the **[`molecule/`](https:/
 | **[`plus/converge.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/molecule/plus/converge.yml)** | Install NGINX Plus and NMS |
 | **[`upgrade/converge.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/molecule/upgrade/converge.yml)** | Upgrade NMS |
 | **[`modules/converge.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/molecule/modules/converge.yml)** | Install NGINX OSS and NMS & the API Connectivity Manager module |
+| **[`service-stopped/converge.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/molecule/service-stopped/converge.yml)** | Install NGINX OSS and NMS, allow services to be in the chosen state |
 
 Do note that if you install this repository via Ansible Galaxy, you will have to replace the role variable in the sample playbooks from `ansible-role-nginx-management-suite` to `nginxinc.nginx_management_suite`.
 
