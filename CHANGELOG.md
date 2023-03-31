@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0 - Control NMS service state (April 17th, 2023)
+
+FEATURES:
+
+* Can now choose the state the NMS services should be in after playbook run.
+
 ## 0.2.0 - Add module install support (April 3rd, 2023)
 
 FEATURES:
