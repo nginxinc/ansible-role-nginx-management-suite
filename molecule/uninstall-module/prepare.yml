@@ -20,14 +20,12 @@
 - name: Prepare NMS
   hosts: all
   tasks:
-    - name: Install NMS & ACM
+    - name: Install NMS & ACM Module
       ansible.builtin.include_role:
         name: ansible-role-nginx-management-suite
       vars:
         nms_setup: install
         nms_user_passwd: 'Password123'
-        nginx_selinux: true
-        nginx_selinux_enforcing: false
         nginx_remove_license: false
         nms_remove_certs: false
         nginx_license:
