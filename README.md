@@ -16,6 +16,7 @@ This role only installs NGINX Management Suite (NMS).
 ### NGINX Management Suite Certificate Files
 
 Installing NMS requires the NMS certificate files to access the repository. Log in to [MyF5](https://account.f5.com/myf5) or follow the link in the trial activation email to download the NMS repo **.crt** and **.key** files:
+
 * nginx-mgmt-suite-trial.key
 * nginx-mgmt-suite-trial.crt
 
@@ -64,6 +65,7 @@ Main difference between using NGINX OSS or NGINX Plus depends on which [Authenti
 ### Installing NMS Role and Dependencies using Ansible Galaxy
 
 1. Create a yaml file, such as `requirements.yml`, with the following content below.
+
     ```yaml
     ---
     roles:
@@ -79,6 +81,7 @@ Main difference between using NGINX OSS or NGINX Plus depends on which [Authenti
       - name: community.docker # Only required if you plan to use Molecule (see below)
         version: 3.4.2
     ```
+
 1. Run `ansible-galaxy install -r requirements.yml` to install this role along with the required collections. If you already have these installed but need to update to newer versions, use `ansible-galaxy install -fr requirements.yml`.
 
 #### Using Latest Edge of NMS Ansible Role
@@ -86,6 +89,7 @@ Main difference between using NGINX OSS or NGINX Plus depends on which [Authenti
 There is a couple methods if you want to use the latest edge from this role.
 
 1. Use the following snippet in your `requirement.yml`.
+
     ```yaml
     roles:
       - src: https://github.com/nginxinc/ansible-role-nginx-management-suite.git
@@ -157,6 +161,7 @@ You can use this role to help count the number of NGINX Plus instance you have.
 ### Requirement
 
 You will also need to install the following collection in order to use the example playbooks for counting NGINX Plus instances.
+
 ```yaml
 collections:
   - name: https://github.com/TuxInvader/ansible_collection_nginx_management_suite.git
