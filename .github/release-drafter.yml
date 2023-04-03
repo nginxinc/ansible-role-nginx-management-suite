@@ -91,9 +91,9 @@ template: |
 
   ## Install & Upgrade
 
-  - To install the Ansible NGINX Management Suite role on a fresh environment, run `ansible-galaxy install nginxinc.nms`.
-  - To upgrade the Ansible NGINX Management Suite role to the latest release, run `ansible-galaxy install -f nginxinc.nms`.
-  - To install or upgrade to this specific Ansible NGINX Management Suite role release ($RESOLVED_VERSION), run `ansible-galaxy install -f nginxinc.nms,v$RESOLVED_VERSION`.
+  - To install the Ansible NGINX Management Suite role on a fresh environment, run `ansible-galaxy install nginxinc.nginx_management_suite`.
+  - To upgrade the Ansible NGINX Management Suite role to the latest release, run `ansible-galaxy install -f nginxinc.nginx_management_suite`.
+  - To install or upgrade to this specific Ansible NGINX Management Suite role release ($RESOLVED_VERSION), run `ansible-galaxy install -f nginxinc.nginx_management_suite,v$RESOLVED_VERSION`.
 
   ## Resources
 
