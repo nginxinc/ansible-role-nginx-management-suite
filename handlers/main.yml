@@ -10,3 +10,4 @@
   ansible.builtin.service:
     name: nginx
     state: restarted
+  when: nms_service_state | lower != 'stopped'

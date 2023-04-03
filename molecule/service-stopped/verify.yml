@@ -10,35 +10,28 @@
       register: install
       failed_when: (install is changed) or (install is failed)
 
-    - name: Check if NGINX service is stopped
-      ansible.builtin.service:
-        name: nginx
-        state: stopped
-        enabled: true
+    - name: Populate service facts
+      ansible.builtin.service_facts:
+      register: services
       check_mode: true
-      register: service
-      failed_when: (service is changed) or (service is failed)
+
+    - name: Check if NGINX service is stopped
+      ansible.builtin.assert:
+        that: services.ansible_facts.services['nginx.service']['state'] == "stopped"
+        fail_msg: The service 'nginx.service' should be [stopped].  It is currently [{{ services.ansible_facts.services['nginx.service']['state'] }}].
 
     - name: Check if Clickhouse service is stopped
-      ansible.builtin.systemd:
-        name: "{{ item }}"
-        state: stopped
-      check_mode: true
-      register: install
-      failed_when: (install is changed) or (install is failed)
-      loop:
-        - clickhouse-server
+      ansible.builtin.assert:
+        that: services.ansible_facts.services['clickhouse-server.service']['state'] == "stopped"
+        fail_msg: The service 'clickhouse-server.service' should be [stopped].  It is currently [{{ services.ansible_facts.services['clickhouse-server.service']['state'] }}].
 
     - name: Check if NGINX Management Suite services are stopped
-      ansible.builtin.systemd:
-        name: "{{ item }}"
-        state: stopped
-      check_mode: true
-      register: install
-      failed_when: (install is changed) or (install is failed)
+      ansible.builtin.assert:
+        that: services.ansible_facts.services[ item ]['state'] == "stopped"
+        fail_msg: The service '{{ item }}' should be [stopped].  It is currently [{{ services.ansible_facts.services[item]['state'] }}].
       loop:
-        - nms
-        - nms-core
-        - nms-dpm
-        - nms-ingestion
-        - nms-integrations
+        - nms.service
+        - nms-core.service
+        - nms-dpm.service
+        - nms-ingestion.service
+        - nms-integrations.service
