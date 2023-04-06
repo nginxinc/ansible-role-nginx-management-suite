@@ -17,7 +17,7 @@
 
     - name: Check if NGINX service is stopped
       ansible.builtin.assert:
-        that: services.ansible_facts.services['nginx.service']['state'] == "stopped"
+        that: (services.ansible_facts.services['nginx.service']['state'] == "stopped") or (services.ansible_facts.services['nginx.service']['state'] == "inactive")
         fail_msg: The service 'nginx.service' should be [stopped].  It is currently [{{ services.ansible_facts.services['nginx.service']['state'] }}].
 
     - name: Check if Clickhouse service is stopped
