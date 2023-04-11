@@ -29,7 +29,7 @@ nms_clickhouse_release_kind: lts
 ## By default, NMS certificates are removed by default
 nms_remove_certs: true
 
-nms_service_state: "{{ nms_service_state_vals[nms_default_service_state] }}"
+nms_service_state: started
 
 ## By default, no NMS modules are installed.
 ## If 'version' is not set or is absent, the latest version is installed.

@@ -20,14 +20,6 @@ nms_service_state_vars: [
   stopped, started, restarted, reloaded
 ]
 
-nms_default_service_state: started
-
-nms_service_state_vals:
-  started: started
-  restarted: restarted
-  reloaded: reloaded
-  stopped: stopped
-
 # Supported NMS distributions
 # https://docs.nginx.com/nginx-management-suite/overview/tech-specs/#supported-distributions
 nms_supported_distributions:
