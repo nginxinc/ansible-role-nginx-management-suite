@@ -15,6 +15,11 @@ nms_state_vals:
 # Package installation state
 nms_state: "{{ nms_state_vals[nms_setup] | default(nms_state_vals[nms_default_setup]) }}"
 
+# Service started/stopped state variables
+nms_service_state_vars: [
+  stopped, started, restarted, reloaded
+]
+
 # Supported NMS distributions
 # https://docs.nginx.com/nginx-management-suite/overview/tech-specs/#supported-distributions
 nms_supported_distributions:
