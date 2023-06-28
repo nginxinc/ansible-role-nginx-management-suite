@@ -20,10 +20,8 @@ jobs:
       NGINX_CRT: ${{ secrets.NGINX_CRT }}
       NGINX_KEY: ${{ secrets.NGINX_KEY }}
     steps:
-      - name: Export CERT to file
-        run: echo $NGINX_CRT | base64 -d > /tmp/nginx-repo.crt
       - name: Validate CERT
-        run: openssl x509 -in /tmp/nginx-repo.crt -text -noout
+        run: echo $NGINX_CRT | base64 -d > /tmp/nginx-repo.crt && openssl x509 -in /tmp/nginx-repo.crt -text -noout
 
   molecule:
     name: Molecule
