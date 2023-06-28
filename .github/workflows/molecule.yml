@@ -15,7 +15,7 @@ on:
 jobs:
   valid-certs:
     name: Valid Certs
-    runs-on: ubuntu-22-04
+    runs-on: ubuntu-22.04
     env:
       NGINX_CRT: ${{ secrets.NGINX_CRT }}
       NGINX_KEY: ${{ secrets.NGINX_KEY }}
