@@ -13,6 +13,18 @@ on:
     - cron: "0 0 1 * *"
   workflow_dispatch:
 jobs:
+  valid-certs:
+    name: Valid Certs
+    runs-on: ubuntu-22-04
+    env:
+      NGINX_CRT: ${{ secrets.NGINX_CRT }}
+      NGINX_KEY: ${{ secrets.NGINX_KEY }}
+    steps:
+      - name: Export CERT to file
+        run: echo $NGINX_CRT | base64 -d > /tmp/nginx-repo.crt
+      - name: Validate CERT
+        run: openssl x509 -in /tmp/nginx-repo.crt -text -noout
+
   molecule:
     name: Molecule
     runs-on: ubuntu-22.04
