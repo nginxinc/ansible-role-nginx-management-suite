@@ -38,6 +38,7 @@
         - nms-ingestion
         - nms-integrations
         - nms-acm
+        - nms-adm
 
     - name: Verify NGINX Management Suite modules are loaded
       ansible.builtin.uri:
