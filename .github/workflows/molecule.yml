@@ -21,7 +21,7 @@ jobs:
       NGINX_KEY: ${{ secrets.NGINX_KEY }}
     steps:
       - name: Validate CERT
-        run: echo $NGINX_CRT | base64 -d > /tmp/nginx-repo.crt && openssl x509 -in /tmp/nginx-repo.crt -text -noout
+        run: echo $NGINX_CRT | base64 -d > /tmp/nginx-repo.crt && head -1 /tmp/nginx-repo.crt
 
   molecule:
     name: Molecule
