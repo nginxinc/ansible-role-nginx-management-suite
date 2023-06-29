@@ -1,9 +1,6 @@
 - name: (Python 3) Install 'pip' package
   ansible.builtin.package:
     name: python3-pip
-  when:
-    - ansible_facts['distribution'] != "OracleLinux"
-    - ansible_facts['distribution_major_version'] != "8"
 
 - name: (OracleLinux 8) Install python3.11 packages
   ansible.builtin.package:
