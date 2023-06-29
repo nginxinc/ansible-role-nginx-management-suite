@@ -18,6 +18,13 @@
   ansible.builtin.pip:
     name: cryptography
 
+- name: (OracleLinux 8) Install cryptography package
+  ansible.builtin.package:
+    name: "python3.11-cryptography"
+  when:
+    - ansible_facts['distribution'] == "OracleLinux"
+    - ansible_facts['distribution_major_version'] == "8"
+
 - name: (Debian/Red Hat) Check that NGINX Plus certificate is valid
   community.crypto.x509_certificate_info:
     path: /etc/ssl/nginx/nginx-repo.crt
