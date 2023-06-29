@@ -17,6 +17,9 @@
 - name: (Debian/Red Hat) Install cryptography package
   ansible.builtin.pip:
     name: cryptography
+  when:
+    - ansible_facts['distribution'] != "OracleLinux"
+    - ansible_facts['distribution_major_version'] != "8"
 
 - name: (OracleLinux 8) Install cryptography package
   ansible.builtin.package:
