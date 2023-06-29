@@ -1,10 +1,16 @@
 - name: (Python 3) Install 'pip' package
   ansible.builtin.package:
     name: python3-pip
+  when:
+    - ansible_facts['distribution'] != "OracleLinux"
+    - ansible_facts['distribution_major_version'] != "8"
 
-- name: (OracleLinux 8) Install setuptools package
+- name: (OracleLinux 8) Install python3.11 packages
   ansible.builtin.package:
-    name: "python3.11-setuptools"
+    name: "{{ item }}"
+  loop:
+    - python3.11-setuptools
+    - python3.11-pip
   when:
     - ansible_facts['distribution'] == "OracleLinux"
     - ansible_facts['distribution_major_version'] == "8"
@@ -12,3 +18,4 @@
 - name: (Python 3) Ensure 'pip' is updated
   ansible.builtin.pip:
     name: pip>=21.2.4
+    executable: "{{ 'pip3.11' if ansible_facts['distribution'] == 'OracleLinux' and ansible_facts['distribution_major_version'] == '8' else 'pip' }}"
