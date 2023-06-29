@@ -4,13 +4,13 @@ roles:
     version: 0.24.0
 collections:
   - name: ansible.posix
-    version: 1.5.1
+    version: 1.5.4
   - name: community.general
     version: 6.4.0
   - name: community.crypto # Only required if you plan to install NGINX Plus
-    version: 2.11.0
+    version: 2.14.1
   - name: community.docker # Only required if you plan to use Molecule
-    version: 3.4.2
+    version: 3.4.7
   - name: https://github.com/TuxInvader/ansible_collection_nginx_management_suite.git
     type: git
     version: main
