@@ -42,9 +42,6 @@ nms_modules: []
   # - name: acm
   #   version: ''
   #   setup: install
-  # - name: adm
-  #   version: ''
-  #   setup: install
   # - name: sm
   #   version: ''
   #   setup: install
@@ -52,11 +49,5 @@ nms_modules: []
   #   yum_repo: install
   #   yum_gpgcheck: false
   # - name: acm
-  #   apt_repo: install
-  #   apt_validate: false
-  # - name: adm
-  #   yum_repo: install
-  #   yum_gpgcheck: false
-  # - name: adm
   #   apt_repo: install
   #   apt_validate: false

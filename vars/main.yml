@@ -67,7 +67,6 @@ nms_services: [
 
 nms_module_vars: [
   acm,
-  adm,
   sm,
 ]
 
@@ -75,9 +74,6 @@ nms_module_vals:
   acm:
     package_name: nms-api-connectivity-manager
     systemd_name: nms-acm
-  adm:
-    package_name: nms-app-delivery-manager
-    systemd_name: nms-adm
   sm:
     package_name: nms-sm
     systemd_name: ""
