@@ -15,4 +15,4 @@
 - name: (Python 3) Ensure 'pip' is updated
   ansible.builtin.pip:
     name: pip>=21.2.4
-    executable: "{{ 'pip3.11' if ansible_facts['distribution'] == 'OracleLinux' and ansible_facts['distribution_major_version'] == '8' else 'pip3' }}"
+
