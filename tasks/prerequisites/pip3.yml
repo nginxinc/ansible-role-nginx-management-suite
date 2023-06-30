@@ -15,4 +15,3 @@
 - name: (Python 3) Ensure 'pip' is updated
   ansible.builtin.pip:
     name: pip>=21.2.4
-
