@@ -8,6 +8,7 @@
   loop:
     - python3.11-setuptools
     - python3.11-pip
+    - python3.11-cryptography
   when:
     - ansible_facts['distribution'] == "OracleLinux"
     - ansible_facts['distribution_major_version'] == "8"

@@ -15,13 +15,15 @@
     - "{{ nginx_license['key'] }}"
 
 - name: (Debian/Red Hat) Install cryptography package
-  ansible.builtin.pip:
-    name: cryptography
+  ansible.builtin.package:
+    name: "{{ (ansible_python['version']['major'] == 3) | ternary('python3-cryptography', 'python2-cryptography') }}"
+  when:
+    - ansible_facts['distribution'] != "OracleLinux"
+    - ansible_facts['distribution_major_version'] != "8"
 
 - name: (OracleLinux 8) Install cryptography package
-  ansible.builtin.pip:
-    name: cryptography
-    executable: /usr/bin/pip3.11
+  ansible.builtin.package:
+    name: "python3.11-cryptography"
   when:
     - ansible_facts['distribution'] == "OracleLinux"
     - ansible_facts['distribution_major_version'] == "8"
