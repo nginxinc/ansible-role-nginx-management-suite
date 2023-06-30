@@ -1,7 +1,7 @@
 ---
 roles:
   - name: nginxinc.nginx
-    version: 0.24.0
+    version: main # Change back to 0.24.1 once it is released.
 collections:
   - name: ansible.posix
     version: 1.5.4
