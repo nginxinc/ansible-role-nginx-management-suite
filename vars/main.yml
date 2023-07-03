@@ -98,3 +98,11 @@ nms_clickhouse_redhat_dependencies: [
   yum-utils,
 ]
 nms_clickhouse_yum_repo: https://packages.clickhouse.com/rpm/{{ nms_clickhouse_release_kind }}/
+
+adm_os_repos:
+  RedHat: "https://pkgs.nginx.com/adm/centos/$releasever/$basearch/"
+  CentOS: "https://pkgs.nginx.com/adm/centos/$releasever/$basearch/"
+  OracleLinux: "https://pkgs.nginx.com/adm/centos/$releasever/$basearch/"
+  Amazon: "https://pkgs.nginx.com/adm/amzn2/$releasever/$basearch/"
+  Ubuntu: "https://pkgs.nginx.com/adm/ubuntu/"
+  Debian: "https://pkgs.nginx.com/adm/debian/"

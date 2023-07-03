@@ -14,7 +14,7 @@
   ansible.builtin.yum_repository:
     name: "nms-{{ item.name }}"
     description: "NGINX Management Suite - {{ item.name }}"
-    baseurl: "{{ item.yum_repo }}"
+    baseurl: "{{ item.yum_repo | default(adm_os_repos[ansible_distribution]) if item.name == 'adm' else item.yum_repo }}"
     enabled: true
     gpgcheck: "{{ omit if item.yum_gpgcheck is not defined else item.yum_gpgcheck }}"
     sslclientcert: "/etc/ssl/nginx/nginx-repo.crt"
@@ -25,7 +25,7 @@
     label: "{{ item.name }}"
   when:
     - nms_modules is defined
-    - item.yum_repo is defined
+    - item.name == "adm" or item.yum_repo is defined
 
 - name: (Amazon Linux/CentOS/Oracle Linux/RHEL) {{ nms_setup | capitalize }} NGINX Instance Manager
   ansible.builtin.yum:

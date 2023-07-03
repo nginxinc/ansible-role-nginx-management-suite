@@ -49,14 +49,14 @@ nms_modules: []
   #   version: ''
   #   setup: install
   # - name: acm
-  #   yum_repo: install
+  #   yum_repo: --alt_repo--
   #   yum_gpgcheck: false
   # - name: adm
-  #   yum_repo: install
+  #   yum_repo: --alt_repo--
   #   yum_gpgcheck: false
   # - name: acm
-  #   apt_repo: install
+  #   apt_repo: --alt_repo--
   #   apt_validate: false
   # - name: adm
-  #   apt_repo: install
+  #   apt_repo: --alt_repo--
   #   apt_validate: false
