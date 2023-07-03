@@ -106,4 +106,3 @@ adm_os_repos:
   Amazon: "https://pkgs.nginx.com/adm/amzn2/$releasever/$basearch/"
   Ubuntu: "https://pkgs.nginx.com/adm/ubuntu/"
   Debian: "https://pkgs.nginx.com/adm/debian/"
-  
