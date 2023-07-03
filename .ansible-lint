@@ -2,3 +2,5 @@
 skip_list:
   - name[template]
   - yaml[line-length]
+  - schema[meta]
+  - package-latest

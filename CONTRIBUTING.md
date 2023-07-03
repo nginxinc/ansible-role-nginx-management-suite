@@ -55,7 +55,7 @@ Note: if you'd like to implement a new feature, please consider creating a featu
 ### Ansible Guidelines
 
 * You need an NGINX Plus license in order to install NMS, you will need to procure an NGINX Plus license (check out the [NGINX Plus developer license FAQ](https://www.nginx.com/developer-license-faqs/) to find out how to request one).
-* Run `molecule lint` over your code to automatically resolve a lot of `yaml` and Ansible style issues.
+* Run `ansible-lint` over your code to automatically resolve a lot of `yaml` and Ansible style issues.
 * Run `molecule test` on your code before you submit a PR to catch any potential issues. If you are testing a specific molecule scenario, run `molecule test -s <scenario>`.
 * Follow these guides on some good practices for Ansible:
   * <https://www.ansible.com/blog/ansible-best-practices-essentials>

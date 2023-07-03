@@ -2,7 +2,7 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: Install NMS & ACM
+    - name: Install NMS & Modules
       ansible.builtin.include_role:
         name: ansible-role-nginx-management-suite
       vars:
