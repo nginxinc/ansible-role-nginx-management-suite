@@ -18,7 +18,7 @@
     label: "{{ item.name }}"
   when:
     - nms_modules is defined
-    - item.apt_repo or (nms_module_vals[item.name]['default_deb_based_apt_repo'] != "")
+    - item.apt_repo is defined or (nms_module_vals[item.name]['default_deb_based_apt_repo'] != "")
 
 - name: (Debian/Ubuntu) {{ nms_cleanup_status is defined | ternary('Remove', 'Configure') }} NGINX Plus license verification
   ansible.builtin.blockinfile:

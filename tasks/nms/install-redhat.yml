@@ -25,7 +25,7 @@
     label: "{{ item.name }}"
   when:
     - nms_modules is defined
-    - item.yum_repo or (nms_module_vals[item.name]['default_centos_yum_repo'] != "") or (nms_module_vals[item.name]['default_amazon_yum_repo'] != "")
+    - item.yum_repo is defined or (nms_module_vals[item.name]['default_centos_yum_repo'] != "") or (nms_module_vals[item.name]['default_amazon_yum_repo'] != "")
 
 - name: (Amazon Linux/CentOS/Oracle Linux/RHEL) {{ nms_setup | capitalize }} NGINX Instance Manager
   ansible.builtin.yum:
