@@ -76,10 +76,15 @@ nms_module_vals:
     package_name: nms-api-connectivity-manager
     systemd_name: nms-acm
     default_repo: ""
+    default_centos_yum_repo: ""
+    default_amazon_yum_repo: ""
+    default_deb_based_apt_repo: ""
   sm:
     package_name: nms-adm
     systemd_name: ""
-    default_repo: ""
+    default_centos_yum_repo: ""
+    default_amazon_yum_repo: ""
+    default_deb_based_apt_repo: ""
   adm:
     package_name: nms-sm
     systemd_name: ""
