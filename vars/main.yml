@@ -99,7 +99,7 @@ nms_clickhouse_redhat_dependencies: [
 ]
 nms_clickhouse_yum_repo: https://packages.clickhouse.com/rpm/{{ nms_clickhouse_release_kind }}/
 
-adm_rpm_based_os_repo_amazon: "https://pkgs.nginx.com/adm/amzn2/$releasever/$basearch/"
-adm_rpm_based_os_repo_centos: "https://pkgs.nginx.com/adm/centos/$releasever/$basearch/"
+adm_rpm_based_os_repo_amazon: https://pkgs.nginx.com/adm/amzn2/$releasever/$basearch/
+adm_rpm_based_os_repo_centos: https://pkgs.nginx.com/adm/centos/$releasever/$basearch/
 
 adm_deb_based_repo: deb [signed-by={{ nms_keyring_path | default(nms_default_keyring_path) }}] https://pkgs.nginx.com/adm/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} nginx-plus
