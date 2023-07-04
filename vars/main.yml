@@ -79,18 +79,18 @@ nms_module_vals:
     default_centos_yum_repo: ""
     default_amazon_yum_repo: ""
     default_deb_based_apt_repo: ""
+  adm:
+    package_name: nms-app-delivery-manager
+    systemd_name: nms-adm
+    default_centos_yum_repo: "https://pkgs.nginx.com/adm/centos/$releasever/$basearch/"
+    default_amazon_yum_repo: "https://pkgs.nginx.com/adm/amzn2/$releasever/$basearch/"
+    default_deb_based_apt_repo: "deb [signed-by={{ nms_keyring_path | default(nms_default_keyring_path) }}] https://pkgs.nginx.com/adm/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} nginx-plus"
   sm:
-    package_name: nms-adm
+    package_name: nms-sm
     systemd_name: ""
     default_centos_yum_repo: ""
     default_amazon_yum_repo: ""
     default_deb_based_apt_repo: ""
-  adm:
-    package_name: nms-sm
-    systemd_name: ""
-    default_centos_yum_repo: "https://pkgs.nginx.com/adm/centos/$releasever/$basearch/"
-    default_amazon_yum_repo: "https://pkgs.nginx.com/adm/amzn2/$releasever/$basearch/"
-    default_deb_based_apt_repo: "deb [signed-by={{ nms_keyring_path | default(nms_default_keyring_path) }}] https://pkgs.nginx.com/adm/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} nginx-plus"
 
 nms_pip27: https://bootstrap.pypa.io/pip/2.7/get-pip.py
 
