@@ -46,7 +46,8 @@ jobs:
           - default
           - plus
           - upgrade
-          - modules
+          - all-nms-modules
+          - ga-nms-modules
           - plus-count-ubuntu
           - plus-count-rhel
           - plus-count-upgrade
