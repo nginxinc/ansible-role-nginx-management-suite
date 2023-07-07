@@ -4,3 +4,8 @@ skip_list:
   - yaml[line-length]
   - schema[meta]
   - package-latest
+  - var-naming[no-role-prefix]
+
+# ansible-lint thinks '.github/workflows/galaxy.yml' is a an Ansible Galaxy file, but it is really a GitLab Actions file.
+kinds:
+  - yaml: "**/.github/workflows/galaxy.yml"
