@@ -70,7 +70,7 @@ Main difference between using NGINX OSS or NGINX Plus depends on which [Authenti
     ---
     roles:
       - name: nginxinc.nginx_management_suite
-        version: 0.2.0
+        version: 0.3.0
     collections:
       - name: ansible.posix
         version: 1.5.1
