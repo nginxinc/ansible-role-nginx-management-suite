@@ -1,20 +1,19 @@
 # Changelog
 
-## 0.4.0 - Add NMS App Delivery Manager module support (Unreleased)
+## 0.3.0 - Control NMS service state and ADM Install (April 17th, 2023)
 
 FEATURES:
 
+- Can now choose the state the NMS services should be in after playbook run.
 - Add the ability to optionally install NMS App Delivery Manager module.
 
 CI/CD:
 
 - Split Ansible Lint into its own GH actions job since Molecule no longer runs linters natively.
 
-## 0.3.0 - Control NMS service state (April 17th, 2023)
+TESTS:
 
-FEATURES:
-
-- Can now choose the state the NMS services should be in after playbook run.
+- Add NMS ADM Module install tests.
 
 ## 0.2.0 - Add module install support (April 3rd, 2023)
 
