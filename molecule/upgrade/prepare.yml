@@ -24,7 +24,7 @@
       ansible.builtin.include_role:
         name: ansible-role-nginx-management-suite
       vars:
-        nms_version: 2.4.0*
+        nms_version: 2.11.0*
         nms_setup: install
         nms_user_passwd: 'Password123'
         nginx_selinux: true
