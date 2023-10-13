@@ -68,6 +68,9 @@ jobs:
       - name: Install Ansible collection dependencies
         run: ansible-galaxy install -r .github/workflows/requirements/requirements_ansible.yml
 
+      - name: Check Disk Space
+        run: df -h
+
       - name: Run Molecule tests
         run: molecule test -s ${{ matrix.scenario }}
         env:
