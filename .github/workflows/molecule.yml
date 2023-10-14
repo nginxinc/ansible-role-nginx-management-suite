@@ -44,14 +44,20 @@ jobs:
       matrix:
         scenario:
           - default
+          - default-set2
           - plus
+          - plus-set2
           - upgrade
+          - upgrade-set2
           - all-nms-modules
+          - all-nms-modules-set2
           - ga-nms-modules
+          - ga-nms-modules-set2
           - plus-count-ubuntu
           - plus-count-rhel
           - plus-count-upgrade
           - service-stopped
+          - service-stopped-set2
     needs: ansible-lint
     steps:
       - name: Check out the codebase
@@ -73,6 +79,10 @@ jobs:
 
       - name: Run Molecule tests
         run: molecule test -s ${{ matrix.scenario }}
+        # continue-on-error: true
         env:
           PY_COLORS: 1
           ANSIBLE_FORCE_COLOR: 1
+
+      - name: Check Disk Space (Post)
+        run: df -h

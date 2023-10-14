@@ -1,0 +1,37 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Check if NGINX is installed
+      ansible.builtin.package:
+        name: nginx
+        state: present
+      check_mode: true
+      register: install
+      failed_when: (install is changed) or (install is failed)
+
+    - name: Populate service facts
+      ansible.builtin.service_facts:
+      register: services
+      check_mode: true
+
+    - name: Check if NGINX service is stopped
+      ansible.builtin.assert:
+        that: (services.ansible_facts.services['nginx.service']['state'] == "stopped") or (services.ansible_facts.services['nginx.service']['state'] == "inactive")
+        fail_msg: The service 'nginx.service' should be [stopped].  It is currently [{{ services.ansible_facts.services['nginx.service']['state'] }}].
+
+    - name: Check if Clickhouse service is stopped
+      ansible.builtin.assert:
+        that: services.ansible_facts.services['clickhouse-server.service']['state'] == "stopped"
+        fail_msg: The service 'clickhouse-server.service' should be [stopped].  It is currently [{{ services.ansible_facts.services['clickhouse-server.service']['state'] }}].
+
+    - name: Check if NGINX Management Suite services are stopped
+      ansible.builtin.assert:
+        that: services.ansible_facts.services[ item ]['state'] == "stopped"
+        fail_msg: The service '{{ item }}' should be [stopped].  It is currently [{{ services.ansible_facts.services[item]['state'] }}].
+      loop:
+        - nms.service
+        - nms-core.service
+        - nms-dpm.service
+        - nms-ingestion.service
+        - nms-integrations.service
