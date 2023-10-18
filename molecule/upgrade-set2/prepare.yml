@@ -1,0 +1,36 @@
+---
+- name: Prepare License
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Create ephemeral license certificate file from b64 decoded env var # noqa template-instead-of-copy
+      ansible.builtin.copy:
+        content: "{{ lookup('env', 'NGINX_CRT') | b64decode }}"
+        dest: ../../files/license/nginx-repo.crt
+        force: false
+        mode: "0444"
+
+    - name: Create ephemeral license key file from b64 decoded env var # noqa template-instead-of-copy
+      ansible.builtin.copy:
+        content: "{{ lookup('env', 'NGINX_KEY') | b64decode }}"
+        dest: ../../files/license/nginx-repo.key
+        force: false
+        mode: "0444"
+
+- name: Prepare NMS
+  hosts: all
+  tasks:
+    - name: Install NMS
+      ansible.builtin.include_role:
+        name: ansible-role-nginx-management-suite
+      vars:
+        nms_version: 2.11.0*
+        nms_setup: install
+        nms_user_passwd: 'Password123'
+        nginx_selinux: true
+        nginx_selinux_enforcing: false
+        nginx_remove_license: false
+        nms_remove_certs: false
+        nginx_license:
+          certificate: license/nginx-repo.crt
+          key: license/nginx-repo.key
