@@ -43,20 +43,20 @@ jobs:
       fail-fast: false
       matrix:
         scenario:
-          - default
+          - default-set1
           - default-set2
-          - plus
+          - plus-set1
           - plus-set2
-          - upgrade
+          - upgrade-set1
           - upgrade-set2
-          - all-nms-modules
+          - all-nms-modules-set1
           - all-nms-modules-set2
-          - ga-nms-modules
+          - ga-nms-modules-set1
           - ga-nms-modules-set2
           - plus-count-ubuntu
           - plus-count-rhel
           - plus-count-upgrade
-          - service-stopped
+          - service-stopped-set1
           - service-stopped-set2
     needs: ansible-lint
     steps:
