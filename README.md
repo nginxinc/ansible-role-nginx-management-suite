@@ -48,6 +48,8 @@ Main difference between using NGINX OSS or NGINX Plus depends on which [Authenti
 
 ### Molecule (Optional)
 
+You will want to use this if you are making contributions to this ansible role.
+
 * Molecule is used to test the various functionalities of the role. The recommended version of Molecule to test this role is `4.0.1`.
 * Instructions on how to install Molecule can be found in the [Molecule website](https://molecule.readthedocs.io/en/latest/installation.html). *You will also need to install the Molecule Docker driver.*
 * To run the Molecule tests, you must copy your NMS license to the role's [`files/license`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/files/license/) folder.
@@ -60,31 +62,90 @@ Main difference between using NGINX OSS or NGINX Plus depends on which [Authenti
   molecule test -s plus
   ```
 
-## Installation
+## Usage
 
-### Installing NMS Role and Dependencies using Ansible Galaxy
+Take these steps in order to install NGINX Management Suite (nms) using this ansible role.
 
-1. Create a yaml file, such as `requirements.yml`, with the following content below.
+### Create Inventory File
 
-    ```yaml
-    ---
-    roles:
-      - name: nginxinc.nginx_management_suite
-        version: 0.3.0
-    collections:
-      - name: ansible.posix
-        version: 1.5.1
-      - name: community.general
-        version: 6.4.0
-      - name: community.crypto
-        version: 2.11.0
-      - name: community.docker # Only required if you plan to use Molecule (see below)
-        version: 3.4.2
-    ```
+You will want to create an inventory file, `inventory`, with the following contents.
 
-1. Run `ansible-galaxy install -r requirements.yml` to install this role along with the required collections. If you already have these installed but need to update to newer versions, use `ansible-galaxy install -fr requirements.yml`.
+```ini
+[nms]
+<hostname> ansible_user=<adminUserName>  ansible_become=yes
+```
 
-#### Using Latest Edge of NMS Ansible Role
+### Install Required Roles and Collections
+
+You will want to install the package requirements this role requires. Create a `requirements.yml` file with the below content
+
+```yaml
+---
+roles:
+  - name: nginxinc.nginx_management_suite
+    version: 0.3.0
+collections:
+  - name: ansible.posix
+    version: 1.5.1
+  - name: community.general
+    version: 6.4.0
+  - name: community.crypto
+    version: 2.11.0
+  - name: community.docker # Only required if you plan to use Molecule (see below)
+    version: 3.4.2
+```
+
+Use the command to install the ansible role and collections.
+
+```shell
+ansible-galaxy install -r requirements.yml
+```
+
+If you already have these installed but need to update to newer versions, use the below command.
+
+```shell
+ansible-galaxy install -fr requirements.yml
+```
+
+### Move NGINX Certificates to a Known Location
+
+In this example here, we will move the NGINX certificates to the same directory where I will be creating the NMS install playbook file.
+
+### Create Playbook
+
+Create a playbook file, `nms-install.yml`, using the following example. Here, we are installing NMS with NGINX Plus.
+
+Be sure to specify the path where your NGINX certificates are located. In the example here, they are in the same path as this playbook.
+
+```yaml
+- name: Install NGINX Management Suite
+  hosts: nms
+
+  tasks:
+    - name: Install NMS
+      ansible.builtin.include_role:
+        name: nginxinc.nginx_management_suite
+      vars:
+        nms_setup: install
+        nms_user_name: admin
+        nms_user_passwd: default
+        nginx_type: plus
+        nginx_selinux: true
+        nginx_selinux_enforcing: false
+        nginx_license:
+          certificate: nginx-repo.crt
+          key: nginx-repo.key
+```
+
+### Install NMS
+
+Run the following command to run the playbook which will install NMS.
+
+```shell
+ansible-playbook -i inventory nms-adm-install.yml
+```
+
+## Using Latest Edge of NMS Ansible Role, aka the `main` Branch
 
 There is a couple methods if you want to use the latest edge from this role.
 
@@ -96,7 +157,7 @@ There is a couple methods if you want to use the latest edge from this role.
         version: main
     ```
 
-1. Use `git clone https://github.com/nginxinc/ansible-role-nginx-management-suite.git` to pull the latest edge commit of the role from GitHub.
+1. Use `git clone https://github.com/nginxinc/ansible-role-nginx-management-suite.git` to pull the latest edge commit (the `main` branch) of the role from GitHub.
 
 ## Platforms
 
