@@ -129,8 +129,8 @@ platforms:
       - name: bridge
       - name: hostname_network
     command: /usr/sbin/init
-  - name: debian-buster
-    image: debian:buster-slim
+  - name: debian-bookworm
+    image: debian:bookworm-slim
     platform: x86_64
     dockerfile: ../common/Dockerfile.j2
     privileged: true
