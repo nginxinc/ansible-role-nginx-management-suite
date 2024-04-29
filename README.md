@@ -216,31 +216,6 @@ Working functional playbook examples can be found in the **[`molecule/`](https:/
 
 Do note that if you install this repository via Ansible Galaxy, you will have to replace the role variable in the sample playbooks from `ansible-role-nginx-management-suite` to `nginxinc.nginx_management_suite`.
 
-## NGINX Plus Counting
-
-You can use this role to help count the number of NGINX Plus instance you have.
-
-### Requirement
-
-You will also need to install the following collection in order to use the example playbooks for counting NGINX Plus instances.
-
-```yaml
-collections:
-  - name: https://github.com/TuxInvader/ansible_collection_nginx_management_suite.git
-    type: git
-    version: main
-```
-
-### Example NGINX Plus Count Playbook
-
-Example playbooks are also tested as a part of this role and can be found in the table below.
-
-| Name | Description |
-| ---- | ----------- |
-| **[`plus-count-ubuntu/converge.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/molecule/plus-count-ubuntu/converge.yml)** | Install NMS and NGINX Agent on NGINX Plus instances using an Ubuntu NMS Host |
-| **[`plus-count-rhel/converge.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/molecule/plus-count-rhel/converge.yml)** | Install NMS and NGINX Agent on NGINX Plus instances using a RHEL NMS Host |
-| **[`plus-count-upgrade/converge.yml`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/molecule/plus-count-rhel/converge.yml)** | Upgrade NMS and NGINX Agent on NGINX Plus instances using aN Ubuntu NMS Host |
-
 ## Other NGINX Ansible Collections and Roles
 
 You can find the Ansible NGINX Core collection of roles to install and configure NGINX Open Source, NGINX Plus, and NGINX App Protect [here](https://github.com/nginxinc/ansible-collection-nginx).
