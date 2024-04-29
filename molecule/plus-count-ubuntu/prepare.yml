@@ -82,8 +82,8 @@
           key: "{{ playbook_dir }}/../../files/license/nginx-repo.key"
 
 
-- name: Prepare NGINX Plus Data Hosts R24
-  hosts: data_r24
+- name: Prepare NGINX Plus Data Hosts R31
+  hosts: data_r31
   tasks:
     - name: Install NGINX Plus
       ansible.builtin.include_role:
@@ -92,7 +92,7 @@
         nginx_selinux: true
         nginx_selinux_enforcing: false
         nginx_type: plus
-        nginx_version: =24*
+        nginx_version: =31*
         nginx_remove_license: false
         nginx_license:
           certificate: "{{ playbook_dir }}/../../files/license/nginx-repo.crt"
