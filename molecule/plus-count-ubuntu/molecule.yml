@@ -130,7 +130,7 @@ platforms:
       - name: hostname_network
     command: /usr/sbin/init
   - name: debian-bookworm
-    image: debian:buster-slim
+    image: debian:bookworm-slim
     platform: x86_64
     dockerfile: ../common/Dockerfile.j2
     privileged: true
