@@ -139,7 +139,7 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     groups:
       - data
-      - data_r24
+      - data_r31
     networks:
       - name: bridge
       - name: hostname_network
@@ -155,21 +155,6 @@ platforms:
     groups:
       - data
       - data_r25
-    networks:
-      - name: bridge
-      - name: hostname_network
-    command: /sbin/init
-  - name: ubuntu-bionic
-    image: ubuntu:bionic
-    platform: x86_64
-    dockerfile: ../common/Dockerfile.j2
-    privileged: true
-    cgroupns_mode: host
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-    groups:
-      - data
-      - data_r24
     networks:
       - name: bridge
       - name: hostname_network
