@@ -1,6 +1,6 @@
 ---
 - name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Install required packages for ClickHouse
-  ansible.builtin.yum:
+  ansible.builtin.dnf:
     name: "{{ nms_clickhouse_redhat_dependencies }}"
 
 - name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Add ClickHouse Repository
@@ -13,7 +13,7 @@
   tags: [install]
 
 - name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Install ClickHouse
-  ansible.builtin.yum:
+  ansible.builtin.dnf:
     name:
       - "clickhouse-server{{ (nms_clickhouse_version is not defined or nms_clickhouse_version == '') | ternary('', '-' + nms_clickhouse_version) }}"
       - "clickhouse-client{{ (nms_clickhouse_version is not defined or nms_clickhouse_version == '') | ternary('', '-' + nms_clickhouse_version) }}"
