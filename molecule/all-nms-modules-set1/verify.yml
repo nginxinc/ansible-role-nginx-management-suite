@@ -38,7 +38,6 @@
         - nms-ingestion
         - nms-integrations
         - nms-acm
-        - nms-adm
 
     - name: Verify NGINX Management Suite modules are loaded
       ansible.builtin.uri:
@@ -48,4 +47,4 @@
         return_content: true
         body_format: json
       register: response
-      failed_when: '("API Connectivity Manager" and "App Delivery Manager" and "Security Monitoring") not in (response.json | map(attribute="name") | list)'
+      failed_when: '("API Connectivity Manager"and "Security Monitoring") not in (response.json | map(attribute="name") | list)'

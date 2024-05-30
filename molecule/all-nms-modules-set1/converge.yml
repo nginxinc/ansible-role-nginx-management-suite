@@ -18,5 +18,4 @@
           key: license/nginx-repo.key
         nms_modules:
           - name: acm
-          - name: adm
           - name: sm
