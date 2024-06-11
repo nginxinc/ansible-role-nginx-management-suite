@@ -28,7 +28,7 @@
     - item.yum_repo is defined or (nms_module_vals[item.name]['default_centos_yum_repo'] != "") or (nms_module_vals[item.name]['default_amazon_yum_repo'] != "")
 
 - name: (Amazon Linux/CentOS/Oracle Linux/RHEL) {{ nms_setup | capitalize }} NGINX Instance Manager
-  ansible.builtin.dnf:
+  ansible.builtin.yum:
     name: "nms-instance-manager{{ (nms_version is not defined or nms_version == '') | ternary('', '-' + nms_version) }}"
     update_cache: true
     allow_downgrade: "{{ omit if ansible_version.full is version('2.12', '<') else true }}"
@@ -41,7 +41,7 @@
     - Restart NGINX
 
 - name: (Amazon Linux/CentOS/Oracle Linux/RHEL) {{ nms_setup if item.setup is not defined else item.setup | capitalize }} NMS Modules
-  ansible.builtin.dnf:
+  ansible.builtin.yum:
     name: "{{ nms_module_vals[item.name]['package_name'] }}{{ '' if (item.version is not defined or item.version == '') else '-' + item.version }}"
     update_cache: true
     allow_downgrade: "{{ omit if ansible_version.full is version('2.12', '<') else true }}"
@@ -69,7 +69,7 @@
     - nms_setup | lower != 'uninstall'
 
 - name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Get list of installed packages
-  ansible.builtin.dnf:
+  ansible.builtin.yum:
     list: installed
   register: firewalld_status
 
