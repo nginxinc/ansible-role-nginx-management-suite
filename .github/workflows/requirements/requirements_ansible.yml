@@ -1,7 +1,9 @@
 ---
 roles:
   - name: nginxinc.nginx
-    version: 0.24.1
+    src: https://github.com/nginxinc/ansible-role-nginx.git
+    type: git
+    version: main
 collections:
   - name: ansible.posix
     version: 1.5.4
