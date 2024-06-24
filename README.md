@@ -1,5 +1,5 @@
 <!-- [![Ansible Galaxy](https://img.shields.io/badge/galaxy-nginxinc.nginx-5bbdbf.svg)](https://galaxy.ansible.com/nginxinc/nginx_management_suite) -->
-[![Molecule CI/CD](https://github.com/nginxinc/ansible-role-nginx-management-suite/workflows/Molecule%20CI/CD/badge.svg)](https://github.com/nginxinc/ansible-role-nginx-management-suite/actions)
+[![Molecule CI/CD](https://github.com/nginxinc/ansible-role-nginx-management-suite/workflows/Molecule%20CI/CD/badge.svg)](https://github.com/nginxinc/ansible-role-nginx-management-suite/actions/workflows/molecule.yml/badge.svg)
 [![License](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 # Ansible NGINX Management Suite Role
@@ -32,6 +32,7 @@ Main difference between using NGINX OSS or NGINX Plus depends on which [Authenti
 
 * This role is developed and tested with [maintained](https://docs.ansible.com/ansible/devel/reference_appendices/release_and_maintenance.html) versions of Ansible core (above `2.12`).
 * This role was developed and tested using **nginxinc.nginx** version **0.24.0**.
+  * UPDATE 6/24/24: Use the edge *nginxinc.nginx* version, example of `requirements.yml` shown [here](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/8feff2413ca3b5281a4002dcd6518e38effcf7e4/.github/workflows/requirements/requirements_ansible.yml#L3-L6)
 * When using this role, you will also need to install the following collections below. Additional information installing these collections is below in the [Installation](#installation) section.
   * ansible.posix
   * community.general
