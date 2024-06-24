@@ -1,5 +1,5 @@
 <!-- [![Ansible Galaxy](https://img.shields.io/badge/galaxy-nginxinc.nginx-5bbdbf.svg)](https://galaxy.ansible.com/nginxinc/nginx_management_suite) -->
-[![Molecule CI/CD](https://github.com/nginxinc/ansible-role-nginx-management-suite/workflows/Molecule%20CI/CD/badge.svg)](https://github.com/nginxinc/ansible-role-nginx-management-suite/actions)
+[![Molecule CI/CD](https://github.com/nginxinc/ansible-role-nginx-management-suite/workflows/Molecule%20CI/CD/badge.svg)](https://github.com/nginxinc/ansible-role-nginx-management-suite/actions/workflows/molecule.yml/badge.svg)
 [![License](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 # Ansible NGINX Management Suite Role
