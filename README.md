@@ -15,7 +15,7 @@ This role only installs NGINX Management Suite (NMS).
 
 ### NGINX Management Suite Certificate Files
 
-Installing NMS requires the NMS certificate files to access the repository. Log in to [MyF5](https://account.f5.com/myf5) or follow the link in the trial activation email to download the NMS repo **.crt** and **.key** files:
+Installing NIM requires the NMS certificate files to access the repository. Log in to [MyF5](https://account.f5.com/myf5) or follow the link in the trial activation email to download the NMS repo **.crt** and **.key** files:
 
 * nginx-mgmt-suite-trial.key
 * nginx-mgmt-suite-trial.crt
