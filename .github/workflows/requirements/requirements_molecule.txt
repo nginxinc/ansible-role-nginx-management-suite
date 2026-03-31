@@ -4,3 +4,4 @@ molecule==24.6.0
 molecule-plugins[docker]==23.5.3
 docker==7.1.0
 pip>=23.1.2
+requests==2.32.3

@@ -31,7 +31,7 @@
         state: stopped
 
     - name: (RedHat) Upgrading nginx-agent
-      ansible.builtin.yum:
+      ansible.legacy.dnf:
         name: nginx-agent
         state: latest
         update_only: true
