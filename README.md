@@ -2,20 +2,20 @@
 [![Molecule CI/CD](https://github.com/nginxinc/ansible-role-nginx-management-suite/workflows/Molecule%20CI/CD/badge.svg)](https://github.com/nginxinc/ansible-role-nginx-management-suite/actions/workflows/molecule.yml/badge.svg)
 [![License](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-# Ansible NGINX Management Suite Role
+# Ansible NGINX Instance Manager (NIM) Role
 
-This role only installs NGINX Management Suite (NMS).
+This role only installs NGINX Instance Manager.
 
 **Note:** This role is still in active development. There may be unidentified issues and the role variables may change as development continues.
 
 ## Requirements
 
-1. NGINX Management Suite License Files
+1. NGINX Instance Manager License Files
 2. [NGINX Ansible Role (**nginxinc.nginx**)](https://github.com/nginxinc/ansible-role-nginx)
 
-### NGINX Management Suite Certificate Files
+### NGINX Instance Manager Certificate Files
 
-Installing NMS requires the NMS certificate files to access the repository. Log in to [MyF5](https://account.f5.com/myf5) or follow the link in the trial activation email to download the NMS repo **.crt** and **.key** files:
+Installing NIM requires the NIM certificate files to access the repository. Log in to [MyF5](https://account.f5.com/myf5) or follow the link in the trial activation email to download the NIM repo **.crt** and **.key** files:
 
 * nginx-mgmt-suite-trial.key
 * nginx-mgmt-suite-trial.crt
@@ -24,7 +24,7 @@ Installing NMS requires the NMS certificate files to access the repository. Log 
 
 ### NGINX Instance
 
-NMS requires an NGINX instance, either NGINX OSS or NGINX Plus as a frontend only. This role handles this by defining a dependency to the [NGINX Ansible Role](https://github.com/nginxinc/ansible-role-nginx), named **nginxinc.nginx**. Because of this dependance, you can set variables related to **nginxinc.nginx** when using this role. For example, `nginx_type` is an **nginxinc.nginx** variable that can be [set like how you would any other Ansible variable](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#where-to-set-variables). So if your playbook defines `nginx_type: plus`, this NMS role will call the **nginxinc.nginx** role which will install NGINX Plus. Refer to the [Ansible Role NGINX](https://github.com/nginxinc/ansible-role-nginx) for more details.
+NIM requires an NGINX instance, either NGINX OSS or NGINX Plus as a frontend only. This role handles this by defining a dependency to the [NGINX Ansible Role](https://github.com/nginxinc/ansible-role-nginx), named **nginxinc.nginx**. Because of this dependance, you can set variables related to **nginxinc.nginx** when using this role. For example, `nginx_type` is an **nginxinc.nginx** variable that can be [set like how you would any other Ansible variable](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#where-to-set-variables). So if your playbook defines `nginx_type: plus`, this NIM role will call the **nginxinc.nginx** role which will install NGINX Plus. Refer to the [Ansible Role NGINX](https://github.com/nginxinc/ansible-role-nginx) for more details.
 
 Main difference between using NGINX OSS or NGINX Plus depends on which [Authentication Option](https://docs.nginx.com/nginx-management-suite/admin-guides/access-control/configure-authentication/#auth-options) you plan to use.
 
@@ -53,9 +53,9 @@ You will want to use this if you are making contributions to this ansible role.
 
 * Molecule is used to test the various functionalities of the role. The recommended version of Molecule to test this role is `4.0.1`.
 * Instructions on how to install Molecule can be found in the [Molecule website](https://molecule.readthedocs.io/en/latest/installation.html). *You will also need to install the Molecule Docker driver.*
-* To run the Molecule tests, you must copy your NMS license to the role's [`files/license`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/files/license/) folder.
+* To run the Molecule tests, you must copy your NIM license to the role's [`files/license`](https://github.com/nginxinc/ansible-role-nginx-management-suite/blob/main/files/license/) folder.
 
-  You can alternatively add your NGINX Management Suite repository certificate and key to the local environment. Run the following commands to export these files as base64-encoded variables and execute the Molecule tests:
+  You can alternatively add your NGINX Instance Manager repository certificate and key to the local environment. Run the following commands to export these files as base64-encoded variables and execute the Molecule tests:
 
   ```bash
   export NGINX_CRT=$( cat <path to your certificate file> | base64 )
@@ -65,7 +65,7 @@ You will want to use this if you are making contributions to this ansible role.
 
 ## Usage
 
-Take these steps in order to install NGINX Management Suite (nms) using this ansible role.
+Take these steps in order to install NGINX Instance Manager (NIM) using this ansible role.
 
 ### Create Inventory File
 
@@ -114,12 +114,12 @@ In this example here, we will move the NGINX certificates to the same directory 
 
 ### Create Playbook
 
-Create a playbook file, `nms-install.yml`, using the following example. Here, we are installing NMS with NGINX Plus.
+Create a playbook file, `nms-install.yml`, using the following example. Here, we are installing NIM with NGINX Plus.
 
 Be sure to specify the path where your NGINX certificates are located. In the example here, they are in the same path as this playbook.
 
 ```yaml
-- name: Install NGINX Management Suite
+- name: Install NGINX Instance Manager
   hosts: nms
 
   tasks:
@@ -138,15 +138,15 @@ Be sure to specify the path where your NGINX certificates are located. In the ex
           key: nginx-repo.key
 ```
 
-### Install NMS
+### Install NGINX Instance Manager (NIM)
 
-Run the following command to run the playbook which will install NMS.
+Run the following command to run the playbook which will install NIM.
 
 ```shell
 ansible-playbook -i inventory nms-adm-install.yml
 ```
 
-## Using Latest Edge of NMS Ansible Role, aka the `main` Branch
+## Using Latest Edge of NIM Ansible Role, aka the `main` Branch
 
 There is a couple methods if you want to use the latest edge from this role.
 
@@ -162,9 +162,9 @@ There is a couple methods if you want to use the latest edge from this role.
 
 ## Platforms
 
-This Ansible role supports all platforms supported by [NGINX Management Suite](https://docs.nginx.com/nginx-management-suite/overview/tech-specs/#supported-distributions):
+This Ansible role supports all platforms supported by [NGINX Instance Manager](https://docs.nginx.com/nginx-management-suite/overview/tech-specs/#supported-distributions):
 
-### NGINX Management Suite
+### NGINX Instance Manager
 
 ```yaml
 Amazon Linux 2:
@@ -187,7 +187,7 @@ Ubuntu:
   - jammy (22.04)
 ```
 
-**Note:** You can also use this role to install NGINX Management Suite on compatible yet unsupported platforms at your own risk.
+**Note:** You can also use this role to install NGINX Instance Manager on compatible yet unsupported platforms at your own risk.
 
 ## Role Variables
 
