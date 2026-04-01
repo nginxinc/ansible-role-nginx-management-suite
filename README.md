@@ -169,16 +169,12 @@ This Ansible role supports all platforms supported by [NGINX Management Suite](h
 ```yaml
 Amazon Linux 2:
   - any
-CentOS:
-  - 7.4+
 Debian:
   - buster (10)
   - bullseye (11)
 Oracle Linux:
-  - 7.4+
   - 8
 Red Hat:
-  - 7.4+
   - 8
   - 9
 Ubuntu:

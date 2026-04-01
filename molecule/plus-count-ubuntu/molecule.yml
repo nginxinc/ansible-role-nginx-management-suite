@@ -39,21 +39,6 @@ platforms:
       - name: bridge
       - name: hostname_network
     command: /usr/sbin/init
-  - name: oraclelinux-7
-    image: oraclelinux:7
-    platform: x86_64
-    dockerfile: ../common/Dockerfile.j2
-    privileged: true
-    cgroupns_mode: host
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-    groups:
-      - data
-      - data_r26
-    networks:
-      - name: bridge
-      - name: hostname_network
-    command: /usr/sbin/init
   - name: oraclelinux-8
     image: oraclelinux:8
     platform: x86_64
@@ -65,36 +50,6 @@ platforms:
     groups:
       - data
       - data_r27
-    networks:
-      - name: bridge
-      - name: hostname_network
-    command: /usr/sbin/init
-  - name: centos-7
-    image: centos:7
-    platform: x86_64
-    dockerfile: ../common/Dockerfile.j2
-    privileged: true
-    cgroupns_mode: host
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-    groups:
-      - data
-      - data_r26
-    networks:
-      - name: bridge
-      - name: hostname_network
-    command: /usr/sbin/init
-  - name: rhel-7
-    image: registry.access.redhat.com/ubi7/ubi:7.9
-    platform: x86_64
-    dockerfile: ../common/Dockerfile.j2
-    privileged: true
-    cgroupns_mode: host
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-    groups:
-      - data
-      - data_r26
     networks:
       - name: bridge
       - name: hostname_network
